@@ -1,0 +1,87 @@
+* {
+    -fx-font-family: Warnock;
+}
+.loginTitle{
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-background-color: #e1e1e1;
+    -fx-padding: 10px;
+    -fx-background-radius: 12px;
+}
+.loginBtn{
+    -fx-background-color: #1c77ff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+}
+.loginBtn:hover{
+    -fx-background-color: #1a68e1;
+}
+.resetBtn{
+    -fx-background-color: #c416ff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+}
+.resetBtn:hover{
+    -fx-background-color: #9e10ce;
+}
+.loginTextFld{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 10px;
+    -fx-padding: 8;
+    -fx-border-color: transparent;
+}
+.loginTextFld:focused{
+    -fx-border-color: #ff00ce;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+}
+.pane{
+    -fx-background-color: white;
+}
+.welcomeLabel{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+.copyRightLabel{
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+.contentLabel{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: Red;
+}
+.passwordCheckBox{
+    -fx-padding: 5;
+}
+.passwordCheckBox .label{
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+.passwordCheckBox:selected {
+    -fx-background-color: #c416ff;
+    -fx-background-radius: 10px;
+}
+.passwordCheckBox .box {
+    -fx-background-color: #1a68e1;
+    -fx-border-color: #1b6dec;
+}
+.passwordCheckBox:selected .box {
+    -fx-background-color: #000000;
+    -fx-border-color: #000000;
+}
+.hyperlink{
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
