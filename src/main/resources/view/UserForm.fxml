@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="560.0" prefWidth="940.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.UserFormController">
+    <TextField fx:id="userNameFld" layoutX="94.0" layoutY="43.0" onAction="#enterOnAction" prefWidth="300.0" promptText="User Name" styleClass="loginTextFld" />
+    <TextField fx:id="passwordFld" layoutX="547.0" layoutY="43.0" prefWidth="300.0" promptText="Password" styleClass="loginTextFld" />
+    <TextField fx:id="emailFld" layoutX="94.0" layoutY="123.0" prefWidth="300.0" promptText="Email" styleClass="loginTextFld" />
+    <TableView fx:id="userTable" layoutX="92.0" layoutY="213.0" prefHeight="320.0" prefWidth="760.0">
+      <columns>
+          <TableColumn fx:id="userNameColumn" prefWidth="230" text="User Name" />
+          <TableColumn fx:id="emailColumn" prefWidth="235" text="Email" />
+          <TableColumn fx:id="passwordColumn" prefWidth="240.0" text="Password" />
+          <TableColumn fx:id="activeStatusColumn" prefWidth="55" text="Status" />
+      </columns>
+    </TableView>
+    <ComboBox fx:id="statusBox" layoutX="622.0" layoutY="101.0" prefHeight="50.0" prefWidth="165.0" promptText="Active Status" styleClass="accountStatusComboBox" />
+    <Button layoutX="542.0" layoutY="162.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" styleClass="loginBtn" text="Add/Save" />
+    <Button layoutX="769.0" layoutY="162.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
+    <Button layoutX="665.0" layoutY="162.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
+</AnchorPane>

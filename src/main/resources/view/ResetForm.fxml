@@ -7,17 +7,26 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="550.0" prefWidth="500.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.ResetFormController">
-   <children>
-      <Label layoutX="144.0" layoutY="14.0" styleClass="loginTitle" text="Password Reset" />
-      <TextField fx:id="userNameFld" layoutX="105.0" layoutY="140.0" prefHeight="40.0" prefWidth="250.0" promptText="User Name" styleClass="loginTextFld" />
-      <TextField fx:id="passwordFld" layoutX="105.0" layoutY="210.0" prefHeight="40.0" prefWidth="250.0" promptText="Old Password" styleClass="loginTextFld" />
-      <TextField fx:id="newPasswordFld" layoutX="105.0" layoutY="280.0" prefHeight="40.0" prefWidth="250.0" promptText="New Password" styleClass="loginTextFld" />
-      <CheckBox fx:id="PasswordCheckBox" layoutX="380.0" layoutY="216.0" mnemonicParsing="false" styleClass="passwordCheckBox" text="Show" />
-      <CheckBox fx:id="newPasswordCheckBox" layoutX="380.0" layoutY="280.0" mnemonicParsing="false" styleClass="passwordCheckBox" text="Show" />
-      <PasswordField fx:id="passwordFldMask" layoutX="105.0" layoutY="210.0" prefHeight="40.0" prefWidth="250.0" promptText="Old Password" styleClass="loginTextFld" />
-      <PasswordField fx:id="newPasswordMask" layoutX="105.0" layoutY="280.0" prefHeight="40.0" prefWidth="250.0" promptText="New Password" styleClass="loginTextFld" />
-      <Button layoutX="105.0" layoutY="360.0" mnemonicParsing="false" onAction="#resetBtnOnAction" prefHeight="30.0" prefWidth="250.0" styleClass="loginBtn" text="Reset" />
-      <Button layoutX="105.0" layoutY="450.0" mnemonicParsing="false" onAction="#clearBtnOnAction" prefHeight="30.0" prefWidth="250.0" styleClass="resetBtn" text="Clear" />
-   </children>
+<AnchorPane prefHeight="550.0" prefWidth="500.0" stylesheets="@../style/style.css"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.kawishika.controller.ResetFormController">
+   <Label layoutX="144.0" layoutY="14.0" styleClass="loginTitle" text="Password Reset"/>
+   <TextField fx:id="userNameFld" layoutX="105.0" layoutY="140.0" prefHeight="40.0" prefWidth="250.0"
+              promptText="User Name" styleClass="loginTextFld"/>
+   <TextField fx:id="passwordFld" layoutX="105.0" layoutY="210.0" prefHeight="40.0" prefWidth="250.0"
+              promptText="Old Password" styleClass="loginTextFld"/>
+   <TextField fx:id="newPasswordFld" layoutX="105.0" layoutY="280.0" prefHeight="40.0" prefWidth="250.0"
+              promptText="New Password" styleClass="loginTextFld"/>
+   <CheckBox fx:id="PasswordCheckBox" layoutX="380.0" layoutY="216.0" mnemonicParsing="false"
+             styleClass="passwordCheckBox" text="Show"/>
+   <CheckBox fx:id="newPasswordCheckBox" layoutX="380.0" layoutY="280.0" mnemonicParsing="false"
+             styleClass="passwordCheckBox" text="Show"/>
+   <PasswordField fx:id="passwordFldMask" layoutX="105.0" layoutY="210.0" prefHeight="40.0" prefWidth="250.0"
+                  promptText="Old Password" styleClass="loginTextFld"/>
+   <PasswordField fx:id="newPasswordMask" layoutX="105.0" layoutY="280.0" prefHeight="40.0" prefWidth="250.0"
+                  promptText="New Password" styleClass="loginTextFld"/>
+   <Button layoutX="105.0" layoutY="360.0" mnemonicParsing="false" onAction="#resetBtnOnAction" prefHeight="30.0"
+           prefWidth="250.0" styleClass="loginBtn" text="Reset"/>
+   <Button layoutX="105.0" layoutY="450.0" mnemonicParsing="false" onAction="#clearBtnOnAction" prefHeight="30.0"
+           prefWidth="250.0" styleClass="resetBtn" text="Clear"/>
 </AnchorPane>

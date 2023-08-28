@@ -1,13 +1,11 @@
 package com.kawishika;
 
 
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -25,6 +23,7 @@ public class AppInitializer extends Application {
             primaryStage.setTitle("Welcome, The D24");
             primaryStage.getIcons().add(new Image("/asset/login/loginIcon.gif"));
             primaryStage.setResizable(false);
+            primaryStage.setMaximized(false);
             primaryStage.show();
         } catch (IOException e) {
             System.out.println("Resource Not Found !");

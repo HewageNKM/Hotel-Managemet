@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -94,7 +95,8 @@ public class LoginFormController {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainForm.fxml")))));
         mainStage.setTitle("Main Form");
-        mainStage.setMaximized(true);
+        mainStage.setResizable(false);
+        mainStage.setMaximized(false);
         mainStage.getIcons().add(new Image("/asset/main/menuIcon.png"));
         mainStage.show();
     }
@@ -107,6 +109,18 @@ public class LoginFormController {
             stage.setResizable(false);
             stage.show();
         } catch (java.io.IOException e) {
+            System.out.println("Resource Not Found !");
+        }
+    }
+
+    public void createAccountOnAction() {
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CreateAccountForm.fxml")))));
+            stage.setTitle("Create Account");
+            //stage.getIcons().add(new Image("/asset/create/createIcon.png"));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
             System.out.println("Resource Not Found !");
         }
     }

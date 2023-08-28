@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.kawishika</groupId>
-    <artifactId>Hotel_Managemet</artifactId>
+    <artifactId>Hostel-Management-System</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

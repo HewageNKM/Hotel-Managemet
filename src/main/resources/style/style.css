@@ -18,7 +18,7 @@
     -fx-border-color: transparent;
 }
 .loginBtn:hover{
-    -fx-background-color: #1a68e1;
+    -fx-background-color: #0045b2;
 }
 .resetBtn{
     -fx-background-color: #c416ff;
@@ -29,18 +29,20 @@
     -fx-border-color: transparent;
 }
 .resetBtn:hover{
-    -fx-background-color: #9e10ce;
+    -fx-background-color: #8306af;
 }
 .loginTextFld{
     -fx-font-size: 15px;
+    -fx-background-color: #e1e1e1;
     -fx-font-weight: bold;
     -fx-alignment: center;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-padding: 8;
-    -fx-border-color: transparent;
 }
 .loginTextFld:focused{
-    -fx-border-color: #ff00ce;
+    -fx-border-color: #1c77ff;
     -fx-border-radius: 10px;
     -fx-border-width: 2px;
 }
@@ -84,4 +86,150 @@
     -fx-font-size: 15px;
     -fx-text-fill: black;
     -fx-font-weight: bold;
+}
+.menuPane{
+    -fx-background-color: #e1e1e1;
+    -fx-padding: 5;
+}
+.menuBtn{
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-padding: 2.5 5;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+.menuBtn:hover{
+    -fx-background-color: #1c77ff;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+}
+.menuPaneAbove{
+    -fx-background-color: #ffffff;
+    -fx-padding: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.name{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+    -fx-text-alignment: center;
+}
+.userIcon{
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+    -fx-padding: 5;
+}
+.dashboardPane{
+    -fx-background-color: #f6f6f6;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.accountStatusComboBox{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-color: #e1e1e1;
+    -fx-alignment: center;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 8;
+}
+table-view{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ffffff;
+}
+.checkingMenuBtn_1{
+    -fx-background-color: #00ff04;
+    -fx-font-weight: bold;
+    -fx-font-size: 27px;
+    -fx-padding: 5;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+.checkingMenuBtn_2{
+    -fx-background-color: #ff0000;
+    -fx-font-weight: bold;
+    -fx-font-size: 27px;
+    -fx-padding: 5;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+.checkingMenuBtn_1:hover{
+    -fx-background-color: #00880c;
+}
+.checkingMenuBtn_2:hover{
+    -fx-background-color: #af0000;
+}
+.backBtn{
+    -fx-background-color: transparent;
+}
+.backBtn:hover{
+    -fx-background-color: #67a3ff;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+}
+.birthdayPicker{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-color: #e1e1e1;
+    -fx-alignment: center;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 8;
+}
+.birthdayPicker:focused{
+    -fx-border-color: #1c77ff;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+}
+.deleteBtn{
+    -fx-background-color: #ff0000;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+}
+.deleteBtn:hover{
+    -fx-background-color: #af0000;
+}
+.table-view{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ffffff;
+
+}
+.table-view .column-header{
+    -fx-background-color: #e1e1e1;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+.table-view .column-header .label{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+.table-view .column-header .label:hover{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+.table-view .column-header .label:pressed{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+.table-view .column-header .label:focused{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+.table-view .column-header .label:disabled{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
 }
