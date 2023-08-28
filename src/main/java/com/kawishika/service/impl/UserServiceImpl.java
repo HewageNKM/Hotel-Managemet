@@ -8,14 +8,14 @@ import com.kawishika.dto.tm.UserTM;
 import com.kawishika.entity.User;
 import com.kawishika.service.interfaces.UserService;
 import com.kawishika.util.Regex;
-import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 
 import static com.kawishika.dao.DAOFactory.DAOType.USER;
 
 public class UserServiceImpl implements UserService {
-    private final UserDAO userDAO =(UserDAOImpl) DAOFactory.getInstance().getDAO(USER);
+    private final UserDAO userDAO = (UserDAOImpl) DAOFactory.getInstance().getDAO(USER);
+
     @Override
     public boolean validateEmail(String email) {
         return Regex.validateEmail(email);
