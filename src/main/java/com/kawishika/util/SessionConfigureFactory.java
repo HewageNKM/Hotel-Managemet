@@ -1,5 +1,6 @@
 package com.kawishika.util;
 
+import com.kawishika.entity.Student;
 import com.kawishika.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +25,7 @@ public class SessionConfigureFactory {
         sessionFactory = new Configuration()
                 .addProperties(properties)
                 .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Student.class)
                 .buildSessionFactory();
     }
 

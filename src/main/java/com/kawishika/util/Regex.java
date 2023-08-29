@@ -4,6 +4,9 @@ public class Regex {
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._]{5,35}@gmail\\.com$";
     private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$";
     private static final String USERNAME_REGEX = "^[A-Za-z0-9+_.-]{3,12}$";
+    private static final String PHONE_REGEX = "^07\\d{8}$";
+    private static final String NAME_REGEX = "^[A-Za-z][A-Za-z\\s]{10,48}[A-Za-z]$";
+    private static final String STUDENT_ID_REGEX = "^[A-Za-z][A-Za-z\\s]{10,48}[A-Za-z]$";
     public static boolean validateEmail(String email) {
         return email.matches(EMAIL_REGEX);
     }
@@ -12,5 +15,15 @@ public class Regex {
     }
     public static boolean validateUserName(String userName) {
         return userName.matches(USERNAME_REGEX);
+    }
+    public static boolean validatePhone(String phone) {
+        return phone.matches(PHONE_REGEX);
+    }
+    public static boolean validateName(String name) {
+        return name.matches(NAME_REGEX);
+    }
+
+    public static boolean validateStudentId(String id) {
+        return id.matches(STUDENT_ID_REGEX);
     }
 }

@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 
@@ -30,10 +31,17 @@ public class UserFormController {
 
     private final UserService userService = (UserServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
 
+    @SneakyThrows
     public void initialize() {
         loadPane();
         setCellValueFactory();
-        loadTable();
+        Thread tableThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadTable();
+            }
+        });
+        tableThread.start();
         setStatusBoxValues();
     }
 
@@ -112,7 +120,6 @@ public class UserFormController {
             return true;
         }else {
             userNameFld.setStyle("-fx-border-color: red");
-            userNameFld.setTooltip(new Tooltip("User name should be at least 4 characters long !"));
             return false;
         }
     }
