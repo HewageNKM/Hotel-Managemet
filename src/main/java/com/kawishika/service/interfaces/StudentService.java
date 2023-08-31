@@ -29,4 +29,6 @@ public interface StudentService extends SuperService {
     boolean save(StudentDTO studentDTO);
 
     StudentDTO getStudent(String id);
+
+    ArrayList<StudentTM> searchStudent(String searchPhrase);
 }

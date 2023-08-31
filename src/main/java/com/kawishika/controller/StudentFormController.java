@@ -20,12 +20,14 @@ import static com.kawishika.service.ServiceFactory.ServiceType.STUDENT;
 public class StudentFormController {
 
     private final StudentService studentService = (StudentServiceImpl) ServiceFactory.getInstance().getService(STUDENT);
+    public TableColumn genderColumn;
+    public ComboBox<String> genderBox;
     @FXML
     private TableColumn editColumn;
     @FXML
     private TableColumn deleteColumn;
     @FXML
-    private TextField SearchFld;
+    private TextField searchFld;
     @FXML
     private TableColumn<?, ?> birthdayColumn;
     @FXML
@@ -57,7 +59,7 @@ public class StudentFormController {
 
     public void initialize() {
         loadPane();
-        setStatusValues();
+        setBoxValues();
         setCellValues();
         Thread thread = new Thread(this::loadTable);
         thread.start();
@@ -117,13 +119,17 @@ public class StudentFormController {
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
         editColumn.setCellValueFactory(new PropertyValueFactory<>("edit"));
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("delete"));
     }
 
-    private void setStatusValues() {
+    private void setBoxValues() {
         statusBox.getItems().add("Blacklist");
         statusBox.getItems().add("Normal");
+        genderBox.getItems().add("Male");
+        genderBox.getItems().add("Female");
+
     }
 
     private void loadPane() {
@@ -139,8 +145,7 @@ public class StudentFormController {
     void addSaveBtnOnAction() {
         if (validateDetails()) {
             if (studentService.isStudentExists(studentIdFld.getText())) {
-                boolean update = studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), statusBox.getValue()));
-                if (update) {
+                if (studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(),genderBox.getValue(), statusBox.getValue()))) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student has been updated successfully", ButtonType.OK).show();
                     loadTable();
                     clearBtnOnAction();
@@ -148,8 +153,7 @@ public class StudentFormController {
                     new Alert(Alert.AlertType.ERROR, "Failed to update the student", ButtonType.OK).show();
                 }
             } else {
-                studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), statusBox.getValue()));
-                if (studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), statusBox.getValue()))) {
+                if (studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(),genderBox.getValue(), statusBox.getValue()))) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student has been saved successfully", ButtonType.OK).show();
                     loadTable();
                     clearBtnOnAction();
@@ -163,7 +167,17 @@ public class StudentFormController {
     }
 
     private boolean validateDetails() {
-        return validateName() & validateStudentId() & validateEmail() & validatePhoneNumber() & validateBirthday() & validateStatus();
+        return validateName() & validateStudentId() & validateEmail() & validatePhoneNumber() & validateBirthday() & validateStatus() & validateGender();
+    }
+
+    private boolean validateGender() {
+        if(genderBox.getSelectionModel().isEmpty()){
+            genderBox.setStyle("-fx-border-color: red");
+            return false;
+        }else {
+           genderBox.setStyle("-fx-border-color: green");
+           return true;
+        }
     }
 
     private boolean validateStatus() {
@@ -233,7 +247,9 @@ public class StudentFormController {
         emailFld.clear();
         phoneNumberFld.clear();
         birthdayPicker.setValue(null);
+        genderBox.getSelectionModel().clearSelection();
         statusBox.getSelectionModel().clearSelection();
+        genderBox.setStyle("-fx-border-color: none");
         studentNameFld.setStyle("-fx-border-color: none");
         studentIdFld.setStyle("-fx-border-color: none");
         emailFld.setStyle("-fx-border-color: none");
@@ -253,7 +269,16 @@ public class StudentFormController {
 
     @FXML
     void searchTypeOnAction() {
-
+        if(searchFld.getText().trim().isBlank()){
+            loadTable();
+        }else {
+            ArrayList<StudentTM> all = studentService.searchStudent(searchFld.getText());
+            for (StudentTM studentTM : all) {
+                setEditAction(studentTM.getEdit());
+                setDeleteAction(studentTM.getDelete());
+            }
+            studentTable.setItems(FXCollections.observableList(all));
+        }
     }
 
     public void enterOnAction() {

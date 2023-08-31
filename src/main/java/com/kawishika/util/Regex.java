@@ -6,7 +6,7 @@ public class Regex {
     private static final String USERNAME_REGEX = "^[A-Za-z0-9+_.-]{3,12}$";
     private static final String PHONE_REGEX = "^07\\d{8}$";
     private static final String NAME_REGEX = "^[A-Za-z][A-Za-z\\s]{10,48}[A-Za-z]$";
-    private static final String STUDENT_ID_REGEX = "^[A-Za-z][A-Za-z\\s]{10,48}[A-Za-z]$";
+    private static final String STUDENT_ID_REGEX = "^(stm|stf)\\d{7}$";
     public static boolean validateEmail(String email) {
         return email.matches(EMAIL_REGEX);
     }
@@ -22,7 +22,6 @@ public class Regex {
     public static boolean validateName(String name) {
         return name.matches(NAME_REGEX);
     }
-
     public static boolean validateStudentId(String id) {
         return id.matches(STUDENT_ID_REGEX);
     }

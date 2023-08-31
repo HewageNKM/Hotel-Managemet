@@ -1,13 +1,52 @@
 package com.kawishika.controller;
 
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.Objects;
 
 public class CheckOutController {
-    public AnchorPane pane;
 
+    @FXML
+    private TableColumn<?, ?> checkOutColumn;
+
+    @FXML
+    private TableView<?> checkOutTable;
+
+    @FXML
+    private TableColumn<?, ?> dateColumn;
+
+    @FXML
+    private TextField idFld;
+
+    @FXML
+    private AnchorPane pane;
+
+    @FXML
+    private TableColumn<?, ?> rIdColumn;
+
+    @FXML
+    private TableColumn<?, ?> reservedDateColumn;
+
+    @FXML
+    private TableColumn<?, ?> roomCostColumn;
+
+    @FXML
+    private TableColumn<?, ?> roomTypeColumn;
+
+    @FXML
+    private TableColumn<?, ?> sIdColumn;
+
+    @FXML
+    private TableColumn<?, ?> timeColumn;
+
+    @FXML
+    private TableColumn<?, ?> totalColumn;
     public void initialize() {
         loadPane();
     }
@@ -21,7 +60,8 @@ public class CheckOutController {
         fadeTransition.play();
     }
 
-    public void backBtnOnAction() {
+    @FXML
+    void backBtnOnAction(ActionEvent event) {
         pane.getChildren().clear();
         try {
             pane.getChildren().add(javafx.fxml.FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CheckingMenuForm.fxml"))));
@@ -29,4 +69,16 @@ public class CheckOutController {
             System.out.println("Resource Not Found !");
         }
     }
+
+    @FXML
+    void checkBtnOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void checkOutBrnOnAction(ActionEvent event) {
+
+    }
+
 }
+

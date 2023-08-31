@@ -4,8 +4,10 @@ import com.kawishika.dao.interfaces.StudentDAO;
 import com.kawishika.entity.Student;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
     @Override
@@ -28,6 +30,7 @@ public class StudentDAOImpl implements StudentDAO {
         student.setBirthDay(entity.getBirthDay());
         student.setStudent_Email(entity.getStudent_Email());
         student.setPhone_No(entity.getPhone_No());
+        student.setGender(entity.getGender());
         student.setStatus(entity.getStatus());
         session.getTransaction().commit();
         session.close();
@@ -73,5 +76,18 @@ public class StudentDAOImpl implements StudentDAO {
         session.getTransaction().commit();
         session.close();
         return student;
+    }
+
+    @Override
+    public List<Student> searchStudent(String searchPhrase) {
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        session.beginTransaction();
+        List<Student> studentList = new ArrayList<>();
+        Query query = session.createQuery("from Student WHERE Student_ID like : value or Student_Name like: value or Student_Email like : value or BirthDay like: value or Gender like: value or Phone_No like : value or Status like : value");
+        query.setParameter("value", searchPhrase + "%");
+        studentList.addAll(query.list());
+        session.getTransaction().commit();
+        session.close();
+        return studentList;
     }
 }

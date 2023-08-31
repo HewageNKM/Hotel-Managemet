@@ -13,6 +13,7 @@ public class StudentTM {
     private String id;
     private String name;
     private LocalDate birthday;
+    private String gender;
     private String email;
     private String phoneNumber;
     private String status;

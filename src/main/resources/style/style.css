@@ -11,9 +11,9 @@
 }
 .loginBtn{
     -fx-background-color: #1c77ff;
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-padding: 10 20;
+    -fx-padding: 10;
     -fx-background-radius: 10px;
     -fx-border-color: transparent;
 }
@@ -232,4 +232,20 @@ table-view{
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
+}
+.textLabel{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-color: #e1e1e1;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 8;
+}
+.curvePane{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }

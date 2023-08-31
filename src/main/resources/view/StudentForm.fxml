@@ -10,42 +10,32 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" prefHeight="560.0" prefWidth="940.0" stylesheets="@../style/style.css"
-            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.kawishika.controller.StudentFormController">
-    <TextField fx:id="studentIdFld" layoutX="94.0" layoutY="43.0" onAction="#enterOnAction" prefWidth="300.0"
-               promptText="Student ID" styleClass="loginTextFld"/>
-    <TextField fx:id="emailFld" layoutX="94.0" layoutY="199.0" prefWidth="300.0" promptText="Email"
-               styleClass="loginTextFld"/>
-    <TextField fx:id="studentNameFld" layoutX="94.0" layoutY="123.0" prefWidth="300.0" promptText="Student  Name"
-               styleClass="loginTextFld"/>
+<AnchorPane fx:id="pane" prefHeight="560.0" prefWidth="940.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.StudentFormController">
+    <TextField fx:id="studentIdFld" layoutX="94.0" layoutY="43.0" onAction="#enterOnAction" prefWidth="300.0" promptText="Student ID" styleClass="loginTextFld" />
+    <TextField fx:id="emailFld" layoutX="94.0" layoutY="199.0" prefWidth="300.0" promptText="Email" styleClass="loginTextFld" />
+    <TextField fx:id="studentNameFld" layoutX="94.0" layoutY="123.0" prefWidth="300.0" promptText="Student  Name" styleClass="loginTextFld" />
     <TableView fx:id="studentTable" layoutX="92.0" layoutY="328.0" prefHeight="205.0" prefWidth="760.0">
       <columns>
-          <TableColumn fx:id="idColumn" prefWidth="130.6666259765625" text="Student ID"/>
-          <TableColumn fx:id="nameColumn" prefWidth="224.6666717529297" text="Student Name"/>
-          <TableColumn fx:id="emailColumn" prefWidth="256.0000305175781" text="Email"/>
-          <TableColumn fx:id="phoneNumberColumn" prefWidth="146.6666259765625" text="Phone Number"/>
-          <TableColumn fx:id="birthdayColumn" prefWidth="146.6666259765625" text="BirthDay"/>
-          <TableColumn fx:id="statusColumn" prefWidth="146.6666259765625" text="Status"/>
-          <TableColumn fx:id="editColumn" prefWidth="60" text="Edit"/>
-          <TableColumn fx:id="deleteColumn" prefWidth="60" text="Delete"/>
+          <TableColumn fx:id="idColumn" prefWidth="130.6666259765625" text="Student ID" />
+          <TableColumn fx:id="nameColumn" prefWidth="224.6666717529297" text="Student Name" />
+          <TableColumn fx:id="emailColumn" prefWidth="256.0000305175781" text="Email" />
+          <TableColumn fx:id="phoneNumberColumn" prefWidth="146.6666259765625" text="Phone Number" />
+          <TableColumn fx:id="birthdayColumn" prefWidth="146.6666259765625" text="BirthDay" />
+          <TableColumn fx:id="genderColumn" prefWidth="146.6666259765625" text="Gender" />
+          <TableColumn fx:id="statusColumn" prefWidth="146.6666259765625" text="Status" />
+          <TableColumn fx:id="editColumn" prefWidth="60" text="Edit" />
+          <TableColumn fx:id="deleteColumn" prefWidth="60" text="Delete" />
       </columns>
     </TableView>
-    <ComboBox fx:id="statusBox" layoutX="611.0" layoutY="195.0" prefHeight="50.0" prefWidth="165.0" promptText="Status"
-              styleClass="accountStatusComboBox"/>
-    <Button layoutX="544.0" layoutY="270.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" styleClass="loginBtn"
-            text="Add/Save"/>
-    <Button layoutX="773.0" layoutY="270.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn"
-            text="Clear"/>
-    <TextField fx:id="phoneNumberFld" layoutX="544.0" layoutY="43.0" prefWidth="300.0" promptText="Phone Number"
-               styleClass="loginTextFld"/>
-    <DatePicker fx:id="birthdayPicker" layoutX="544.0" layoutY="118.0" prefHeight="51.0" prefWidth="300.0"
-                promptText="Birthday" styleClass="birthdayPicker"/>
-    <Button layoutX="668.0" layoutY="270.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn"
-            text="Delete"/>
-    <TextField fx:id="SearchFld" layoutX="94.0" layoutY="272.0" onKeyReleased="#searchTypeOnAction" prefWidth="300.0"
-               promptText="Search" styleClass="loginTextFld"/>
+    <ComboBox fx:id="statusBox" layoutX="544.0" layoutY="194.0" prefHeight="50.0" prefWidth="130.0" promptText="Status" styleClass="accountStatusComboBox" />
+    <Button layoutX="544.0" layoutY="270.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" styleClass="loginBtn" text="Add/Save" />
+    <Button layoutX="773.0" layoutY="270.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
+    <TextField fx:id="phoneNumberFld" layoutX="544.0" layoutY="43.0" prefWidth="300.0" promptText="Phone Number" styleClass="loginTextFld" />
+    <DatePicker fx:id="birthdayPicker" layoutX="544.0" layoutY="118.0" prefHeight="51.0" prefWidth="300.0" promptText="Birthday" styleClass="birthdayPicker" />
+    <Button layoutX="668.0" layoutY="270.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
+    <TextField fx:id="searchFld" layoutX="94.0" layoutY="272.0" onKeyReleased="#searchTypeOnAction" prefWidth="300.0" promptText="Search" styleClass="loginTextFld" />
     <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="62.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../asset/search.png"/>
+        <Image url="@../asset/search.png" />
     </ImageView>
+   <ComboBox fx:id="genderBox" layoutX="714.0" layoutY="194.0" prefHeight="50.0" prefWidth="130.0" promptText="Gender" styleClass="accountStatusComboBox" />
 </AnchorPane>
