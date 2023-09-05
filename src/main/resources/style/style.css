@@ -2,7 +2,7 @@
     -fx-font-family: Warnock;
 }
 .loginTitle{
-    -fx-font-size: 24;
+    -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: #333;
     -fx-background-color: #e1e1e1;
@@ -58,7 +58,7 @@
     -fx-font-weight: bold;
 }
 .contentLabel{
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: Red;
 }
@@ -83,7 +83,7 @@
     -fx-border-color: #000000;
 }
 .hyperlink{
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }

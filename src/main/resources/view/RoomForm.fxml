@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="560.0" prefWidth="940.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.RoomFormController">
+    <TableView fx:id="roomTable" layoutX="92.0" layoutY="279.0" prefHeight="254.0" prefWidth="760.0">
+      <columns>
+          <TableColumn fx:id="roomNumberColumn" prefWidth="154.39999389648438" text="Room Number" />
+          <TableColumn fx:id="roomIdColumn" prefWidth="163.99998474121094" text="Room ID" />
+          <TableColumn fx:id="roomTypeColumn" prefWidth="140.00006103515625" text="Type" />
+          <TableColumn fx:id="statusColumn" prefWidth="185.59991455078125" text="Status" />
+         <TableColumn fx:id="editColumn" prefWidth="113.60003662109375" text="Edit" />
+         <TableColumn fx:id="activeStatusColumn111" prefWidth="113.60003662109375" text="Delete" />
+      </columns>
+    </TableView>
+    <ComboBox fx:id="statusBox" layoutX="607.0" layoutY="152.0" prefHeight="50.0" prefWidth="198.0" promptText="Status" styleClass="accountStatusComboBox" />
+    <Button layoutX="542.0" layoutY="233.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="Add/Save" />
+    <Button layoutX="765.0" layoutY="233.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
+    <Button layoutX="650.0" layoutY="233.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
+   <ComboBox fx:id="roomIdBox" layoutX="92.0" layoutY="49.0" prefHeight="46.0" prefWidth="198.0" promptText="Room ID" styleClass="accountStatusComboBox" />
+   <Label fx:id="roomTypeLabel" layoutX="92.0" layoutY="139.0" prefHeight="46.0" prefWidth="198.0" styleClass="textLabel" text="Type:" />
+   <TextField fx:id="searchFld" layoutX="129.0" layoutY="233.0" onKeyTyped="#searchOnAction" prefHeight="37.0" prefWidth="244.0" promptText="Search" styleClass="loginTextFld" />
+   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="92.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../asset/search.png" />
+      </image>
+   </ImageView>
+   <Button layoutX="314.0" layoutY="51.0" mnemonicParsing="false" onAction="#newBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="New" />
+   <Label fx:id="roomNumberLabel" layoutX="575.0" layoutY="62.0" prefHeight="46.0" prefWidth="262.0" styleClass="textLabel" text="Room Number:" />
+</AnchorPane>

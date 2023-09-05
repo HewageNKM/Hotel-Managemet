@@ -86,4 +86,13 @@ public class MainFormController {
             System.out.println("Resource Not Found !");
         }
     }
+
+    public void roomBtnOnAction() {
+        root.getChildren().clear();
+        try {
+            root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/RoomForm.fxml"))));
+        } catch (IOException e) {
+            System.out.println("Resource Not Found !");
+        }
+    }
 }

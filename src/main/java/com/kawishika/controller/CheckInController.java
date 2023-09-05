@@ -1,5 +1,9 @@
 package com.kawishika.controller;
 
+import com.kawishika.service.ServiceFactory;
+import com.kawishika.service.impl.CheckinServiceImpl;
+import com.kawishika.service.interfaces.CheckinService;
+import com.kawishika.util.SessionConfigureFactory;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +16,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.Objects;
+
+import static com.kawishika.service.ServiceFactory.ServiceType.CHECKIN;
 
 public class CheckInController {
 
@@ -44,12 +50,42 @@ public class CheckInController {
 
     @FXML
     private ComboBox<String> roomTypeBox;
+    private final CheckinService checkinService = (CheckinServiceImpl) ServiceFactory.getInstance().getService(CHECKIN);
+
 
     @FXML
     private Label totalLabel;
     public void initialize() {
         loadPane();
         setBoxValues();
+        setRoomTypeBoxListener();
+    }
+
+    private void setRoomTypeBoxListener() {
+        roomTypeBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            switch (newValue){
+                case "Non-AC":
+                    roomCostLabel.setText("1");
+                    roomIdLabel.setText("Room ID : ");
+                    break;
+                case "Non-AC/Food":
+                    roomCostLabel.setText("1");
+                    roomIdLabel.setText("1");
+                    break;
+                case "AC/Food":
+                    roomCostLabel.setText("3");
+                    roomIdLabel.setText("6");
+                    break;
+                case "AC":
+                    roomCostLabel.setText("8");
+                    roomIdLabel.setText("0");
+                    break;
+                default:
+                    roomCostLabel.setText("5");
+                    roomIdLabel.setText("2");
+                    break;
+            }
+        });
     }
 
     private void setBoxValues() {
@@ -82,7 +118,22 @@ public class CheckInController {
 
     @FXML
     void clearBtnAction(ActionEvent event) {
-
+        idFld.clear();
+        checkInPicker.getEditor().clear();
+        checkOutPicker.getEditor().clear();
+        paymentOptionBox.getSelectionModel().clearSelection();
+        roomTypeBox.getSelectionModel().clearSelection();
+        roomIdLabel.setText("");
+        roomCostLabel.setText("");
+        totalLabel.setText("");
+        idFld.setStyle("-fx-border-color: none");
+        checkInPicker.setStyle("-fx-border-color: none");
+        checkOutPicker.setStyle("-fx-border-color: none");
+        paymentOptionBox.setStyle("-fx-border-color: none");
+        roomTypeBox.setStyle("-fx-border-color: none");
+        roomIdLabel.setStyle("-fx-border-color: none");
+        roomCostLabel.setStyle("-fx-border-color: none");
+        totalLabel.setStyle("-fx-border-color: none");
     }
 
     @FXML

@@ -19,8 +19,8 @@
           <TableColumn fx:id="activeStatusColumn" prefWidth="55" text="Status" />
       </columns>
     </TableView>
-    <ComboBox fx:id="statusBox" layoutX="622.0" layoutY="101.0" prefHeight="50.0" prefWidth="165.0" promptText="Active Status" styleClass="accountStatusComboBox" />
-    <Button layoutX="542.0" layoutY="162.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" styleClass="loginBtn" text="Add/Save" />
+    <ComboBox fx:id="statusBox" layoutX="607.0" layoutY="98.0" prefHeight="50.0" prefWidth="198.0" promptText="Active Status" styleClass="accountStatusComboBox" />
+    <Button layoutX="542.0" layoutY="162.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="Add/Save" />
     <Button layoutX="769.0" layoutY="162.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
-    <Button layoutX="665.0" layoutY="162.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
+    <Button layoutX="654.0" layoutY="162.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
 </AnchorPane>

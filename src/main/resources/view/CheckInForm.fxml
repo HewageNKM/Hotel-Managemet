@@ -10,29 +10,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="pane" prefHeight="560.0" prefWidth="940.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.CheckInController">
-   <Button contentDisplay="GRAPHIC_ONLY" layoutX="16.0" layoutY="12.0" mnemonicParsing="false" onAction="#backBtnOnAction" prefHeight="40.0" prefWidth="50.0" styleClass="backBtn" text="Button">
+   <Button contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="9.0" mnemonicParsing="false" onAction="#backBtnOnAction" prefHeight="40.0" prefWidth="50.0" styleClass="backBtn" text="Button">
       <graphic>
          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../asset/back.png" />
          </ImageView>
       </graphic>
    </Button>
-   <AnchorPane layoutX="170.0" layoutY="80.0" prefHeight="420.0" prefWidth="600.0" styleClass="curvePane">
+   <AnchorPane layoutX="68.0" layoutY="55.0" prefHeight="468.0" prefWidth="804.0" styleClass="curvePane">
       <children>
-         <TextField fx:id="idFld" layoutX="130.0" layoutY="42.0" onAction="#enterOnAction" onKeyReleased="#idFldTypeOnAction" prefHeight="50.0" prefWidth="300.0" promptText="Student ID" styleClass="loginTextFld" />
-         <Button layoutX="451.0" layoutY="45.0" mnemonicParsing="false" onAction="#newOnAction" prefHeight="31.0" prefWidth="75.0" styleClass="loginBtn" text="New" />
-         <ComboBox fx:id="roomTypeBox" layoutX="214.0" layoutY="116.0" prefHeight="50.0" prefWidth="155.0" promptText="Room Type" styleClass="accountStatusComboBox" />
-         <Label fx:id="roomIdLabel" contentDisplay="CENTER" layoutX="34.0" layoutY="116.0" prefHeight="50.0" prefWidth="165.0" styleClass="textLabel" text="Room ID:" />
-         <DatePicker fx:id="checkInPicker" layoutX="102.0" layoutY="265.0" prefHeight="48.0" prefWidth="176.0" promptText="Checking Date" styleClass="birthdayPicker" />
-         <DatePicker fx:id="checkOutPicker" layoutX="368.0" layoutY="265.0" prefHeight="51.0" prefWidth="184.0" promptText="Check-Out Date" styleClass="birthdayPicker" />
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="268.0" prefHeight="44.0" prefWidth="49.0" styleClass="textLabel" text="To" />
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="268.0" prefHeight="44.0" prefWidth="56.0" styleClass="textLabel" text="From" />
-         <Label fx:id="RoomNumberLabel" layoutX="385.0" layoutY="116.0" prefHeight="50.0" prefWidth="165.0" styleClass="textLabel" text="Room No:" />
-         <Button layoutX="35.0" layoutY="348.0" mnemonicParsing="false" onAction="#clearBtnAction" prefHeight="44.0" prefWidth="85.0" styleClass="resetBtn" text="Clear" />
-         <Button fx:id="reserveBtn" layoutX="452.0" layoutY="348.0" mnemonicParsing="false" onAction="#reserveBtnOnAction" prefHeight="44.0" prefWidth="100.0" styleClass="loginBtn" text="Reserve" />
-         <Label fx:id="totalLabel" layoutX="139.0" layoutY="345.0" prefHeight="50.0" prefWidth="287.0" styleClass="textLabel" text="Total:" />
-         <Label fx:id="roomCostLabel" layoutX="32.0" layoutY="191.0" prefHeight="50.0" prefWidth="300.0" styleClass="textLabel" text="Cost Per Week:" />
-         <ComboBox fx:id="paymentOptionBox" layoutX="401.0" layoutY="187.0" prefWidth="150.0" promptText="Payment" styleClass="birthdayPicker" />
+         <TextField fx:id="idFld" layoutX="78.0" layoutY="44.0" onAction="#enterOnAction" onKeyReleased="#idFldTypeOnAction" prefHeight="50.0" prefWidth="445.0" promptText="Student ID" styleClass="loginTextFld" />
+         <Button layoutX="543.0" layoutY="50.0" mnemonicParsing="false" onAction="#newOnAction" prefHeight="31.0" prefWidth="75.0" styleClass="loginBtn" text="New" />
+         <ComboBox fx:id="roomTypeBox" layoutX="327.0" layoutY="125.0" prefHeight="50.0" prefWidth="166.0" promptText="Room Type" styleClass="accountStatusComboBox" />
+         <Label fx:id="roomIdLabel" contentDisplay="CENTER" layoutX="79.0" layoutY="125.0" prefHeight="50.0" prefWidth="209.0" styleClass="textLabel" text="Room ID:" />
+         <DatePicker fx:id="checkInPicker" layoutX="162.0" layoutY="274.0" prefHeight="50.0" prefWidth="230.0" promptText="Checking Date" styleClass="birthdayPicker" />
+         <DatePicker fx:id="checkOutPicker" layoutX="480.0" layoutY="274.0" prefHeight="50.0" prefWidth="230.0" promptText="Check-Out Date" styleClass="birthdayPicker" />
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="411.0" layoutY="277.0" prefHeight="44.0" prefWidth="49.0" styleClass="textLabel" text="To" />
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="277.0" prefHeight="44.0" prefWidth="67.0" styleClass="textLabel" text="From" />
+         <Label fx:id="RoomNumberLabel" layoutX="530.0" layoutY="125.0" prefHeight="50.0" prefWidth="180.0" styleClass="textLabel" text="Room No:" />
+         <Button layoutX="83.0" layoutY="357.0" mnemonicParsing="false" onAction="#clearBtnAction" prefHeight="44.0" prefWidth="85.0" styleClass="resetBtn" text="Clear" />
+         <Button fx:id="reserveBtn" layoutX="604.0" layoutY="357.0" mnemonicParsing="false" onAction="#reserveBtnOnAction" prefHeight="44.0" prefWidth="100.0" styleClass="loginBtn" text="Reserve" />
+         <Label fx:id="totalLabel" layoutX="180.0" layoutY="354.0" prefHeight="50.0" prefWidth="413.0" styleClass="textLabel" text="Total:" />
+         <Label fx:id="roomCostLabel" layoutX="81.0" layoutY="200.0" prefHeight="50.0" prefWidth="430.0" styleClass="textLabel" text="Cost Per Week:" />
+         <ComboBox fx:id="paymentOptionBox" layoutX="529.0" layoutY="202.0" prefHeight="46.0" prefWidth="180.0" promptText="Payment" styleClass="birthdayPicker" />
       </children>
    </AnchorPane>
 </AnchorPane>

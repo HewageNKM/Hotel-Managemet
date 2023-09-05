@@ -18,17 +18,13 @@ import java.sql.Time;
 public class Reserve {
     @Id
     private String Reserve_ID;
-    private String Student_ID;
-    private String Room_Type;
-    private Double Cost_Per_Week;
-    private Double Total;
-    private String Payment_Status;
-    private Date Date;
-    private Time Time;
     private Date Reserve_Date;
     private Date CheckOut_Date;
+    private Double Total;
+    private String Payment_Status;
     private String Status;
     @ManyToOne
-    @Cascade(CascadeType.ALL)
     private Student student;
+    @ManyToOne
+    private Room room;
 }

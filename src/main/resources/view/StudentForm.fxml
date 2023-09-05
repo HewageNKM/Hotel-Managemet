@@ -24,18 +24,18 @@
           <TableColumn fx:id="genderColumn" prefWidth="146.6666259765625" text="Gender" />
           <TableColumn fx:id="statusColumn" prefWidth="146.6666259765625" text="Status" />
           <TableColumn fx:id="editColumn" prefWidth="60" text="Edit" />
-          <TableColumn fx:id="deleteColumn" prefWidth="60" text="Delete" />
+          <TableColumn fx:id="deleteColumn" prefWidth="70.0" text="Delete" />
       </columns>
     </TableView>
-    <ComboBox fx:id="statusBox" layoutX="544.0" layoutY="194.0" prefHeight="50.0" prefWidth="130.0" promptText="Status" styleClass="accountStatusComboBox" />
-    <Button layoutX="544.0" layoutY="270.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" styleClass="loginBtn" text="Add/Save" />
+    <ComboBox fx:id="statusBox" layoutX="544.0" layoutY="194.0" prefHeight="50.0" prefWidth="154.0" promptText="Status" styleClass="accountStatusComboBox" />
+    <Button layoutX="544.0" layoutY="270.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" prefWidth="97.0" styleClass="loginBtn" text="Add/Save" />
     <Button layoutX="773.0" layoutY="270.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
     <TextField fx:id="phoneNumberFld" layoutX="544.0" layoutY="43.0" prefWidth="300.0" promptText="Phone Number" styleClass="loginTextFld" />
     <DatePicker fx:id="birthdayPicker" layoutX="544.0" layoutY="118.0" prefHeight="51.0" prefWidth="300.0" promptText="Birthday" styleClass="birthdayPicker" />
-    <Button layoutX="668.0" layoutY="270.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
+    <Button layoutX="658.0" layoutY="270.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
     <TextField fx:id="searchFld" layoutX="94.0" layoutY="272.0" onKeyReleased="#searchTypeOnAction" prefWidth="300.0" promptText="Search" styleClass="loginTextFld" />
     <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="62.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../asset/search.png" />
     </ImageView>
-   <ComboBox fx:id="genderBox" layoutX="714.0" layoutY="194.0" prefHeight="50.0" prefWidth="130.0" promptText="Gender" styleClass="accountStatusComboBox" />
+   <ComboBox fx:id="genderBox" layoutX="703.0" layoutY="194.0" prefHeight="50.0" prefWidth="142.0" promptText="Gender" styleClass="accountStatusComboBox" />
 </AnchorPane>

@@ -1,13 +1,10 @@
 package com.kawishika.util;
 
-import com.kawishika.entity.Reserve;
-import com.kawishika.entity.Student;
-import com.kawishika.entity.User;
+import com.kawishika.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.io.IOException;
 import java.util.Properties;
 
 public class SessionConfigureFactory {
@@ -28,6 +25,8 @@ public class SessionConfigureFactory {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Reserve.class)
+                .addAnnotatedClass(RoomCategory.class)
+                .addAnnotatedClass(Room.class)
                 .buildSessionFactory();
     }
 

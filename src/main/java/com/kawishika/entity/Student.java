@@ -3,13 +3,10 @@ package com.kawishika.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -26,17 +23,15 @@ public class Student {
     private Date BirthDay;
     private String Gender;
     private String Status;
-
     @OneToMany(mappedBy = "student")
-    private ArrayList<Reserve> reserves;
-
-    public Student(String id, String name, String email, String phone, Date date, String gender, String status) {
-        this.Student_ID=id;
-        this.Student_Name=name;
-        this.Student_Email=email;
-        this.Phone_No =phone;
-        this.BirthDay=date;
-        this.Gender =gender;
-        this.Status=status;
+    private List<Reserve> reserves;
+    public Student(String student_ID, String student_Name, String student_Email, String phone_No, Date birthDay, String gender, String status) {
+        Student_ID = student_ID;
+        Student_Name = student_Name;
+        Student_Email = student_Email;
+        Phone_No = phone_No;
+        BirthDay = birthDay;
+        Gender = gender;
+        Status = status;
     }
 }

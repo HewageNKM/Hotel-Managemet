@@ -106,6 +106,7 @@ public class StudentFormController {
                 phoneNumberFld.setText(selectedItem.getPhoneNumber());
                 birthdayPicker.setValue(selectedItem.getBirthday());
                 statusBox.setValue(selectedItem.getStatus());
+                genderBox.setValue(selectedItem.getGender());
             } else {
                 new Alert(Alert.AlertType.ERROR, "Please select a student to edit", ButtonType.OK).show();
             }

@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.MainFormController">
    <AnchorPane prefHeight="600.0" prefWidth="60.0" styleClass="menuPane">
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="420.0" mnemonicParsing="false" onAction="#accountBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="443.0" mnemonicParsing="false" onAction="#accountBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../asset/main/menu/account.png" />
@@ -22,33 +22,40 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="240.0" mnemonicParsing="false" onAction="#reserveBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="203.0" mnemonicParsing="false" onAction="#reserveBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../asset/main/menu/reserve.png" />
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="180.0" mnemonicParsing="false" onAction="#dashboardBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="143.0" mnemonicParsing="false" onAction="#dashboardBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../asset/main/menu/dashboard.png" />
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="300.0" mnemonicParsing="false" onAction="#paymentBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="263.0" mnemonicParsing="false" onAction="#paymentBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../asset/main/menu/payment.png" />
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="360.0" mnemonicParsing="false" onAction="#studentBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="323.0" mnemonicParsing="false" onAction="#studentBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../asset/main/menu/student.png" />
                </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="383.0" mnemonicParsing="false" onAction="#roomBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../asset/checkingMenu/room.png"/>
             </ImageView>
          </graphic>
       </Button>

@@ -23,7 +23,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean validateBirthday(LocalDate value) {
         if (value == null) return false;
-        System.out.println(ChronoUnit.YEARS.between(value, LocalDate.now()));
         return ChronoUnit.YEARS.between(value, LocalDate.now()) >= 18;
     }
 
