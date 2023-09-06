@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 public class Hashing {
     @SneakyThrows
     public static String getHash(String msg) {
-        MessageDigest md =MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(msg.getBytes());
         byte[] digest = md.digest();
         StringBuilder sb = new StringBuilder();

@@ -80,7 +80,7 @@ public class StudentFormController {
             if (selectedItem != null) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this student?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
                     if (buttonType == ButtonType.YES) {
-                        boolean deleted = studentService.delete(selectedItem.getId());
+                        boolean deleted = studentService.delete(selectedItem.getStudent_ID());
                         if (deleted) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Student has been deleted successfully", ButtonType.OK).show();
                             loadTable();
@@ -100,11 +100,11 @@ public class StudentFormController {
         edit.setOnAction(event -> {
             StudentTM selectedItem = studentTable.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                studentIdFld.setText(selectedItem.getId());
-                studentNameFld.setText(selectedItem.getName());
-                emailFld.setText(selectedItem.getEmail());
-                phoneNumberFld.setText(selectedItem.getPhoneNumber());
-                birthdayPicker.setValue(selectedItem.getBirthday());
+                studentIdFld.setText(selectedItem.getStudent_ID());
+                studentNameFld.setText(selectedItem.getStudent_Name());
+                emailFld.setText(selectedItem.getStudent_Email());
+                phoneNumberFld.setText(selectedItem.getPhone_No());
+                birthdayPicker.setValue(selectedItem.getBirthDay().toLocalDate());
                 statusBox.setValue(selectedItem.getStatus());
                 genderBox.setValue(selectedItem.getGender());
             } else {
@@ -114,13 +114,13 @@ public class StudentFormController {
     }
 
     private void setCellValues() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("Student_ID"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Student_Name"));
+        birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("BirthDay"));
+        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("Phone_No"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("Student_Email"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("Status"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("Gender"));
         editColumn.setCellValueFactory(new PropertyValueFactory<>("edit"));
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("delete"));
     }

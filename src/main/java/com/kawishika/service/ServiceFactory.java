@@ -1,6 +1,7 @@
 package com.kawishika.service;
 
 import com.kawishika.service.impl.CheckinServiceImpl;
+import com.kawishika.service.impl.RoomCategoryServiceImpl;
 import com.kawishika.service.impl.StudentServiceImpl;
 import com.kawishika.service.impl.UserServiceImpl;
 
@@ -15,7 +16,7 @@ public class ServiceFactory {
     }
 
     public enum ServiceType {
-        USER, STUDENT, CHECKIN
+        USER, STUDENT, CHECKIN, ROOM_CATEGORY, ROOM
     }
 
     public SuperService getService(ServiceType type) {
@@ -26,6 +27,8 @@ public class ServiceFactory {
                 return new StudentServiceImpl();
             case CHECKIN:
                 return new CheckinServiceImpl();
+            case ROOM_CATEGORY:
+                return new RoomCategoryServiceImpl();
             default:
                 return null;
         }

@@ -15,7 +15,7 @@
           <TableColumn fx:id="roomTypeColumn" prefWidth="194.4001007080078" text="Type" />
           <TableColumn fx:id="roomCostColumn" prefWidth="200.800048828125" text="Cost(Per Week)" />
          <TableColumn fx:id="editColumn" prefWidth="118.39996337890625" text="Edit" />
-         <TableColumn fx:id="activeStatusColumn111" prefWidth="125.60003662109375" text="Delete" />
+         <TableColumn fx:id="deleteColumn" prefWidth="125.60003662109375" text="Delete" />
       </columns>
     </TableView>
     <Button layoutX="542.0" layoutY="227.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="Add/Save" />
@@ -27,7 +27,7 @@
          <Image url="@../asset/search.png" />
       </image>
    </ImageView>
-   <TextField fx:id="idFld" layoutX="92.0" layoutY="58.0" onKeyTyped="#searchOnAction" prefHeight="37.0" prefWidth="244.0" promptText="Room ID" styleClass="loginTextFld" />
-   <TextField fx:id="typeFld" layoutX="92.0" layoutY="145.0" onKeyTyped="#searchOnAction" prefHeight="37.0" prefWidth="244.0" promptText="Room Type" styleClass="loginTextFld" />
-   <TextField fx:id="costFld" layoutX="541.0" layoutY="96.0" onKeyTyped="#searchOnAction" prefHeight="38.0" prefWidth="310.0" promptText="Cost Per Week" styleClass="loginTextFld" />
+   <TextField fx:id="idFld" layoutX="92.0" layoutY="58.0" prefHeight="37.0" prefWidth="244.0" promptText="Room ID" styleClass="loginTextFld" />
+   <TextField fx:id="typeFld" layoutX="92.0" layoutY="145.0" prefHeight="37.0" prefWidth="244.0" promptText="Room Type" styleClass="loginTextFld" />
+   <TextField fx:id="costFld" layoutX="541.0" layoutY="96.0" prefHeight="38.0" prefWidth="310.0" promptText="Cost Per Week" styleClass="loginTextFld" />
 </AnchorPane>

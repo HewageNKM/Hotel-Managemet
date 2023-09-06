@@ -21,4 +21,10 @@ public class RoomCategory {
     private Double Cost_Per_Week;
     @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
     private List<Room> rooms;
+
+    public RoomCategory(String idFldText, String type, double cost) {
+        this.Room_ID = idFldText;
+        this.Room_Type = type;
+        this.Cost_Per_Week = cost;
+    }
 }
