@@ -22,9 +22,8 @@
       </columns>
     </TableView>
     <ComboBox fx:id="statusBox" layoutX="607.0" layoutY="152.0" prefHeight="50.0" prefWidth="198.0" promptText="Status" styleClass="accountStatusComboBox" />
-    <Button layoutX="542.0" layoutY="233.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="Add/Save" />
-    <Button layoutX="765.0" layoutY="233.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
-    <Button layoutX="650.0" layoutY="233.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" styleClass="deleteBtn" text="Delete" />
+    <Button layoutX="607.0" layoutY="233.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="Add/Save" />
+    <Button layoutX="726.0" layoutY="232.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
    <ComboBox fx:id="roomIdBox" layoutX="92.0" layoutY="49.0" prefHeight="46.0" prefWidth="198.0" promptText="Room ID" styleClass="accountStatusComboBox" />
    <Label fx:id="roomTypeLabel" layoutX="92.0" layoutY="139.0" prefHeight="46.0" prefWidth="198.0" styleClass="textLabel" text="Type:" />
    <TextField fx:id="searchFld" layoutX="129.0" layoutY="233.0" onKeyTyped="#searchOnAction" prefHeight="37.0" prefWidth="244.0" promptText="Search" styleClass="loginTextFld" />

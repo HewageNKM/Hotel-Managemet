@@ -28,6 +28,7 @@ public class CheckingMenuController {
             pane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CheckOutForm.fxml"))));
         } catch (java.io.IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -37,6 +38,7 @@ public class CheckingMenuController {
             pane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CheckInForm.fxml"))));
         } catch (java.io.IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 }

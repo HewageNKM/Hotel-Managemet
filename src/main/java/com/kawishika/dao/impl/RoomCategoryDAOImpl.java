@@ -2,7 +2,6 @@ package com.kawishika.dao.impl;
 
 import com.kawishika.dao.interfaces.RoomCategoryDAO;
 import com.kawishika.entity.RoomCategory;
-import com.kawishika.entity.Student;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -39,7 +38,7 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
         Session session = SessionConfigureFactory.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         RoomCategory roomCategory = session.get(RoomCategory.class, entity.getRoom_ID());
-        session.remove(roomCategory);
+        session.delete(roomCategory);
         transaction.commit();
         session.close();
         return true;

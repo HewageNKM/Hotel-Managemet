@@ -1,9 +1,6 @@
 package com.kawishika.dao;
 
-import com.kawishika.dao.impl.CheckinDAOImpl;
-import com.kawishika.dao.impl.RoomCategoryDAOImpl;
-import com.kawishika.dao.impl.StudentDAOImpl;
-import com.kawishika.dao.impl.UserDAOImpl;
+import com.kawishika.dao.impl.*;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;
@@ -13,7 +10,7 @@ public class DAOFactory {
         return (daoFactory == null) ? (daoFactory = new DAOFactory()) : daoFactory;
     }
     public enum DAOType {
-        USER, STUDENT, CHECKIN, ROOM_CATEGORY
+        USER, STUDENT, CHECKIN, ROOM_CATEGORY, ROOM
     }
     public SuperDAO getDAO(DAOType type) {
         switch (type) {
@@ -25,6 +22,8 @@ public class DAOFactory {
                 return new CheckinDAOImpl();
             case ROOM_CATEGORY:
                 return new RoomCategoryDAOImpl();
+            case ROOM:
+                return new RoomDAOImpl();
             default:
                 return null;
         }

@@ -1,9 +1,6 @@
 package com.kawishika.service;
 
-import com.kawishika.service.impl.CheckinServiceImpl;
-import com.kawishika.service.impl.RoomCategoryServiceImpl;
-import com.kawishika.service.impl.StudentServiceImpl;
-import com.kawishika.service.impl.UserServiceImpl;
+import com.kawishika.service.impl.*;
 
 public class ServiceFactory {
     private static ServiceFactory serviceFactory;
@@ -29,6 +26,8 @@ public class ServiceFactory {
                 return new CheckinServiceImpl();
             case ROOM_CATEGORY:
                 return new RoomCategoryServiceImpl();
+            case ROOM:
+                return new RoomServiceImpl();
             default:
                 return null;
         }

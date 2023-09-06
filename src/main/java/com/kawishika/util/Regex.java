@@ -8,6 +8,7 @@ public class Regex {
     private static final String NAME_REGEX = "^[A-Za-z][A-Za-z\\s]{10,48}[A-Za-z]$";
     private static final String STUDENT_ID_REGEX = "^(stm|stf)\\d{7}$";
     private static final String DOUBLE_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";
+    private static final String ROOM_NUMBER_REGEX = "^R\\d{3}$";
     public static boolean validateEmail(String email) {
         return email.matches(EMAIL_REGEX);
     }
@@ -28,5 +29,8 @@ public class Regex {
     }
     public static boolean validateDoubleValue(String cost) {
         return cost.matches(DOUBLE_REGEX);
+    }
+    public static boolean validateRoomNumber(String roomNumber) {
+        return roomNumber.matches(ROOM_NUMBER_REGEX);
     }
 }

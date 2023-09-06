@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Room {
@@ -17,6 +16,10 @@ public class Room {
     private String Status;
     @ManyToOne (cascade = CascadeType.ALL)
     private RoomCategory roomCategory;
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Reserve> reserves;
+    public Room(String roomNumber, String status) {
+        Room_Number = roomNumber;
+        Status = status;
+    }
 }

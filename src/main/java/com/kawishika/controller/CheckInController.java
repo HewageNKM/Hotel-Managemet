@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.kawishika.service.ServiceFactory.ServiceType.CHECKIN;
@@ -89,12 +90,8 @@ public class CheckInController {
     }
 
     private void setBoxValues() {
-        paymentOptionBox.getItems().add("Pay Later");
-        paymentOptionBox.getItems().add("Pay Now");
-        roomTypeBox.getItems().add("Non-AC");
-        roomTypeBox.getItems().add("Non-AC/Food");
-        roomTypeBox.getItems().add("AC/Food");
-        roomTypeBox.getItems().add("AC");
+        ArrayList<String> roomTypes = checkinService.getRoomTypes();
+        roomTypeBox.getItems().addAll(roomTypes);
     }
 
     private void loadPane() {
