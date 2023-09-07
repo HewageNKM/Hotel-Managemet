@@ -25,6 +25,6 @@ public interface RoomService extends SuperService {
 
     ArrayList<RoomTM> getAll();
 
-    boolean delete(String roomId);
+    boolean delete(RoomDTO dto,String roomId);
 
 }

@@ -73,7 +73,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public boolean update(RoomDTO roomDTO, String roomId) {
-        return roomDAO.update(new Room(roomDTO.getRoom_Number(),roomDTO.getStatus()),roomId);
+        return roomDAO.update(new Room(roomDTO.getRoom_Number(),roomDTO.getStatus()));
     }
 
     @Override
@@ -87,7 +87,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public boolean delete(String roomId) {
-       return roomDAO.delete(new Room(roomId,null));
+    public boolean delete(RoomDTO dto,String roomId) {
+       return roomDAO.delete(new Room(dto.getRoom_Number(),dto.getStatus()),roomId);
     }
 }

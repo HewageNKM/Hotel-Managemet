@@ -11,6 +11,7 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RoomDAOImpl implements RoomDAO {
     @Override
@@ -20,18 +21,19 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean update(Room entity) {
-        return false;
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Room room = session.get(Room.class, entity.getRoom_Number());
+        room.setStatus(entity.getStatus());
+        session.persist(room);
+        transaction.commit();
+        session.close();
+        return true;
     }
 
     @Override
     public boolean delete(Room entity) {
-       Session session = SessionConfigureFactory.getInstance().getSession();
-       session.beginTransaction();
-       Room room = session.get(Room.class, entity.getRoom_Number());
-       session.remove(room);
-       session.getTransaction().commit();
-       session.close();
-       return true;
+       return false;
     }
 
     @Override
@@ -112,13 +114,13 @@ public class RoomDAOImpl implements RoomDAO {
     @Override
     public boolean isRoomExist(String roomNumber) {
         Session session = SessionConfigureFactory.getInstance().getSession();
-        session.beginTransaction();
-        Query query = session.createNativeQuery("SELECT Room_Number FROM room WHERE Room_Number = ?");
-        query.setParameter(1, roomNumber);
-        String roomType = (String) query.uniqueResult();
-        session.getTransaction().commit();
+        Transaction transaction = session.beginTransaction();
+        Room room = session.get(Room.class, roomNumber);
+        System.out.println(room.getRoom_Number());
+        System.out.println(room != null);
+        transaction.commit();
         session.close();
-        return roomType != null;
+        return room != null;
     }
 
     @Override
@@ -135,14 +137,15 @@ public class RoomDAOImpl implements RoomDAO {
     }
 
     @Override
-    public boolean update(Room room, String roomId) {
+    public boolean delete(Room entity, String roomId) {
         Session session = SessionConfigureFactory.getInstance().getSession();
-        session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         RoomCategory roomCategory = session.get(RoomCategory.class, roomId);
-        room.setRoomCategory(roomCategory);
-        roomCategory.getRooms().add(room);
-        session.merge(room);
-        session.getTransaction().commit();
+        entity = session.get(Room.class, entity.getRoom_Number());
+        roomCategory.getRooms().remove(entity);
+        session.remove(entity);
+        session.persist(roomCategory);
+        transaction.commit();
         session.close();
         return true;
     }

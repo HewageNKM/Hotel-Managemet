@@ -82,6 +82,7 @@ public class RoomFormController {
             setEditAction(roomTM.getEdit());
             setDeleteAction(roomTM.getDelete());
         }
+        roomTable.getItems().clear();
         roomTable.getItems().addAll(FXCollections.observableArrayList(all));
     }
 
@@ -91,7 +92,7 @@ public class RoomFormController {
             if (selectedItem != null) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this room?", ButtonType.YES,ButtonType.NO).showAndWait().ifPresent(buttonType -> {
                     if(buttonType == ButtonType.YES){
-                        if(roomService.delete(selectedItem.getRoomNumber())){
+                        if(roomService.delete(new RoomDTO(selectedItem.getRoomNumber(),selectedItem.getStatus()),selectedItem.getRoomId())){
                             new Alert(Alert.AlertType.INFORMATION,"Room Deleted").show();
                             loadTable();
                             clearBtnOnAction();
@@ -110,9 +111,16 @@ public class RoomFormController {
            RoomTM selectedItem = roomTable.getSelectionModel().getSelectedItem();
            if (selectedItem != null) {
            roomIdBox.getSelectionModel().select(selectedItem.getRoomType());
+           roomIdBox.setDisable(true);
            roomNumberLabel.setText("Room Number: "+selectedItem.getRoomNumber());
+           roomNumber = selectedItem.getRoomNumber();
            roomTypeLabel.setText("Room Type: "+selectedItem.getRoomId());
-           statusBox.getSelectionModel().select(selectedItem.getStatus());
+           if(selectedItem.getStatus().equals("Not Available")){
+               statusBox.getSelectionModel().select("Not Available");
+               statusBox.setDisable(true);
+           }else {
+               statusBox.getSelectionModel().select(selectedItem.getStatus());
+           }
            }else {
                new Alert(Alert.AlertType.ERROR,"Please select a row").show();
            }
@@ -232,6 +240,8 @@ public class RoomFormController {
         roomNumberLabel.setStyle("-fx-text-fill: black");
         roomTypeLabel.setStyle("-fx-text-fill: black");
         statusBox.setStyle("-fx-border-color: none");
+        roomIdBox.setDisable(false);
+        statusBox.setDisable(false);
     }
 
     @FXML

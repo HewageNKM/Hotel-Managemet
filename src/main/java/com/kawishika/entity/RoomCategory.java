@@ -19,9 +19,8 @@ public class RoomCategory {
     private String Room_ID;
     private String Room_Type;
     private Double Cost_Per_Week;
-    @OneToMany(mappedBy = "roomCategory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roomCategory",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     private List<Room> rooms;
-
     public RoomCategory(String idFldText, String type, double cost) {
         this.Room_ID = idFldText;
         this.Room_Type = type;
