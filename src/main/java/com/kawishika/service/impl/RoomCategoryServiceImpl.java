@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class RoomCategoryServiceImpl implements RoomCategoryService {
     private final RoomCategoryDAO roomCategoryDAO = (RoomCategoryDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ROOM_CATEGORY);
+
     @Override
     public ArrayList<RoomCategoryTM> getAll() {
         ArrayList<RoomCategory> all = roomCategoryDAO.getAll(new ArrayList<>());
@@ -21,7 +22,7 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
         for (RoomCategory roomCategory : all) {
             Button Edit = new Button("Edit");
             Button Delete = new Button("Delete");
-            roomCategoryTMS.add(new RoomCategoryTM(roomCategory.getRoom_ID(), roomCategory.getRoom_Type(), roomCategory.getCost_Per_Week(),Edit,Delete));
+            roomCategoryTMS.add(new RoomCategoryTM(roomCategory.getRoom_ID(), roomCategory.getRoom_Type(), roomCategory.getCost_Per_Week(), Edit, Delete));
         }
         return roomCategoryTMS;
     }
@@ -68,7 +69,7 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
         for (RoomCategory roomCategory : search) {
             Button Edit = new Button("Edit");
             Button Delete = new Button("Delete");
-            roomCategoryTMS.add(new RoomCategoryTM(roomCategory.getRoom_ID(), roomCategory.getRoom_Type(), roomCategory.getCost_Per_Week(),Edit,Delete));
+            roomCategoryTMS.add(new RoomCategoryTM(roomCategory.getRoom_ID(), roomCategory.getRoom_Type(), roomCategory.getCost_Per_Week(), Edit, Delete));
         }
         return roomCategoryTMS;
     }

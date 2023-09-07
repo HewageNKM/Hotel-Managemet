@@ -11,13 +11,13 @@ import com.kawishika.service.interfaces.RoomService;
 import com.kawishika.util.Regex;
 import javafx.scene.control.Button;
 
-
 import java.util.ArrayList;
 
 import static com.kawishika.dao.DAOFactory.DAOType.ROOM;
 
 public class RoomServiceImpl implements RoomService {
     private final RoomDAO roomDAO = (RoomDAOImpl) DAOFactory.getInstance().getDAO(ROOM);
+
     @Override
     public ArrayList<String> getCategoryIds() {
         return roomDAO.getCategories();
@@ -63,7 +63,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public boolean saveRoom(RoomDTO roomDTO, String roomId) {
-        return roomDAO.save(new Room(roomDTO.getRoom_Number(),roomDTO.getStatus()),roomId);
+        return roomDAO.save(new Room(roomDTO.getRoom_Number(), roomDTO.getStatus()), roomId);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public boolean update(RoomDTO roomDTO, String roomId) {
-        return roomDAO.update(new Room(roomDTO.getRoom_Number(),roomDTO.getStatus()));
+        return roomDAO.update(new Room(roomDTO.getRoom_Number(), roomDTO.getStatus()));
     }
 
     @Override
@@ -81,13 +81,13 @@ public class RoomServiceImpl implements RoomService {
         ArrayList<CustomDTO> all = roomDAO.getAll();
         ArrayList<RoomTM> roomTMS = new ArrayList<>();
         for (CustomDTO customDTO : all) {
-            roomTMS.add(new RoomTM(customDTO.getRoomId(),customDTO.getRoomNumber(),customDTO.getType(),customDTO.getStatus(),new Button("Edit"),new Button("Delete")));
+            roomTMS.add(new RoomTM(customDTO.getRoomId(), customDTO.getRoomNumber(), customDTO.getType(), customDTO.getStatus(), new Button("Edit"), new Button("Delete")));
         }
         return roomTMS;
     }
 
     @Override
-    public boolean delete(RoomDTO dto,String roomId) {
-       return roomDAO.delete(new Room(dto.getRoom_Number(),dto.getStatus()),roomId);
+    public boolean delete(RoomDTO dto, String roomId) {
+        return roomDAO.delete(new Room(dto.getRoom_Number(), dto.getStatus()), roomId);
     }
 }

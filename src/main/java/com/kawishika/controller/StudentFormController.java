@@ -146,7 +146,7 @@ public class StudentFormController {
     void addSaveBtnOnAction() {
         if (validateDetails()) {
             if (studentService.isStudentExists(studentIdFld.getText())) {
-                if (studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(),genderBox.getValue(), statusBox.getValue()))) {
+                if (studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student has been updated successfully", ButtonType.OK).show();
                     loadTable();
                     clearBtnOnAction();
@@ -154,7 +154,7 @@ public class StudentFormController {
                     new Alert(Alert.AlertType.ERROR, "Failed to update the student", ButtonType.OK).show();
                 }
             } else {
-                if (studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(),genderBox.getValue(), statusBox.getValue()))) {
+                if (studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Student has been saved successfully", ButtonType.OK).show();
                     loadTable();
                     clearBtnOnAction();
@@ -172,12 +172,12 @@ public class StudentFormController {
     }
 
     private boolean validateGender() {
-        if(genderBox.getSelectionModel().isEmpty()){
+        if (genderBox.getSelectionModel().isEmpty()) {
             genderBox.setStyle("-fx-border-color: red");
             return false;
-        }else {
-           genderBox.setStyle("-fx-border-color: green");
-           return true;
+        } else {
+            genderBox.setStyle("-fx-border-color: green");
+            return true;
         }
     }
 
@@ -257,6 +257,13 @@ public class StudentFormController {
         phoneNumberFld.setStyle("-fx-border-color: none");
         birthdayPicker.setStyle("-fx-border-color: none");
         statusBox.setStyle("-fx-border-color: none");
+        studentIdFld.setPromptText("Student ID");
+        studentNameFld.setPromptText("Student Name");
+        emailFld.setPromptText("Email");
+        phoneNumberFld.setPromptText("Phone Number");
+        birthdayPicker.setPromptText("Birthday");
+        genderBox.setPromptText("Gender");
+        statusBox.setPromptText("Status");
     }
 
     @FXML
@@ -270,9 +277,9 @@ public class StudentFormController {
 
     @FXML
     void searchTypeOnAction() {
-        if(searchFld.getText().trim().isBlank()){
+        if (searchFld.getText().trim().isBlank()) {
             loadTable();
-        }else {
+        } else {
             ArrayList<StudentTM> all = studentService.searchStudent(searchFld.getText());
             for (StudentTM studentTM : all) {
                 setEditAction(studentTM.getEdit());

@@ -1,9 +1,7 @@
 package com.kawishika.dto;
 
 import com.kawishika.entity.User;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

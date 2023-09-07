@@ -7,6 +7,7 @@ import com.kawishika.dto.UserDTO;
 import com.kawishika.dto.tm.UserTM;
 import com.kawishika.entity.User;
 import com.kawishika.service.interfaces.UserService;
+import com.kawishika.util.Hashing;
 import com.kawishika.util.Regex;
 
 import java.util.ArrayList;
@@ -33,17 +34,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserExist(String userName) {
-        return userDAO.isUserExist(userName);
+        return userDAO.isUserExist(Hashing.getHash(userName.toLowerCase()));
     }
 
     @Override
     public boolean update(UserDTO userDTO) {
-        return userDAO.update(new User(userDTO.getUserName().toLowerCase(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getStatus()));
+        return userDAO.update(new User(Hashing.getHash(userDTO.getUserName()).toLowerCase(), Hashing.getHash(userDTO.getPassword()), userDTO.getEmail(), userDTO.getStatus()));
     }
 
     @Override
     public boolean save(UserDTO userDTO) {
-        return userDAO.save(new User(userDTO.getUserName().toLowerCase(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getStatus()));
+        return userDAO.save(new User(Hashing.getHash(userDTO.getUserName().toLowerCase()), Hashing.getHash(userDTO.getPassword()), userDTO.getEmail(), userDTO.getStatus()));
     }
 
     @Override
@@ -58,12 +59,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean delete(UserDTO userDTO) {
-        return userDAO.delete(new User(userDTO.getUserName(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getStatus()));
+        return userDAO.delete(new User(Hashing.getHash(userDTO.getUserName().toLowerCase()), userDTO.getPassword(), userDTO.getEmail(), userDTO.getStatus()));
     }
 
     @Override
     public UserDTO getUser(String userName) {
-        User user = userDAO.getUser(new User(userName, null, null, null));
+        User user = userDAO.getUser(new User(Hashing.getHash(userName.toLowerCase()), null, null, null));
         if (user == null) {
             return null;
         }

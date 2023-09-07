@@ -3,8 +3,6 @@ package com.kawishika.controller;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,13 +16,13 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class LoginFormController {
+    private final Stage stage = new Stage();
     public Label welcomeLabel;
     public AnchorPane pane;
     public TextField passwordFld;
     public TextField userNameFld;
     public CheckBox passwordCheckBox;
     public PasswordField passwordFldMask;
-    private final Stage stage = new Stage();
 
     public void initialize() {
         loadPane();
@@ -73,6 +71,7 @@ public class LoginFormController {
                 timeline.setCycleCount(Timeline.INDEFINITE);
                 timeline.play();
             }
+
             private Timeline getTimeline() {
                 AtomicInteger currentIndex = new AtomicInteger();
 

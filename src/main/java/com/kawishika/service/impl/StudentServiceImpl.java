@@ -13,13 +13,13 @@ import javafx.scene.control.Button;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.kawishika.dao.DAOFactory.DAOType.STUDENT;
 
 public class StudentServiceImpl implements StudentService {
     private static final StudentDAO studentDAO = (StudentDAOImpl) DAOFactory.getInstance().getDAO(STUDENT);
+
     @Override
     public boolean validateBirthday(LocalDate value) {
         if (value == null) return false;
@@ -53,36 +53,36 @@ public class StudentServiceImpl implements StudentService {
         for (Student student : all) {
             Button edit = new Button("Edit");
             Button delete = new Button("Delete");
-            studentTMS.add(new StudentTM(student.getStudent_ID(), student.getStudent_Name(), student.getBirthDay().toLocalDate(),student.getGender(), student.getStudent_Email(), student.getPhone_No(), student.getStatus(), edit, delete));
+            studentTMS.add(new StudentTM(student.getStudent_ID(), student.getStudent_Name(), student.getBirthDay().toLocalDate(), student.getGender(), student.getStudent_Email(), student.getPhone_No(), student.getStatus(), edit, delete));
         }
         return studentTMS;
     }
 
     @Override
     public boolean delete(String id) {
-        return studentDAO.delete(new Student(id, null, null, null, null, null,null));
+        return studentDAO.delete(new Student(id, null, null, null, null, null, null));
     }
 
     @Override
     public boolean isStudentExists(String id) {
-        return studentDAO.isExists(new Student(id, null, null, null, null, null,null));
+        return studentDAO.isExists(new Student(id, null, null, null, null, null, null));
     }
 
     @Override
     public boolean update(StudentDTO student) {
-        return studentDAO.update(new Student(student.getStudent_ID(), student.getStudent_Name(), student.getStudent_Email(), student.getPhone_No(), student.getBirthDay(),student.getGender(), student.getStatus()));
+        return studentDAO.update(new Student(student.getStudent_ID(), student.getStudent_Name(), student.getStudent_Email(), student.getPhone_No(), student.getBirthDay(), student.getGender(), student.getStatus()));
     }
 
     @Override
     public boolean save(StudentDTO studentDTO) {
-        return studentDAO.save(new Student(studentDTO.getStudent_ID(), studentDTO.getStudent_Name(), studentDTO.getStudent_Email(), studentDTO.getPhone_No(), studentDTO.getBirthDay(),studentDTO.getGender(), studentDTO.getStatus()));
+        return studentDAO.save(new Student(studentDTO.getStudent_ID(), studentDTO.getStudent_Name(), studentDTO.getStudent_Email(), studentDTO.getPhone_No(), studentDTO.getBirthDay(), studentDTO.getGender(), studentDTO.getStatus()));
     }
 
     @Override
     public StudentDTO getStudent(String id) {
         Student student = studentDAO.getStudent(id);
-        if(student == null) return null;
-        return new StudentDTO(student.getStudent_ID(), student.getStudent_Name(), student.getStudent_Email(), student.getPhone_No(), student.getBirthDay().toLocalDate(),student.getGender(), student.getStatus());
+        if (student == null) return null;
+        return new StudentDTO(student.getStudent_ID(), student.getStudent_Name(), student.getStudent_Email(), student.getPhone_No(), student.getBirthDay().toLocalDate(), student.getGender(), student.getStatus());
     }
 
     @Override
@@ -92,7 +92,7 @@ public class StudentServiceImpl implements StudentService {
         for (Student student : students) {
             Button edit = new Button("Edit");
             Button delete = new Button("Delete");
-            studentTMS.add(new StudentTM(student.getStudent_ID(), student.getStudent_Name(), student.getBirthDay().toLocalDate(),student.getGender(), student.getStudent_Email(), student.getPhone_No(), student.getStatus(), edit, delete));
+            studentTMS.add(new StudentTM(student.getStudent_ID(), student.getStudent_Name(), student.getBirthDay().toLocalDate(), student.getGender(), student.getStudent_Email(), student.getPhone_No(), student.getStatus(), edit, delete));
         }
         return studentTMS;
     }

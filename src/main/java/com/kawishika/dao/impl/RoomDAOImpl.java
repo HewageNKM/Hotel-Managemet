@@ -116,8 +116,6 @@ public class RoomDAOImpl implements RoomDAO {
         Session session = SessionConfigureFactory.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         Room room = session.get(Room.class, roomNumber);
-        System.out.println(room.getRoom_Number());
-        System.out.println(room != null);
         transaction.commit();
         session.close();
         return room != null;

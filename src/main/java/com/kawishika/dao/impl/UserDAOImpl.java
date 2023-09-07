@@ -17,8 +17,6 @@ public class UserDAOImpl implements UserDAO {
         session.getTransaction().commit();
         session.close();
         for (User user:entityList) {
-            user.setUserName(Hashing.getHash(user.getUserName()));
-            user.setPassword(Hashing.getHash(user.getPassword()));
             user.setEmail(Hashing.getHash(user.getEmail()));
         }
         return entityList;

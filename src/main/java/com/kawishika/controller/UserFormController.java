@@ -7,9 +7,6 @@ import com.kawishika.service.impl.UserServiceImpl;
 import com.kawishika.service.interfaces.UserService;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +15,7 @@ import lombok.SneakyThrows;
 import java.util.ArrayList;
 
 public class UserFormController {
+    private final UserService userService = (UserServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
     public TableView<UserTM> userTable;
     public TableColumn emailColumn;
     public TableColumn userNameColumn;
@@ -28,8 +26,6 @@ public class UserFormController {
     public TextField passwordFld;
     public TextField emailFld;
     public ComboBox<String> statusBox;
-
-    private final UserService userService = (UserServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.USER);
 
     @SneakyThrows
     public void initialize() {
@@ -73,29 +69,28 @@ public class UserFormController {
     }
 
     public void addSaveBtnOnAction() {
-        if(validateDetails()){
+        if (validateDetails()) {
             boolean userExist = userService.isUserExist(userNameFld.getText());
-            if(userExist) {
+            if (userExist) {
                 boolean update = userService.update(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
-                if(update){
-                   new Alert(Alert.AlertType.CONFIRMATION, "User update successfully !", ButtonType.OK).show();
-                   loadTable();
-                   clearBtnOnAction();
-                }else {
+                if (update) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "User update successfully !", ButtonType.OK).show();
+                    loadTable();
+                    clearBtnOnAction();
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to update the user !", ButtonType.OK).show();
                 }
-            }
-            else {
+            } else {
                 boolean isSaved = userService.save(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
-                if(isSaved){
+                if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "User saved successfully !", ButtonType.OK).show();
                     loadTable();
                     clearBtnOnAction();
-                }else {
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to save the user !", ButtonType.OK).show();
                 }
             }
-        }else {
+        } else {
             validateDetails();
         }
     }
@@ -105,20 +100,20 @@ public class UserFormController {
     }
 
     private boolean validateStatus() {
-        if(statusBox.selectionModelProperty().get().getSelectedItem() != null){
+        if (statusBox.selectionModelProperty().get().getSelectedItem() != null) {
             statusBox.setStyle("-fx-border-color: GREEN");
             return true;
-        }else {
+        } else {
             statusBox.setStyle("-fx-border-color: RED");
             return false;
         }
     }
 
     private boolean validateUserName() {
-        if(userService.validateUserName(userNameFld.getText())){
+        if (userService.validateUserName(userNameFld.getText())) {
             userNameFld.setStyle("-fx-border-color: green");
             return true;
-        }else {
+        } else {
             userNameFld.setStyle("-fx-border-color: red");
             return false;
         }
@@ -153,17 +148,21 @@ public class UserFormController {
         passwordFld.setStyle("-fx-border-color: transparent");
         emailFld.setStyle("-fx-border-color: transparent");
         statusBox.setStyle("-fx-border-color: transparent");
+        userNameFld.setPromptText("User Name");
+        passwordFld.setPromptText("Password");
+        emailFld.setPromptText("Email");
+        statusBox.setPromptText("Status");
     }
 
     public void deleteBtnOnAction() {
         new Alert(Alert.AlertType.CONFIRMATION, "Do You Want Delete Your ?", ButtonType.OK, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
-            if(buttonType == ButtonType.OK){
+            if (buttonType == ButtonType.OK) {
                 boolean isDeleted = userService.delete(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.selectionModelProperty().get().getSelectedItem()));
-                if(isDeleted){
+                if (isDeleted) {
                     new Alert(Alert.AlertType.CONFIRMATION, "User deleted successfully !", ButtonType.OK).show();
                     loadTable();
                     clearBtnOnAction();
-                }else {
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Failed to delete the user !", ButtonType.OK).show();
                 }
             }
@@ -172,12 +171,11 @@ public class UserFormController {
 
     public void enterOnAction() {
         UserDTO user = userService.getUser(userNameFld.getText());
-        if(user != null){
-            userNameFld.setText(user.getUserName());
+        if (user != null) {
             passwordFld.setText(user.getPassword());
             emailFld.setText(user.getEmail());
             statusBox.selectionModelProperty().get().select(user.getStatus());
-        }else {
+        } else {
             new Alert(Alert.AlertType.ERROR, "User not found !", ButtonType.OK).show();
         }
     }
