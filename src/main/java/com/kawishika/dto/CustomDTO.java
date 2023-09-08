@@ -30,6 +30,11 @@ public class CustomDTO {
         this.roomId = roomId;
         this.type = type;
     }
+    public CustomDTO(String reserveId, String studentId,String paymentStatus) {
+        this.reserveId = reserveId;
+        this.studentId = studentId;
+        this.paymentStatus = paymentStatus;
+    }
    public CustomDTO(String reserveId, String studentId, String roomNumber, Double total,String paymentStatus, Date checkInDate, Date checkOutDate) {
         this.reserveId = reserveId;
         this.studentId = studentId;

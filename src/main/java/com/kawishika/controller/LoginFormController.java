@@ -1,5 +1,9 @@
 package com.kawishika.controller;
 
+import com.kawishika.dto.UserDTO;
+import com.kawishika.service.ServiceFactory;
+import com.kawishika.service.impl.LoginServiceImpl;
+import com.kawishika.service.interfaces.LoginService;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,7 +27,7 @@ public class LoginFormController {
     public TextField userNameFld;
     public CheckBox passwordCheckBox;
     public PasswordField passwordFldMask;
-
+    private final LoginService loginService = (LoginServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.LOGIN);
     public void initialize() {
         loadPane();
         greeting();
@@ -89,7 +93,26 @@ public class LoginFormController {
     }
 
     public void loginBtnAction() throws IOException {
-        Stage stage = (Stage) pane.getScene().getWindow();
+
+        if (loginService.verifyLogin(new UserDTO(userNameFld.getText(), passwordFld.getText().trim().isEmpty() ? passwordFldMask.getText() : passwordFld.getText()))) {
+            userNameFld.setStyle("-fx-border-color: green");
+            passwordFld.setStyle("-fx-border-color: green");
+            passwordFldMask.setStyle("-fx-border-color: green");
+            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainForm.fxml")))));
+            stage.setTitle("Main Form");
+            stage.setResizable(false);
+            stage.setMaximized(false);
+            stage.getIcons().add(new Image("/asset/main/menuIcon.png"));
+            stage.show();
+            Stage loginStage = (Stage) pane.getScene().getWindow();
+            loginStage.close();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid Username or Password !", ButtonType.OK).show();
+            userNameFld.setStyle("-fx-border-color: red");
+            passwordFld.setStyle("-fx-border-color: red");
+            passwordFldMask.setStyle("-fx-border-color: red");
+        }
+        /*Stage stage = (Stage) pane.getScene().getWindow();
         stage.close();
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainForm.fxml")))));
@@ -97,7 +120,7 @@ public class LoginFormController {
         mainStage.setResizable(false);
         mainStage.setMaximized(false);
         mainStage.getIcons().add(new Image("/asset/main/menuIcon.png"));
-        mainStage.show();
+        mainStage.show();*/
     }
 
     public void resetBtnAction() {

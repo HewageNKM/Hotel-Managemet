@@ -40,4 +40,9 @@ public class CustomTM {
             received.setDisable(false);
         }
     }
+    public CustomTM(String reserveId, String studentId,String paymentStatus) {
+        this.reserveId = reserveId;
+        this.studentId = studentId;
+        this.paymentStatus = paymentStatus;
+    }
 }

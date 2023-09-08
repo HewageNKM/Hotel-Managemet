@@ -18,4 +18,9 @@ public class User {
     private String Password;
     private String Email;
     private String Status;
+
+    public User(String userName, String password) {
+        this.UserName = userName;
+        this.Password = password;
+    }
 }

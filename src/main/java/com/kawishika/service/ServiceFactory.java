@@ -13,7 +13,7 @@ public class ServiceFactory {
     }
 
     public enum ServiceType {
-        USER, STUDENT, CHECKIN, ROOM_CATEGORY, ROOM, PAYMENT, CHECKOUT
+        USER, STUDENT, CHECKIN, ROOM_CATEGORY, ROOM, PAYMENT, DASHBOARD, LOGIN, CHECKOUT
     }
 
     public SuperService getService(ServiceType type) {
@@ -32,6 +32,10 @@ public class ServiceFactory {
                 return new CheckOutServiceImpl();
             case PAYMENT:
                 return new PaymentServiceImpl();
+            case DASHBOARD:
+                return new DashboardServiceImpl();
+            case LOGIN:
+                return new LoginServiceImpl();
             default:
                 return null;
         }
