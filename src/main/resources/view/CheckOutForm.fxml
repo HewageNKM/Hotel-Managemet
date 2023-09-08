@@ -16,24 +16,23 @@
          </ImageView>
       </graphic>
    </Button>
-   <AnchorPane layoutX="126.0" layoutY="79.0" prefHeight="420.0" prefWidth="720.0" styleClass="curvePane">
-      <children>
-         <TextField fx:id="idFld" layoutX="205.0" layoutY="16.0" prefHeight="40.0" prefWidth="220.0" promptText="Reserve ID/ Student ID" styleClass="loginTextFld" />
-         <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#checkBtnOnAction" prefHeight="28.0" prefWidth="67.0" styleClass="loginBtn" text="Check" />
-         <Button layoutX="622.0" layoutY="364.0" mnemonicParsing="false" onAction="#checkOutBrnOnAction" prefHeight="42.0" prefWidth="87.0" styleClass="loginBtn" text="Check-Out" />
-         <TableView fx:id="checkOutTable" layoutX="11.0" layoutY="61.0" prefHeight="298.0" prefWidth="698.0">
-           <columns>
-             <TableColumn fx:id="rIdColumn" prefWidth="87.33330535888672" text="Reserve ID" />
-             <TableColumn fx:id="sIdColumn" prefWidth="122.00003051757812" text="Student ID" />
-               <TableColumn fx:id="roomTypeColumn" prefWidth="104.00006103515625" text="Room Type" />
-               <TableColumn fx:id="roomCostColumn" prefWidth="143.333251953125" text="Cost Per Week" />
-               <TableColumn fx:id="totalColumn" prefWidth="72.6666259765625" text="Total" />
-               <TableColumn fx:id="dateColumn" prefWidth="121.33331298828125" text="Date" />
-               <TableColumn fx:id="timeColumn" prefWidth="121.33331298828125" text="Time" />
-               <TableColumn fx:id="reservedDateColumn" prefWidth="121.33331298828125" text="Reserve Date" />
-               <TableColumn fx:id="checkOutColumn" prefWidth="121.33331298828125" text="ECheckOut Date" />
-           </columns>
-         </TableView>
-      </children>
-   </AnchorPane>
+    <AnchorPane layoutX="94.0" layoutY="39.0" prefHeight="500.0" prefWidth="800.0" styleClass="curvePane">
+        <TextField fx:id="idFld" layoutX="205.0" layoutY="16.0" onAction="#checkBtnOnAction" prefHeight="40.0"
+                   prefWidth="220.0" promptText="Reserve ID/ Student ID" styleClass="loginTextFld"/>
+        <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#checkBtnOnAction" prefHeight="28.0"
+                prefWidth="67.0" styleClass="loginBtn" text="Check"/>
+        <Button layoutX="675.0" layoutY="438.0" mnemonicParsing="false" onAction="#checkOutBrnOnAction"
+                prefHeight="42.0" prefWidth="87.0" styleClass="loginBtn" text="Check-Out"/>
+        <TableView fx:id="checkOutTable" layoutX="11.0" layoutY="61.0" prefHeight="370.0" prefWidth="770.0">
+            <columns>
+                <TableColumn fx:id="rIdColumn" prefWidth="87.33330535888672" text="Reserve ID"/>
+                <TableColumn fx:id="sIdColumn" prefWidth="122.00003051757812" text="Student ID"/>
+                <TableColumn fx:id="roomNumberColumn" prefWidth="82.0" text="Room No"/>
+                <TableColumn fx:id="totalColumn" prefWidth="210.6666259765625" text="Total"/>
+                <TableColumn fx:id="paymentStatus" prefWidth="210.6666259765625" text="Payment Status"/>
+                <TableColumn fx:id="checkingColumn" prefWidth="120.0" text="Checking Date"/>
+                <TableColumn fx:id="checkOutColumn" prefWidth="144.0" text="CheckOut Date"/>
+            </columns>
+        </TableView>
+    </AnchorPane>
 </AnchorPane>
