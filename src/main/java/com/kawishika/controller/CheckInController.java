@@ -175,6 +175,10 @@ public class CheckInController {
                 new Alert(Alert.AlertType.ERROR, "Student Has Blacklisted !").show();
                 return;
             }
+            if(checkinService.checkReservation(idFld.getText()).equals("Active")){
+                new Alert(Alert.AlertType.ERROR, "Student Has Active Reservation !").show();
+                return;
+            }
             checkinService.save(new ReserveDTO(checkinService.getReserveId(), Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active"), idFld.getText(), roomNumber);
             new Alert(Alert.AlertType.INFORMATION, "Reserved Successfully !").show();
             clearBtnAction(event);

@@ -1,5 +1,6 @@
 package com.kawishika.dto;
 
+import javafx.scene.control.Button;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,10 +19,11 @@ public class CustomDTO {
 
     private String reserveId;
     private String studentId;
-    private Double total;
+    private double total;
     private String paymentStatus;
     private Date checkInDate;
     private Date checkOutDate;
+
     public CustomDTO(String roomNumber, String status, String roomId, String type) {
         this.roomNumber = roomNumber;
         this.status = status;
@@ -37,6 +39,14 @@ public class CustomDTO {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
     }
+    public CustomDTO(String reserveId, String studentId, String roomNumber, Double total,String paymentStatus) {
+        this.reserveId = reserveId;
+        this.studentId = studentId;
+        this.roomNumber = roomNumber;
+        this.total = total;
+        this.paymentStatus = paymentStatus;
+    }
+
     public CustomDTO(String roomNumber, String roomId, Double cost) {
         this.roomNumber = roomNumber;
         this.roomId = roomId;

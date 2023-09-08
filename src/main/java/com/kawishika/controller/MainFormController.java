@@ -25,6 +25,7 @@ public class MainFormController {
             root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/DashboardForm.fxml"))));
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -43,6 +44,7 @@ public class MainFormController {
             root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/PaymentForm.fxml"))));
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -52,6 +54,7 @@ public class MainFormController {
             root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/DashboardForm.fxml"))));
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -65,6 +68,7 @@ public class MainFormController {
             root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CheckingMenuForm.fxml"))));
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -84,6 +88,7 @@ public class MainFormController {
             root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/StudentForm.fxml"))));
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -93,6 +98,7 @@ public class MainFormController {
             root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/RoomForm.fxml"))));
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 }

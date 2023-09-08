@@ -27,4 +27,5 @@ public interface RoomService extends SuperService {
 
     boolean delete(RoomDTO dto,String roomId);
 
+    ArrayList<RoomTM> search(String searchPhrase);
 }

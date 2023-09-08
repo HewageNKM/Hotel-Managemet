@@ -18,4 +18,6 @@ public interface CheckinService extends SuperService {
     String getReserveId();
 
     String checkStudentEligibility(String studentId);
+
+    String checkReservation(String id);
 }

@@ -116,4 +116,19 @@ public class CheckinDAOImpl implements CheckinDAO {
         session.close();
         return student.getStatus();
     }
+
+    @Override
+    public String checkReservation(String id) {
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        List list = session.createNativeQuery("SELECT Status from d24.reserve where student_Student_ID = ? and Status = 'Active'").setParameter(1, id).list();
+        for (Object o : list) {
+            if (Objects.equals(o, "Active")) {
+                return "Active";
+            }
+        }
+        transaction.commit();
+        session.close();
+        return "Inactive";
+    }
 }

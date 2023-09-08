@@ -19,4 +19,6 @@ public interface CheckinDAO extends CrudDAO<Reserve> {
     boolean save(Reserve reserveDTO, String studentId, String roomId);
 
     String checkStudentEligibility(String studentId);
+
+    String checkReservation(String id);
 }

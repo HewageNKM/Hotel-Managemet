@@ -83,19 +83,23 @@ public class CheckOutController {
 
     @FXML
     void checkOutBrnOnAction(ActionEvent event) {
-        if (customTM != null) {
-            if(customTM.getPaymentStatus().equals("Not Paid")){
-                new Alert(Alert.AlertType.WARNING, "Payment Haven't Paid !", ButtonType.OK).show();
-            }else {
-                checkOutService.checkOut(customTM);
-                new Alert(Alert.AlertType.INFORMATION, "Check Out Successfully !", ButtonType.OK).show();
-                checkOutTable.getItems().clear();
-                idFld.clear();
-            }
+        new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure ?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
+            if (buttonType == ButtonType.YES) {
+                if (customTM != null) {
+                    if(customTM.getPaymentStatus().equals("Not Paid")){
+                        new Alert(Alert.AlertType.WARNING, "Payment Haven't Paid !", ButtonType.OK).show();
+                    }else {
+                        checkOutService.checkOut(customTM);
+                        new Alert(Alert.AlertType.INFORMATION, "Check Out Successfully !", ButtonType.OK).show();
+                        checkOutTable.getItems().clear();
+                        idFld.clear();
+                    }
 
-        }else {
-            new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
-        }
+                }else {
+                    new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
+                }
+            }
+        });
     }
 
 }

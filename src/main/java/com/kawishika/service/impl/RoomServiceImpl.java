@@ -90,4 +90,14 @@ public class RoomServiceImpl implements RoomService {
     public boolean delete(RoomDTO dto, String roomId) {
         return roomDAO.delete(new Room(dto.getRoom_Number(), dto.getStatus()), roomId);
     }
+
+    @Override
+    public ArrayList<RoomTM> search(String searchPhrase) {
+        ArrayList<CustomDTO> all = roomDAO.search(searchPhrase);
+        ArrayList<RoomTM> roomTMS = new ArrayList<>();
+        for (CustomDTO customDTO : all) {
+            roomTMS.add(new RoomTM(customDTO.getRoomId(), customDTO.getRoomNumber(), customDTO.getType(), customDTO.getStatus(), new Button("Edit"), new Button("Delete")));
+        }
+        return roomTMS;
+    }
 }

@@ -239,7 +239,14 @@ public class RoomFormController {
 
     @FXML
     void searchOnAction() {
-
+        if(!searchFld.getText().isEmpty()) {
+            ArrayList<RoomTM> search = roomService.search(searchFld.getText());
+            roomTable.getItems().clear();
+            roomTable.getItems().addAll(FXCollections.observableArrayList(search));
+        }else {
+            roomTable.getItems().clear();
+            loadTable();
+        }
     }
 
     @FXML

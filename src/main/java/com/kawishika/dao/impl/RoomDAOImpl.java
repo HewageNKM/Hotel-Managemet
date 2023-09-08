@@ -162,4 +162,23 @@ public class RoomDAOImpl implements RoomDAO {
         session.close();
         return ts;
     }
+
+    @Override
+    public ArrayList<CustomDTO> search(String searchPhrase) {
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        ArrayList<CustomDTO> ts = new ArrayList<>();
+        NativeQuery nativeQuery = session.createNativeQuery("SELECT Room_Number, Status, Room_ID, Room_Type FROM room inner join d24.roomcategory r on room.roomCategory_Room_ID = r.Room_ID where Room_Number like ? or Status like ? or Room_ID like ? or Room_Type like ?");
+        nativeQuery.setParameter(1, "%" + searchPhrase + "%");
+        nativeQuery.setParameter(2, "%" + searchPhrase + "%");
+        nativeQuery.setParameter(3, "%" + searchPhrase + "%");
+        nativeQuery.setParameter(4, "%" + searchPhrase + "%");
+        ArrayList<Object[]> objects = (ArrayList<Object[]>) nativeQuery.list();
+        for (Object[] object : objects) {
+            ts.add(new CustomDTO((String) object[0], (String) object[1], (String) object[2], (String) object[3]));
+        }
+        transaction.commit();
+        session.close();
+        return ts;
+    }
 }

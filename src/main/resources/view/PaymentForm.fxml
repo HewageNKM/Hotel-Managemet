@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="pane" prefHeight="560.0" prefWidth="940.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.PaymentController">
+    <AnchorPane layoutX="66.0" layoutY="39.0" prefHeight="500.0" prefWidth="800.0" styleClass="curvePane">
+        <TextField fx:id="idFld" layoutX="289.0" layoutY="16.0" onKeyReleased="#searchBtnOnAction" prefHeight="40.0" prefWidth="220.0" promptText="Search" styleClass="loginTextFld" />
+        <TableView fx:id="paymentTable" layoutX="11.0" layoutY="61.0" prefHeight="425.0" prefWidth="770.0">
+            <columns>
+                <TableColumn fx:id="rIdColumn" prefWidth="152.6666488647461" text="Reserve ID" />
+                <TableColumn fx:id="sIdColumn" prefWidth="151.33331298828125" text="Student ID" />
+                <TableColumn fx:id="roomNumberColumn" prefWidth="101.33331298828125" text="Room No" />
+                <TableColumn fx:id="totalColumn" prefWidth="177.33328247070312" text="Total" />
+                <TableColumn fx:id="paymentStatus" prefWidth="134.0" text="Payment Status" />
+                <TableColumn fx:id="actionColumn" prefWidth="120.0" text="Action" />
+            </columns>
+        </TableView>
+    </AnchorPane>
 </AnchorPane>

@@ -26,4 +26,6 @@ public interface RoomDAO extends CrudDAO<Room> {
 
     boolean delete(Room entity,String roomId);
     ArrayList<CustomDTO> getAll();
+
+    ArrayList<CustomDTO> search(String searchPhrase);
 }

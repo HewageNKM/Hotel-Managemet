@@ -53,4 +53,9 @@ public class CheckinServiceImpl implements CheckinService {
     public String checkStudentEligibility(String studentId) {
         return checkinDAO.checkStudentEligibility(studentId);
     }
+
+    @Override
+    public String checkReservation(String id) {
+        return checkinDAO.checkReservation(id);
+    }
 }
