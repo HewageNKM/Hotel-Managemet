@@ -4,8 +4,10 @@ import com.kawishika.dao.interfaces.CheckOutDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.entity.Room;
+import com.kawishika.entity.Student;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import java.sql.Date;
@@ -63,5 +65,18 @@ public class CheckOutDAOImpl implements CheckOutDAO {
         session.getTransaction().commit();
         session.close();
         return dto;
+    }
+
+    @Override
+    public ArrayList<String> getMail(CustomTM customTM) {
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Student student = session.get(Student.class, customTM.getStudentId());
+        ArrayList<String> mail = new ArrayList<>();
+        mail.add(student.getStudent_Email());
+        mail.add(student.getStudent_Name());
+        transaction.commit();
+        session.close();
+        return mail;
     }
 }

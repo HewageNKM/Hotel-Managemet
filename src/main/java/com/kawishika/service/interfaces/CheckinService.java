@@ -20,4 +20,6 @@ public interface CheckinService extends SuperService {
     String checkStudentEligibility(String studentId);
 
     String checkReservation(String id);
+
+    void sendReceipt(ReserveDTO reserveDTO, String text, String roomNumber);
 }

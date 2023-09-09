@@ -2,9 +2,12 @@ package com.kawishika.dao.impl;
 
 import com.kawishika.dao.interfaces.PaymentDAO;
 import com.kawishika.dto.CustomDTO;
+import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.entity.Reserve;
+import com.kawishika.entity.Student;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import java.util.ArrayList;
@@ -87,5 +90,18 @@ public class PaymentDAOImpl implements PaymentDAO {
         session.getTransaction().commit();
         session.close();
         return true;
+    }
+
+    @Override
+    public ArrayList<String> getMail(CustomTM selectedItem) {
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Student student = session.get(Student.class, selectedItem.getStudentId());
+        ArrayList<String> mail = new ArrayList<>();
+        mail.add(student.getStudent_Email());
+        mail.add(student.getStudent_Name());
+        transaction.commit();
+        session.close();
+        return mail;
     }
 }

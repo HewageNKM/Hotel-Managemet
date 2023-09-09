@@ -21,4 +21,6 @@ public interface CheckinDAO extends CrudDAO<Reserve> {
     String checkStudentEligibility(String studentId);
 
     String checkReservation(String id);
+
+    ArrayList<String> getMail(String studentId);
 }

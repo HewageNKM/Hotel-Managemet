@@ -6,6 +6,7 @@ import com.kawishika.dao.interfaces.PaymentDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.interfaces.PaymentService;
+import com.kawishika.util.Mail;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
@@ -54,5 +55,16 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public boolean update(String reserveId) {
         return paymentDAO.update(reserveId);
+    }
+
+    @Override
+    public void sendReceipt(CustomTM selectedItem) {
+        ArrayList<String> mail = paymentDAO.getMail(selectedItem);
+        String message = "Dear "+mail.get(1)+",\n\n" +
+                "Payment Received"+"\n"+"Thank you for choosing our service.\n\n" +
+                "Best Regards,\n" +
+                "The D24 Hostel";
+        String subject = "Payment Received";
+        Mail.getInstance().sendMail(mail.get(0), subject, message);
     }
 }

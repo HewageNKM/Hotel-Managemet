@@ -6,7 +6,10 @@ import com.kawishika.dao.interfaces.CheckOutDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.interfaces.CheckOutService;
+import com.kawishika.util.Mail;
 import com.kawishika.util.Regex;
+
+import java.util.ArrayList;
 
 import static com.kawishika.dao.DAOFactory.DAOType.CHECKOUT;
 
@@ -29,5 +32,16 @@ public class CheckOutServiceImpl implements CheckOutService {
     @Override
     public void checkOut(CustomTM customTM) {
         checkOutDAO.update(customTM);
+    }
+
+    @Override
+    public void sendReceipt(CustomTM customTM) {
+        ArrayList<String> mail = checkOutDAO.getMail(customTM);
+        String message = "Dear "+mail.get(1)+",\n\n" +
+                "Thank you for choosing our service.\n\n" +
+                "Best Regards,\n" +
+                "The D24 Hostel";
+        String subject = "Check Out Successful";
+        Mail.getInstance().sendMail(mail.get(0), subject, message);
     }
 }

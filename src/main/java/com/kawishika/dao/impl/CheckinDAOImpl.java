@@ -85,7 +85,7 @@ public class CheckinDAOImpl implements CheckinDAO {
         Reserve reserve = session.get(Reserve.class, id);
         transaction.commit();
         session.close();
-        return reserve == null;
+        return reserve != null;
     }
 
     @Override
@@ -130,5 +130,18 @@ public class CheckinDAOImpl implements CheckinDAO {
         transaction.commit();
         session.close();
         return "Inactive";
+    }
+
+    @Override
+    public ArrayList<String> getMail(String studentId) {
+        Session session = SessionConfigureFactory.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Student student = session.get(Student.class, studentId);
+        ArrayList<String> mail = new ArrayList<>();
+        mail.add(student.getStudent_Email());
+        mail.add(student.getStudent_Name());
+        transaction.commit();
+        session.close();
+        return mail;
     }
 }

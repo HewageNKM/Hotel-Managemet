@@ -9,7 +9,7 @@ public class Regex {
     private static final String STUDENT_ID_REGEX = "^(stm|stf)\\d{7}$";
     private static final String DOUBLE_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";
     private static final String ROOM_NUMBER_REGEX = "^R\\d{3}$";
-    private static final String RESERVE_ID_REGEX = "^RE\\d{12}$";
+    private static final String RESERVE_ID_REGEX = "^RE\\d{14}$";
 
     public static boolean validateEmail(String email) {
         return email.matches(EMAIL_REGEX);

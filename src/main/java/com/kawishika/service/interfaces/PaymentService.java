@@ -11,4 +11,6 @@ public interface PaymentService extends SuperService {
     ArrayList<CustomTM> search(String searchPhrase);
 
     boolean update(String reserveId);
+
+    void sendReceipt(CustomTM selectedItem);
 }

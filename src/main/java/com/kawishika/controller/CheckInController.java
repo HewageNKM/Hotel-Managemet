@@ -6,15 +6,14 @@ import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.CheckinServiceImpl;
 import com.kawishika.service.interfaces.CheckinService;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -51,9 +50,11 @@ public class CheckInController {
     private Double total;
     @FXML
     private Label totalLabel;
+    private String reserveId;
     private final Stage stage = new Stage();
 
     public void initialize() {
+        reserveId = checkinService.getReserveId();
         loadPane();
         setBoxValues();
         setRoomTypeBoxListener();
@@ -127,7 +128,7 @@ public class CheckInController {
     }
 
     @FXML
-    void clearBtnAction(ActionEvent event) {
+    void clearBtnAction() {
         idFld.clear();
         checkInPicker.getEditor().clear();
         checkOutPicker.getEditor().clear();
@@ -144,6 +145,13 @@ public class CheckInController {
         roomIdLabel.setStyle("-fx-border-color: none");
         roomCostLabel.setStyle("-fx-border-color: none");
         totalLabel.setStyle("-fx-border-color: none");
+        paymentOptionBox.setPromptText("Payment Option");
+        roomTypeBox.setPromptText("Room Type");
+        roomNumberLabel.setText("Room No:");
+        roomIdLabel.setText("Room ID:");
+        roomCostLabel.setText("Cost Per Week:");
+        totalLabel.setText("Total:");
+        roomTypeBox.setPromptText("Room Type");
     }
 
     @FXML
@@ -179,9 +187,12 @@ public class CheckInController {
                 new Alert(Alert.AlertType.ERROR, "Student Has Active Reservation !").show();
                 return;
             }
-            checkinService.save(new ReserveDTO(checkinService.getReserveId(), Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active"), idFld.getText(), roomNumber);
+            checkinService.save(new ReserveDTO(reserveId, Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active"), idFld.getText(), roomNumber);
+            ReserveDTO dto = new ReserveDTO(reserveId, Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active");
+            checkinService.sendReceipt(dto, idFld.getText(), roomNumber);
+            clearBtnAction();
+            reserveId = checkinService.getReserveId();
             new Alert(Alert.AlertType.INFORMATION, "Reserved Successfully !").show();
-            clearBtnAction(event);
         } else {
             new Alert(Alert.AlertType.ERROR, "Please Fill All The Fields Correctly !").show();
         }

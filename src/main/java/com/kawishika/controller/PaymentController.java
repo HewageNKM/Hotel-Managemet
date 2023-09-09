@@ -33,6 +33,7 @@ public class PaymentController {
 
     private void loadTable() {
         ArrayList<CustomTM> all = paymentService.getAll();
+        paymentTable.getItems().clear();
         for (CustomTM customTM : all) {
             setActionBtnAction(customTM.getReceived());
         }
@@ -76,11 +77,18 @@ public class PaymentController {
             CustomTM selectedItem = paymentTable.getSelectionModel().getSelectedItem();
             if (selectedItem != null){
                 new Alert(Alert.AlertType.CONFIRMATION,"Are You Sure ?", ButtonType.YES,ButtonType.NO).showAndWait().ifPresent(buttonType -> {
+                    if (selectedItem.getPaymentStatus().equals("Paid")){
+                        new Alert(Alert.AlertType.WARNING,"Already Paid !", ButtonType.OK).show();
+                        return;
+                    }
                     if (buttonType == ButtonType.YES){
                         if(paymentService.update(selectedItem.getReserveId())){
                             new Alert(Alert.AlertType.INFORMATION,"Payment Received !", ButtonType.OK).show();
-                            loadTable();
                             idFld.clear();
+                            new Thread(() -> {
+                               paymentService.sendReceipt(selectedItem);
+                            }).start();
+                            loadTable();
                         }else {
                             new Alert(Alert.AlertType.WARNING,"Something Went Wrong !", ButtonType.OK).show();
                         }

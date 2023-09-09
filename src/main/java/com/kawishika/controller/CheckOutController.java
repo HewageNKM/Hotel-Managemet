@@ -93,8 +93,10 @@ public class CheckOutController {
                         new Alert(Alert.AlertType.INFORMATION, "Check Out Successfully !", ButtonType.OK).show();
                         checkOutTable.getItems().clear();
                         idFld.clear();
+                        new Thread(() -> {
+                            checkOutService.sendReceipt(customTM);
+                        }).start();
                     }
-
                 }else {
                     new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
                 }

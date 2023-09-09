@@ -9,4 +9,6 @@ public interface CheckOutService extends SuperService {
     CustomTM getReserveDetails(String id);
 
     void checkOut(CustomTM customTM);
+
+    void sendReceipt(CustomTM customTM);
 }

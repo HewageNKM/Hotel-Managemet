@@ -7,6 +7,7 @@ import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.ReserveDTO;
 import com.kawishika.entity.Reserve;
 import com.kawishika.service.interfaces.CheckinService;
+import com.kawishika.util.Mail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,13 +41,19 @@ public class CheckinServiceImpl implements CheckinService {
 
     @Override
     public String getReserveId() {
+        String id;
         while (true) {
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-            String formattedDateTime = currentDateTime.format(formatter);
-            String id = "RE" + formattedDateTime;
-            if (checkinDAO.checkReserveId(id))return id;
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            LocalDateTime now = LocalDateTime.now();
+            String formattedDateTime = dtf.format(now);
+            id = "RE" + formattedDateTime;
+            if (checkinDAO.checkReserveId(id)) {
+                continue;
+            }else {
+                break;
+            }
         }
+        return id;
     }
 
     @Override
@@ -58,4 +65,22 @@ public class CheckinServiceImpl implements CheckinService {
     public String checkReservation(String id) {
         return checkinDAO.checkReservation(id);
     }
+
+    @Override
+    public void sendReceipt(ReserveDTO reserveDTO, String studentId, String roomNumber) {
+        ArrayList<String> mail = checkinDAO.getMail(studentId);
+        String subject = "Reserve Successful";
+        String message = "Dear "+mail.get(1)+",\n\n" +
+                "Reserve ID : " + reserveDTO.getReserve_ID() + "\n" +
+                "Reserve Date : " + reserveDTO.getReserve_Date() + "\n" +
+                "Check Out Date : " + reserveDTO.getCheckOut_Date() + "\n" +
+                "Total : " + reserveDTO.getTotal() + "\n" +
+                "Payment Status : " + reserveDTO.getPayment_Status() + "\n" +
+                "Student ID : " + studentId + "\n" +
+                "Room Number : " + roomNumber + "\n\n"+"Thank You For Choosing Us !"+"\n\n"+
+                "Have A Nice Day !"+"\n"+
+                "The D24";
+        Mail.getInstance().sendMail(mail.get(0),subject,message);
+    }
+
 }
