@@ -12,7 +12,6 @@ import com.kawishika.util.Mail;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static com.kawishika.dao.DAOFactory.DAOType.CHECKIN;
 
@@ -36,7 +35,7 @@ public class CheckinServiceImpl implements CheckinService {
 
     @Override
     public boolean save(ReserveDTO reserveDTO, String studentId, String roomNumber) {
-        return checkinDAO.save(new Reserve(reserveDTO.getReserve_ID(),reserveDTO.getReserve_Date(),reserveDTO.getCheckOut_Date(),reserveDTO.getTotal(),reserveDTO.getPayment_Status(),reserveDTO.getStatus()),studentId,roomNumber);
+        return checkinDAO.save(new Reserve(reserveDTO.getReserve_ID(), reserveDTO.getReserve_Date(), reserveDTO.getCheckOut_Date(), reserveDTO.getTotal(), reserveDTO.getPayment_Status(), reserveDTO.getStatus()), studentId, roomNumber);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class CheckinServiceImpl implements CheckinService {
             id = "RE" + formattedDateTime;
             if (checkinDAO.checkReserveId(id)) {
                 continue;
-            }else {
+            } else {
                 break;
             }
         }
@@ -70,17 +69,17 @@ public class CheckinServiceImpl implements CheckinService {
     public void sendReceipt(ReserveDTO reserveDTO, String studentId, String roomNumber) {
         ArrayList<String> mail = checkinDAO.getMail(studentId);
         String subject = "Reserve Successful";
-        String message = "Dear "+mail.get(1)+",\n\n" +
+        String message = "Dear " + mail.get(1) + ",\n\n" +
                 "Reserve ID : " + reserveDTO.getReserve_ID() + "\n" +
                 "Reserve Date : " + reserveDTO.getReserve_Date() + "\n" +
                 "Check Out Date : " + reserveDTO.getCheckOut_Date() + "\n" +
                 "Total : " + reserveDTO.getTotal() + "\n" +
                 "Payment Status : " + reserveDTO.getPayment_Status() + "\n" +
                 "Student ID : " + studentId + "\n" +
-                "Room Number : " + roomNumber + "\n\n"+"Thank You For Choosing Us !"+"\n\n"+
-                "Have A Nice Day !"+"\n"+
+                "Room Number : " + roomNumber + "\n\n" + "Thank You For Choosing Us !" + "\n\n" +
+                "Have A Nice Day !" + "\n" +
                 "The D24";
-        Mail.getInstance().sendMail(mail.get(0),subject,message);
+        Mail.getInstance().sendMail(mail.get(0), subject, message);
     }
 
 }

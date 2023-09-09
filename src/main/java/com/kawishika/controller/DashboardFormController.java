@@ -78,7 +78,6 @@ public class DashboardFormController {
     }
 
     private void loadLineChart() {
-        new Thread(()->{
             XYChart.Series<String,Number> series = new XYChart.Series<>();
             series.setName("Payments");
             ArrayList<Integer> lineChartData = dashboardService.getLineChartData();
@@ -94,10 +93,8 @@ public class DashboardFormController {
             series.getData().add(new XYChart.Data<>("October", lineChartData.get(9)));
             series.getData().add(new XYChart.Data<>("November", lineChartData.get(10)));
             series.getData().add(new XYChart.Data<>("December", lineChartData.get(11)));
-            Platform.runLater(()->{System.out.println(lineChartData);
                 barChart.getData().add(series);
-            });
-        }).start();;
+
     }
 
     private void loadPane() {

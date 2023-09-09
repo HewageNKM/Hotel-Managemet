@@ -112,31 +112,35 @@ public class CreateAccountController {
         if (createAccountService.validateEmail(emailFld.getText())) {
             new Alert(Alert.AlertType.ERROR, "Please Enter Valid User Name!").show();
         }else {
-            createAccountService.sendCode(emailFld.getText());
-            email = emailFld.getText();
-            emailFld.clear();
-            userNameFld.setDisable(true);
-            emailFld.setPromptText("Code");
-            sendBtn.setDisable(true);
-            new Alert(Alert.AlertType.INFORMATION,"Code Send Successfully!").show();
-            counter = new Thread(() -> {
-                for (int i = 60; i >= 0; i--) {
-                    int finalI = i;
-                    Platform.runLater(() -> {
-                        sendBtn.setText(String.valueOf(finalI));
-                        if (finalI == 0) {
-                            sendBtn.setDisable(false);
-                            sendBtn.setText("Resend Code");
+            if (createAccountService.validateEmail(emailFld.getText())) {
+                createAccountService.sendCode(emailFld.getText());
+                email = emailFld.getText();
+                emailFld.clear();
+                userNameFld.setDisable(true);
+                emailFld.setPromptText("Code");
+                sendBtn.setDisable(true);
+                new Alert(Alert.AlertType.INFORMATION, "Code Send Successfully!").show();
+                counter = new Thread(() -> {
+                    for (int i = 60; i >= 0; i--) {
+                        int finalI = i;
+                        Platform.runLater(() -> {
+                            sendBtn.setText(String.valueOf(finalI));
+                            if (finalI == 0) {
+                                sendBtn.setDisable(false);
+                                sendBtn.setText("Resend Code");
+                            }
+                        });
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            break;
                         }
-                    });
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        break;
                     }
-                }
-            });
-            counter.start();
+                });
+                counter.start();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Please Enter Valid Email!").show();
+            }
         }
     }
 }

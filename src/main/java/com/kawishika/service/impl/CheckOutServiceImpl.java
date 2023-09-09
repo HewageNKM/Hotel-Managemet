@@ -17,7 +17,7 @@ public class CheckOutServiceImpl implements CheckOutService {
     private final CheckOutDAO checkOutDAO = (CheckOutDAOImpl) DAOFactory.getInstance().getDAO(CHECKOUT);
     @Override
     public boolean checkId(String id) {
-        return Regex.validateStudentId(id) | Regex.validateReserveId(id);
+        return Regex.validateStudentId(id) | Regex.validateReserveId(id) | Regex.validateRoomNumber(id);
     }
 
     @Override

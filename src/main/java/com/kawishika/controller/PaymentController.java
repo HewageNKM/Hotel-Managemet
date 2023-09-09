@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static com.kawishika.service.ServiceFactory.ServiceType.PAYMENT;
 
 public class PaymentController {
+    private final PaymentService paymentService = (PaymentServiceImpl) ServiceFactory.getInstance().getService(PAYMENT);
     public AnchorPane pane;
     public TextField idFld;
     public TableView<CustomTM> paymentTable;
@@ -22,10 +23,9 @@ public class PaymentController {
     public TableColumn totalColumn;
     public TableColumn roomNumberColumn;
     public TableColumn paymentStatus;
-    private final PaymentService paymentService =(PaymentServiceImpl) ServiceFactory.getInstance().getService(PAYMENT);
     public TableColumn actionColumn;
 
-    public void initialize(){
+    public void initialize() {
         setCellValueFactory();
         loadTable();
         loadPane();
@@ -59,10 +59,10 @@ public class PaymentController {
     }
 
     public void searchBtnOnAction() {
-        if (idFld.getText().trim().isEmpty()){
+        if (idFld.getText().trim().isEmpty()) {
             paymentTable.getItems().clear();
             loadTable();
-        }else {
+        } else {
             paymentTable.getItems().clear();
             ArrayList<CustomTM> all = paymentService.search(idFld.getText());
             for (CustomTM customTM : all) {
@@ -75,27 +75,27 @@ public class PaymentController {
     private void setActionBtnAction(Button received) {
         received.setOnAction(event -> {
             CustomTM selectedItem = paymentTable.getSelectionModel().getSelectedItem();
-            if (selectedItem != null){
-                new Alert(Alert.AlertType.CONFIRMATION,"Are You Sure ?", ButtonType.YES,ButtonType.NO).showAndWait().ifPresent(buttonType -> {
-                    if (selectedItem.getPaymentStatus().equals("Paid")){
-                        new Alert(Alert.AlertType.WARNING,"Already Paid !", ButtonType.OK).show();
+            if (selectedItem != null) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure ?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
+                    if (selectedItem.getPaymentStatus().equals("Paid")) {
+                        new Alert(Alert.AlertType.WARNING, "Already Paid !", ButtonType.OK).show();
                         return;
                     }
-                    if (buttonType == ButtonType.YES){
-                        if(paymentService.update(selectedItem.getReserveId())){
-                            new Alert(Alert.AlertType.INFORMATION,"Payment Received !", ButtonType.OK).show();
+                    if (buttonType == ButtonType.YES) {
+                        if (paymentService.update(selectedItem.getReserveId())) {
+                            new Alert(Alert.AlertType.INFORMATION, "Payment Received !", ButtonType.OK).show();
                             idFld.clear();
                             new Thread(() -> {
-                               paymentService.sendReceipt(selectedItem);
+                                paymentService.sendReceipt(selectedItem);
                             }).start();
                             loadTable();
-                        }else {
-                            new Alert(Alert.AlertType.WARNING,"Something Went Wrong !", ButtonType.OK).show();
+                        } else {
+                            new Alert(Alert.AlertType.WARNING, "Something Went Wrong !", ButtonType.OK).show();
                         }
                     }
                 });
-            }else {
-                new Alert(Alert.AlertType.WARNING,"Please Select a Row !", ButtonType.OK).show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Please Select a Row !", ButtonType.OK).show();
             }
         });
     }

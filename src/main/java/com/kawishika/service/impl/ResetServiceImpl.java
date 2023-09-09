@@ -22,10 +22,10 @@ public class ResetServiceImpl implements ResetService {
         System.out.println(arrayList);
         if (arrayList.get(0).equals("false")) {
             return false;
-        }else {
+        } else {
             Random random = new Random();
             code = random.nextInt(999999);
-            Mail.getInstance().sendMail((String) arrayList.get(1), "Password Reset Code", "Your Password Reset Code is: " + code+"\n\nThank You!\nThe D24 Hostel");
+            Mail.getInstance().sendMail(arrayList.get(1), "Password Reset Code", "Your Password Reset Code is: " + code + "\n\nThank You!\nThe D24 Hostel");
         }
         return true;
     }

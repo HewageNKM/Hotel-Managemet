@@ -17,6 +17,7 @@ import static com.kawishika.service.ServiceFactory.ServiceType.CHECKOUT;
 
 public class CheckOutController {
 
+    private final CheckOutService checkOutService = (CheckOutServiceImpl) ServiceFactory.getInstance().getService(CHECKOUT);
     public TableView<CustomTM> checkOutTable;
     public TableColumn rIdColumn;
     public TableColumn sIdColumn;
@@ -31,7 +32,7 @@ public class CheckOutController {
     private CustomTM customTM = null;
     @FXML
     private TableColumn<?, ?> totalColumn;
-    private final CheckOutService checkOutService = (CheckOutServiceImpl) ServiceFactory.getInstance().getService(CHECKOUT);
+
     public void initialize() {
         loadPane();
         setCellValueFactory();
@@ -68,15 +69,15 @@ public class CheckOutController {
 
     @FXML
     void checkBtnOnAction(ActionEvent event) {
-        if(checkOutService.checkId(idFld.getText())){
-           customTM = checkOutService.getReserveDetails(idFld.getText());
-           if (customTM == null) {
-               new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
-               return;
-           }
-              checkOutTable.getItems().clear();
-              checkOutTable.getItems().add(customTM);
-        }else {
+        if (checkOutService.checkId(idFld.getText())) {
+            customTM = checkOutService.getReserveDetails(idFld.getText());
+            if (customTM == null) {
+                new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
+                return;
+            }
+            checkOutTable.getItems().clear();
+            checkOutTable.getItems().add(customTM);
+        } else {
             new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
         }
     }
@@ -86,9 +87,9 @@ public class CheckOutController {
         new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure ?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.YES) {
                 if (customTM != null) {
-                    if(customTM.getPaymentStatus().equals("Not Paid")){
+                    if (customTM.getPaymentStatus().equals("Not Paid")) {
                         new Alert(Alert.AlertType.WARNING, "Payment Haven't Paid !", ButtonType.OK).show();
-                    }else {
+                    } else {
                         checkOutService.checkOut(customTM);
                         new Alert(Alert.AlertType.INFORMATION, "Check Out Successfully !", ButtonType.OK).show();
                         checkOutTable.getItems().clear();
@@ -97,7 +98,7 @@ public class CheckOutController {
                             checkOutService.sendReceipt(customTM);
                         }).start();
                     }
-                }else {
+                } else {
                     new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
                 }
             }

@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -27,12 +26,12 @@ public class MainFormController {
         loadPane();
         loadDashboard();
         setDateTime();
-        userNameLabel.setText("Hi, "+userName);
+        userNameLabel.setText("Hi, " + userName);
     }
 
     private void setDateTime() {
         new Thread(() -> {
-            while (true){
+            while (true) {
                 Platform.runLater(() -> {
                     LocalDateTime currentDateTime = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
@@ -89,8 +88,8 @@ public class MainFormController {
     }
 
     public void logOutBtnOnAction() {
-        new Alert(Alert.AlertType.INFORMATION, "You are already log out !", ButtonType.YES,ButtonType.NO).showAndWait().ifPresent(buttonType -> {
-            if (buttonType.equals(ButtonType.YES)){
+        new Alert(Alert.AlertType.INFORMATION, "You are already log out !", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
+            if (buttonType.equals(ButtonType.YES)) {
                 Stage stage = (Stage) pane.getScene().getWindow();
                 try {
                     stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginForm.fxml")))));

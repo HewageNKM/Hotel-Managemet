@@ -6,7 +6,6 @@ import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.CheckinServiceImpl;
 import com.kawishika.service.interfaces.CheckinService;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +25,7 @@ import static com.kawishika.service.ServiceFactory.ServiceType.CHECKIN;
 public class CheckInController {
 
     private final CheckinService checkinService = (CheckinServiceImpl) ServiceFactory.getInstance().getService(CHECKIN);
+    private final Stage stage = new Stage();
     @FXML
     private Label roomNumberLabel;
     @FXML
@@ -51,7 +51,6 @@ public class CheckInController {
     @FXML
     private Label totalLabel;
     private String reserveId;
-    private final Stage stage = new Stage();
 
     public void initialize() {
         reserveId = checkinService.getReserveId();
@@ -179,11 +178,11 @@ public class CheckInController {
     @FXML
     void reserveBtnOnAction(ActionEvent event) {
         if (validateDetails()) {
-            if(checkinService.checkStudentEligibility(idFld.getText()).equals("Blacklist")){
+            if (checkinService.checkStudentEligibility(idFld.getText()).equals("Blacklist")) {
                 new Alert(Alert.AlertType.ERROR, "Student Has Blacklisted !").show();
                 return;
             }
-            if(checkinService.checkReservation(idFld.getText()).equals("Active")){
+            if (checkinService.checkReservation(idFld.getText()).equals("Active")) {
                 new Alert(Alert.AlertType.ERROR, "Student Has Active Reservation !").show();
                 return;
             }

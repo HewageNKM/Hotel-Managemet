@@ -1,7 +1,5 @@
 package com.kawishika.service.impl;
 
-import com.google.protobuf.DoubleValue;
-import com.kawishika.Main;
 import com.kawishika.dao.DAOFactory;
 import com.kawishika.dao.impl.DashboardDAOImpl;
 import com.kawishika.dao.interfaces.DashboardDAO;
@@ -18,7 +16,8 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class DashboardServiceImpl implements DashboardService {
-    private final DashboardDAO dashboardDAO =(DashboardDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.DASHBOARD);
+    private final DashboardDAO dashboardDAO = (DashboardDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.DASHBOARD);
+
     @Override
     public ArrayList<Integer> getPieData() {
         return dashboardDAO.getPieData();
@@ -39,7 +38,7 @@ public class DashboardServiceImpl implements DashboardService {
         ArrayList<Integer> data = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
             Double count = dashboardDAO.getLineChartData(i);
-            int integer = count.intValue();;
+            int integer = count.intValue();
             data.add(integer);
         }
         return data;
@@ -55,15 +54,15 @@ public class DashboardServiceImpl implements DashboardService {
             LocalDate checkOut = checkOutDate.toLocalDate();
             Period period = Period.between(today, checkOut);
             int days = period.getDays();
-            if (days==0) {
-                notifications.add(detail.getReserve_ID() + " is checking out today("+detail.getCheckOut_Date()+")");
+            if (days == 0) {
+                notifications.add(detail.getReserve_ID() + " is checking out today(" + detail.getCheckOut_Date() + ")");
             }
-            if (days==5) {
+            if (days == 5) {
                 String mail = dashboardDAO.getMail(detail.getReserve_ID());
-                notifications.add(detail.getReserve_ID() + " Contract is going to expire in 5 days("+detail.getCheckOut_Date()+")");
+                notifications.add(detail.getReserve_ID() + " Contract is going to expire in 5 days(" + detail.getCheckOut_Date() + ")");
                 if (TempMails.check(mail)) {
                     continue;
-                }else {
+                } else {
                     Mail.getInstance().sendMail(mail, "Contract", "Your contract is going to expire in 5 days. Please contact the office for more details.\n\n\n Thank you.\n The D24 Hotel");
                     TempMails.add(mail);
                 }

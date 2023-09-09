@@ -96,7 +96,11 @@ public class DashboardDAOImpl implements DashboardDAO {
             transaction.commit();
             session.close();
         }catch (NullPointerException e){
+            transaction.commit();
+            session.close();
             return 0.0;
         }
-        return count;}
+        session.close();
+        return count;
+    }
 }

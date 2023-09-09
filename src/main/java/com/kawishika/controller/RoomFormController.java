@@ -233,17 +233,17 @@ public class RoomFormController {
         statusBox.setStyle("-fx-border-color: none");
         roomIdBox.setDisable(false);
         statusBox.setDisable(false);
-        roomIdBox.setPlaceholder(new Label("Select Room ID"));
-        statusBox.setPlaceholder(new Label("Select Status"));
+        roomIdBox.setPromptText("Room ID: ");
+        statusBox.setPromptText("Status");
     }
 
     @FXML
     void searchOnAction() {
-        if(!searchFld.getText().isEmpty()) {
+        if (!searchFld.getText().isEmpty()) {
             ArrayList<RoomTM> search = roomService.search(searchFld.getText());
             roomTable.getItems().clear();
             roomTable.getItems().addAll(FXCollections.observableArrayList(search));
-        }else {
+        } else {
             roomTable.getItems().clear();
             loadTable();
         }

@@ -14,11 +14,12 @@ import java.util.Random;
 public class CreateAccountServiceImpl implements CreateAccountService {
     private static final CreateAccountDAOImpl createAccountDAO = (CreateAccountDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CREATE_ACCOUNT);
     private Integer code;
+
     @Override
     public boolean sendCode(String emailFldText) {
         Random random = new Random();
         code = random.nextInt(999999);
-        Mail.getInstance().sendMail(emailFldText, "Account Verification Code", "Your Account Verification Code is: " + code+"\n\nThank You!\nThe D24 Hostel");
+        Mail.getInstance().sendMail(emailFldText, "Account Verification Code", "Your Account Verification Code is: " + code + "\n\nThank You!\nThe D24 Hostel");
         return true;
     }
 

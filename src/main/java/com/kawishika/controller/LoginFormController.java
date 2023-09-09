@@ -25,13 +25,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class LoginFormController {
     private final Stage stage = new Stage();
+    private final LoginService loginService = (LoginServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.LOGIN);
     public Label welcomeLabel;
     public AnchorPane pane;
     public TextField passwordFld;
     public TextField userNameFld;
     public CheckBox passwordCheckBox;
     public PasswordField passwordFldMask;
-    private final LoginService loginService = (LoginServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.LOGIN);
+
     public void initialize() {
         new Thread(() -> {
             Session session = SessionConfigureFactory.getInstance().getSession();

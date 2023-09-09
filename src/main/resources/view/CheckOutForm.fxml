@@ -17,8 +17,8 @@
       </graphic>
    </Button>
     <AnchorPane layoutX="94.0" layoutY="39.0" prefHeight="500.0" prefWidth="800.0" styleClass="curvePane">
-        <TextField fx:id="idFld" layoutX="205.0" layoutY="16.0" onAction="#checkBtnOnAction" prefHeight="40.0" prefWidth="220.0" promptText="Reserve ID/ Student ID" styleClass="loginTextFld" />
-        <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#checkBtnOnAction" prefHeight="28.0" prefWidth="67.0" styleClass="loginBtn" text="Check" />
+        <TextField fx:id="idFld" layoutX="198.0" layoutY="16.0" onAction="#checkBtnOnAction" prefHeight="40.0" prefWidth="300.0" promptText="Reserve ID/ Student ID/Room Number" styleClass="loginTextFld" />
+        <Button layoutX="510.0" layoutY="14.0" mnemonicParsing="false" onAction="#checkBtnOnAction" prefHeight="28.0" prefWidth="67.0" styleClass="loginBtn" text="Check" />
         <Button layoutX="675.0" layoutY="438.0" mnemonicParsing="false" onAction="#checkOutBrnOnAction" prefHeight="42.0" prefWidth="87.0" styleClass="loginBtn" text="Check-Out" />
         <TableView fx:id="checkOutTable" layoutX="11.0" layoutY="61.0" prefHeight="370.0" prefWidth="770.0">
             <columns>

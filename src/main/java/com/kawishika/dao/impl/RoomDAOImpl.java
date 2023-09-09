@@ -11,7 +11,6 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoomDAOImpl implements RoomDAO {
     @Override
@@ -33,7 +32,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean delete(Room entity) {
-       return false;
+        return false;
     }
 
     @Override

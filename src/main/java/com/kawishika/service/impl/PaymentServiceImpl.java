@@ -60,8 +60,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void sendReceipt(CustomTM selectedItem) {
         ArrayList<String> mail = paymentDAO.getMail(selectedItem);
-        String message = "Dear "+mail.get(1)+",\n\n" +
-                "Payment Received"+"\n"+"Thank you for choosing our service.\n\n" +
+        String message = "Dear " + mail.get(1) + ",\n\n" +
+                "Payment Received" + "\n" + "Thank you for choosing our service.\n\n" +
                 "Best Regards,\n" +
                 "The D24 Hostel";
         String subject = "Payment Received";

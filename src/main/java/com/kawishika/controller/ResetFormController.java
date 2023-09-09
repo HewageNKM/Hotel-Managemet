@@ -16,12 +16,10 @@ public class ResetFormController {
     public TextField passwordUnmask;
     public TextField userNameFld;
     public PasswordField passwordMask;
-    public AnchorPane waitingPane;
     private Thread counter;
 
 
     public void initialize() {
-        waitingPane.setVisible(false);
         setPasswordUnmask();
     }
 

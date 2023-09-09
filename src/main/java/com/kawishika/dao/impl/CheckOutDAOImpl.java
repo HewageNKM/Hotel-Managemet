@@ -13,7 +13,6 @@ import org.hibernate.query.NativeQuery;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class CheckOutDAOImpl implements CheckOutDAO {
     @Override
@@ -51,12 +50,15 @@ public class CheckOutDAOImpl implements CheckOutDAO {
     @Override
     public CustomDTO getReserveDetails(String id) {
         Session session = SessionConfigureFactory.getInstance().getSession();
-        session.beginTransaction();
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT r.Reserve_ID, r.student_Student_ID, r.room_Room_Number, r.Total,r.Payment_Status, r.Reserve_Date, r.CheckOut_Date FROM reserve r WHERE (r.Reserve_ID = ? or r.student_Student_ID = ?) and r.Status = 'Active' limit 1");
+        Transaction transaction = session.beginTransaction();
+        NativeQuery nativeQuery = session.createNativeQuery("SELECT r.Reserve_ID, r.student_Student_ID, r.room_Room_Number, r.Total,r.Payment_Status, r.Reserve_Date, r.CheckOut_Date FROM reserve r WHERE (r.Reserve_ID = ? or r.student_Student_ID = ? or room_Room_Number = ?) and r.Status = 'Active' limit 1");
         nativeQuery.setParameter(1, id);
         nativeQuery.setParameter(2, id);
+        nativeQuery.setParameter(3, id);
         List resultList = nativeQuery.getResultList();
         if (resultList.isEmpty()) {
+            transaction.commit();
+            session.close();
             return null;
         }
         Object[] object = (Object[]) resultList.get(0);
