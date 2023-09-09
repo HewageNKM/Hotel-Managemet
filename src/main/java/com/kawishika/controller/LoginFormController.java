@@ -4,18 +4,22 @@ import com.kawishika.dto.UserDTO;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.LoginServiceImpl;
 import com.kawishika.service.interfaces.LoginService;
+import com.kawishika.util.SessionConfigureFactory;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.hibernate.Session;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,6 +33,10 @@ public class LoginFormController {
     public PasswordField passwordFldMask;
     private final LoginService loginService = (LoginServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.LOGIN);
     public void initialize() {
+        new Thread(() -> {
+            Session session = SessionConfigureFactory.getInstance().getSession();
+            session.close();
+        }).start();
         loadPane();
         greeting();
         setToolTips();
@@ -93,12 +101,16 @@ public class LoginFormController {
     }
 
     public void loginBtnAction() throws IOException {
-
         if (loginService.verifyLogin(new UserDTO(userNameFld.getText(), passwordFld.getText().trim().isEmpty() ? passwordFldMask.getText() : passwordFld.getText()))) {
             userNameFld.setStyle("-fx-border-color: green");
             passwordFld.setStyle("-fx-border-color: green");
             passwordFldMask.setStyle("-fx-border-color: green");
-            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainForm.fxml")))));
+            URL resource = getClass().getResource("/view/MainForm.fxml");
+            FXMLLoader fxmlLoader = new FXMLLoader(resource);
+            Parent parent = fxmlLoader.load();
+            MainFormController mainFormController = fxmlLoader.getController();
+            mainFormController.initialize(userNameFld.getText().toUpperCase());
+            stage.setScene(new Scene(parent));
             stage.setTitle("Main Form");
             stage.setResizable(false);
             stage.setMaximized(false);

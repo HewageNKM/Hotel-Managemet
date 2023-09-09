@@ -13,4 +13,6 @@ public interface DashboardService extends SuperService {
     ArrayList<CustomTM> getPaymentData();
 
     ArrayList<Integer> getLineChartData();
+
+    ArrayList<String> getNotifications();
 }

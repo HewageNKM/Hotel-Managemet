@@ -12,6 +12,6 @@ public class LoginServiceImpl implements LoginService {
     private final LoginDAO loginDAO  = (LoginDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.LOGIN);
     @Override
     public boolean verifyLogin(UserDTO userDTO) {
-        return loginDAO.verifyLogin(new User(Hashing.getHash(userDTO.getUserName()), Hashing.getHash(userDTO.getPassword())));
+        return loginDAO.verifyLogin(new User(Hashing.getHash(userDTO.getUserName().toLowerCase()), Hashing.getHash(userDTO.getPassword())));
     }
 }

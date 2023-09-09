@@ -16,7 +16,6 @@ public class ResetFormController {
     public TextField passwordUnmask;
     public TextField userNameFld;
     public PasswordField passwordMask;
-    public Label loadingLabel;
     public AnchorPane waitingPane;
     private Thread counter;
 

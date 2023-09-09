@@ -1,22 +1,52 @@
 package com.kawishika.controller;
 
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class MainFormController {
     public AnchorPane pane;
     public Label userNameLabel;
     public AnchorPane root;
+    public Label dateLabel;
 
-    public void initialize(){
+    public void initialize(String userName) {
         loadPane();
         loadDashboard();
+        setDateTime();
+        userNameLabel.setText("Hi, "+userName);
+    }
+
+    private void setDateTime() {
+        new Thread(() -> {
+            while (true){
+                Platform.runLater(() -> {
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+                    String formattedDateTime = currentDateTime.format(formatter);
+                    dateLabel.setText(formattedDateTime);
+                });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }).start();
     }
 
     private void loadDashboard() {
@@ -58,8 +88,22 @@ public class MainFormController {
         }
     }
 
-    public void loginBtnOnAction() {
-
+    public void logOutBtnOnAction() {
+        new Alert(Alert.AlertType.INFORMATION, "You are already log out !", ButtonType.YES,ButtonType.NO).showAndWait().ifPresent(buttonType -> {
+            if (buttonType.equals(ButtonType.YES)){
+                Stage stage = (Stage) pane.getScene().getWindow();
+                try {
+                    stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginForm.fxml")))));
+                    stage.setTitle("Login Form");
+                    stage.setResizable(false);
+                    stage.setMaximized(false);
+                    stage.getIcons().add(new Image("asset/login/loginIcon.gif"));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void reserveBtnOnAction() {

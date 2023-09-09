@@ -5,23 +5,22 @@ import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.DashboardServiceImpl;
 import com.kawishika.service.interfaces.DashboardService;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
 import static com.kawishika.service.ServiceFactory.ServiceType.DASHBOARD;
 
 public class DashboardFormController {
-    public LineChart lineChart;
-    public PieChart pichart;
+    public PieChart pieChart;
     public TableView<CustomTM> parentTable;
     public TableColumn studentIdColumn;
     public TableColumn idColumn;
@@ -29,6 +28,8 @@ public class DashboardFormController {
     public AnchorPane pane;
     private final DashboardService dashboardService = (DashboardServiceImpl) ServiceFactory.getInstance().getService(DASHBOARD);
     public TableColumn paymentColumn;
+    public VBox notificationsBox;
+    public BarChart barChart;
 
     public void initialize() {
         loadPicChart();
@@ -36,6 +37,19 @@ public class DashboardFormController {
         loadPaymentTable();
         loadLineChart();
         loadPane();
+        loadNotifications();
+    }
+
+    private void loadNotifications() {
+        new Thread(() -> {
+            ArrayList<String> notifications = dashboardService.getNotifications();
+            for (String notification : notifications) {
+                Label label = new Label(notification);
+                Platform.runLater(() ->{
+                    notificationsBox.getChildren().add(label);
+                });
+            }
+        }).start();
     }
 
     private void setCellValueFactory() {
@@ -45,17 +59,45 @@ public class DashboardFormController {
     }
 
     private void loadPicChart() {
-        ArrayList<Integer> pieData = dashboardService.getPieData();
-        pichart.getData().add(new PieChart.Data("Occupied", pieData.get(0)));
-        pichart.getData().add(new PieChart.Data("Available", pieData.get(1)));
+        new Thread(() -> {
+            ArrayList<Integer> pieData = dashboardService.getPieData();
+            Platform.runLater(() -> {
+                pieChart.getData().add(new PieChart.Data("Occupied", pieData.get(0)));
+                pieChart.getData().add(new PieChart.Data("Available", pieData.get(1)));
+            });
+        }).start();
     }
 
     private void loadPaymentTable() {
-        ArrayList<CustomTM> paymentData = dashboardService.getPaymentData();
-        parentTable.getItems().addAll(FXCollections.observableArrayList(paymentData));
+        new Thread(() -> {
+            ArrayList<CustomTM> paymentData = dashboardService.getPaymentData();
+            Platform.runLater(() ->{
+                parentTable.getItems().addAll(FXCollections.observableArrayList(paymentData));
+            });
+        }).start();
     }
 
     private void loadLineChart() {
+        new Thread(()->{
+            XYChart.Series<String,Number> series = new XYChart.Series<>();
+            series.setName("Payments");
+            ArrayList<Integer> lineChartData = dashboardService.getLineChartData();
+            series.getData().add(new XYChart.Data<>("January", lineChartData.get(0)));
+            series.getData().add(new XYChart.Data<>("February", lineChartData.get(1)));
+            series.getData().add(new XYChart.Data<>("March", lineChartData.get(2)));
+            series.getData().add(new XYChart.Data<>("April", lineChartData.get(3)));
+            series.getData().add(new XYChart.Data<>("May", lineChartData.get(4)));
+            series.getData().add(new XYChart.Data<>("June", lineChartData.get(5)));
+            series.getData().add(new XYChart.Data<>("July", lineChartData.get(6)));
+            series.getData().add(new XYChart.Data<>("August", lineChartData.get(7)));
+            series.getData().add(new XYChart.Data<>("September", lineChartData.get(8)));
+            series.getData().add(new XYChart.Data<>("October", lineChartData.get(9)));
+            series.getData().add(new XYChart.Data<>("November", lineChartData.get(10)));
+            series.getData().add(new XYChart.Data<>("December", lineChartData.get(11)));
+            Platform.runLater(()->{System.out.println(lineChartData);
+                barChart.getData().add(series);
+            });
+        }).start();;
     }
 
     private void loadPane() {

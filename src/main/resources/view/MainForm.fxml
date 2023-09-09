@@ -15,7 +15,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="554.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="554.0" mnemonicParsing="false" onAction="#logOutBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../asset/main/menu/logout.png" />
@@ -55,7 +55,7 @@
       <Button contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="383.0" mnemonicParsing="false" onAction="#roomBtnOnAction" prefHeight="30.0" prefWidth="30.0" styleClass="menuBtn" text="Button">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../asset/checkingMenu/room.png"/>
+               <Image url="@../asset/checkingMenu/room.png" />
             </ImageView>
          </graphic>
       </Button>
@@ -66,6 +66,7 @@
       </ImageView>
       <Label fx:id="userNameLabel" layoutX="791.0" layoutY="11.0" prefHeight="21.0" prefWidth="200.0" styleClass="name" text="Nadun Kawishika" />
       <Label layoutX="7.0" layoutY="9.0" styleClass="name" text="The D24" />
+      <Label fx:id="dateLabel" layoutX="89.0" layoutY="9.0" prefHeight="21.0" prefWidth="200.0" styleClass="name" />
    </AnchorPane>
    <AnchorPane fx:id="root" layoutX="60.0" layoutY="40.0" prefHeight="560.0" prefWidth="940.0" />
 </AnchorPane>

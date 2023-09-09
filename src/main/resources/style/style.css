@@ -249,7 +249,7 @@ table-view{
     -fx-padding: 5;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
-.loadingLabel{
+.loadingLabel {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: White;
