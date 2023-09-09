@@ -37,11 +37,19 @@ public class CheckOutServiceImpl implements CheckOutService {
     @Override
     public void sendReceipt(CustomTM customTM) {
         ArrayList<String> mail = checkOutDAO.getMail(customTM);
-        String message = "Dear "+mail.get(1)+",\n\n" +
-                "Thank you for choosing our service.\n\n" +
-                "Best Regards,\n" +
-                "The D24 Hostel";
+        String message;
         String subject = "Check Out Successful";
+        if (Regex.validateReserveId(customTM.getReserveId())) {
+            message = "Dear Sir/Madam" + "\n\n" +
+                    "Thank you for choosing our service.\n\n" +
+                    "Best Regards,\n" +
+                    "The D24 Hostel";
+        }else {
+            message = "Dear " + mail.get(1) + ",\n\n" +
+                    "Thank you for choosing our service.\n\n" +
+                    "Best Regards,\n" +
+                    "The D24 Hostel";
+        }
         Mail.getInstance().sendMail(mail.get(0), subject, message);
     }
 }

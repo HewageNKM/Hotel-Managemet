@@ -10,13 +10,11 @@
 <AnchorPane prefHeight="550.0" prefWidth="500.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kawishika.controller.CreateAccountController">
    <Label layoutX="137.0" layoutY="14.0" styleClass="loginTitle" text="Create Account" />
    <TextField fx:id="userNameFld" layoutX="105.0" layoutY="140.0" prefHeight="40.0" prefWidth="250.0" promptText="User Name" styleClass="loginTextFld" />
-   <TextField fx:id="passwordFld" layoutX="105.0" layoutY="255.0" prefHeight="40.0" prefWidth="250.0" promptText="Old Password" styleClass="loginTextFld" />
-   <TextField fx:id="reEnterPasswordFld" layoutX="105.0" layoutY="314.0" prefHeight="40.0" prefWidth="250.0" promptText="New Password" styleClass="loginTextFld" />
-   <CheckBox fx:id="PasswordCheckBox" layoutX="380.0" layoutY="261.0" mnemonicParsing="false" styleClass="passwordCheckBox" text="Show" />
-   <CheckBox fx:id="reEnterPasswordCheckBox" layoutX="380.0" layoutY="318.0" mnemonicParsing="false" styleClass="passwordCheckBox" text="Show" />
-   <PasswordField fx:id="passwordFldMask" layoutX="105.0" layoutY="255.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="loginTextFld" />
-   <PasswordField fx:id="reEnterPasswordMask" layoutX="105.0" layoutY="314.0" prefHeight="40.0" prefWidth="250.0" promptText="Re-Enter Password" styleClass="loginTextFld" />
+   <TextField fx:id="passwordFld" layoutX="105.0" layoutY="315.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="loginTextFld" />
+   <CheckBox fx:id="passwordCheckBox" layoutX="380.0" layoutY="318.0" mnemonicParsing="false" styleClass="passwordCheckBox" text="Show" />
+   <PasswordField fx:id="passwordFldMask" layoutX="105.0" layoutY="315.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="loginTextFld" />
    <Button layoutX="105.0" layoutY="379.0" mnemonicParsing="false" onAction="#createBtnOnAction" prefHeight="30.0" prefWidth="250.0" styleClass="loginBtn" text="Create" />
    <Button layoutX="105.0" layoutY="450.0" mnemonicParsing="false" onAction="#clearBtnOnAction" prefHeight="30.0" prefWidth="250.0" styleClass="resetBtn" text="Clear" />
-   <TextField fx:id="emailFld" layoutX="105.0" layoutY="196.0" prefHeight="40.0" prefWidth="250.0" promptText="Email" styleClass="loginTextFld" />
+   <TextField fx:id="emailFld" layoutX="105.0" layoutY="229.0" prefHeight="40.0" prefWidth="250.0" promptText="Email" styleClass="loginTextFld" />
+   <Button fx:id="sendBtn" layoutX="380.0" layoutY="227.0" mnemonicParsing="false" onAction="#sendBtnOnAction" styleClass="loginBtn" text="Send" />
 </AnchorPane>
