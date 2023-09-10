@@ -6,6 +6,7 @@ import com.kawishika.dao.interfaces.ResetDAO;
 import com.kawishika.dto.UserDTO;
 import com.kawishika.entity.User;
 import com.kawishika.service.interfaces.ResetService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Hashing;
 import com.kawishika.util.Mail;
 
@@ -17,7 +18,7 @@ public class ResetServiceImpl implements ResetService {
     private Integer code;
 
     @Override
-    public boolean sendCode(String userName) {
+    public boolean sendCode(String userName) throws CustomException {
         ArrayList<String> arrayList = resetDAO.sendCode(new User(Hashing.getHash(userName.toLowerCase()), null));
         System.out.println(arrayList);
         if (arrayList.get(0).equals("false")) {
@@ -36,7 +37,7 @@ public class ResetServiceImpl implements ResetService {
     }
 
     @Override
-    public boolean resetPassword(UserDTO userDTO) {
+    public boolean resetPassword(UserDTO userDTO) throws CustomException {
         return resetDAO.update(new User(Hashing.getHash(userDTO.getUserName().toLowerCase()), Hashing.getHash(userDTO.getPassword())));
     }
 }

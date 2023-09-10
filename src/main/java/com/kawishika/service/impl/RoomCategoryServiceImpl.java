@@ -7,6 +7,7 @@ import com.kawishika.dto.RoomCategoryDTO;
 import com.kawishika.dto.tm.RoomCategoryTM;
 import com.kawishika.entity.RoomCategory;
 import com.kawishika.service.interfaces.RoomCategoryService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Regex;
 import javafx.scene.control.Button;
 
@@ -16,7 +17,7 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
     private final RoomCategoryDAO roomCategoryDAO = (RoomCategoryDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ROOM_CATEGORY);
 
     @Override
-    public ArrayList<RoomCategoryTM> getAll() {
+    public ArrayList<RoomCategoryTM> getAll() throws CustomException {
         ArrayList<RoomCategory> all = roomCategoryDAO.getAll(new ArrayList<>());
         ArrayList<RoomCategoryTM> roomCategoryTMS = new ArrayList<>();
         for (RoomCategory roomCategory : all) {
@@ -43,27 +44,27 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
     }
 
     @Override
-    public boolean update(RoomCategoryDTO roomCategoryDTO) {
+    public boolean update(RoomCategoryDTO roomCategoryDTO) throws CustomException {
         return roomCategoryDAO.update(new RoomCategory(roomCategoryDTO.getRoom_ID(), roomCategoryDTO.getRoom_Type(), roomCategoryDTO.getCost_Per_Week()));
     }
 
     @Override
-    public boolean save(RoomCategoryDTO roomCategoryDTO) {
+    public boolean save(RoomCategoryDTO roomCategoryDTO) throws CustomException {
         return roomCategoryDAO.save(new RoomCategory(roomCategoryDTO.getRoom_ID(), roomCategoryDTO.getRoom_Type(), roomCategoryDTO.getCost_Per_Week()));
     }
 
     @Override
-    public boolean isExists(String id) {
+    public boolean isExists(String id) throws CustomException {
         return roomCategoryDAO.isExists(id);
     }
 
     @Override
-    public boolean delete(RoomCategoryDTO roomCategoryDTO) {
+    public boolean delete(RoomCategoryDTO roomCategoryDTO) throws CustomException {
         return roomCategoryDAO.delete(new RoomCategory(roomCategoryDTO.getRoom_ID(), roomCategoryDTO.getRoom_Type(), roomCategoryDTO.getCost_Per_Week()));
     }
 
     @Override
-    public ArrayList<RoomCategoryTM> search(String searchFldText) {
+    public ArrayList<RoomCategoryTM> search(String searchFldText) throws CustomException {
         ArrayList<RoomCategory> search = roomCategoryDAO.search(searchFldText);
         ArrayList<RoomCategoryTM> roomCategoryTMS = new ArrayList<>();
         for (RoomCategory roomCategory : search) {

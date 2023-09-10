@@ -4,7 +4,9 @@ import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.CheckOutServiceImpl;
 import com.kawishika.service.interfaces.CheckOutService;
+import com.kawishika.util.CustomException;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -64,19 +66,25 @@ public class CheckOutController {
             pane.getChildren().add(javafx.fxml.FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CheckingMenuForm.fxml"))));
         } catch (java.io.IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
     @FXML
     void checkBtnOnAction(ActionEvent event) {
         if (checkOutService.checkId(idFld.getText())) {
-            customTM = checkOutService.getReserveDetails(idFld.getText());
-            if (customTM == null) {
-                new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
-                return;
+            try{
+                customTM = checkOutService.getReserveDetails(idFld.getText());
+                if (customTM == null) {
+                    new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
+                    return;
+                }
+                checkOutTable.getItems().clear();
+                checkOutTable.getItems().add(customTM);
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
-            checkOutTable.getItems().clear();
-            checkOutTable.getItems().add(customTM);
         } else {
             new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
         }
@@ -90,12 +98,24 @@ public class CheckOutController {
                     if (customTM.getPaymentStatus().equals("Not Paid")) {
                         new Alert(Alert.AlertType.WARNING, "Payment Haven't Paid !", ButtonType.OK).show();
                     } else {
-                        checkOutService.checkOut(customTM);
-                        new Alert(Alert.AlertType.INFORMATION, "Check Out Successfully !", ButtonType.OK).show();
-                        checkOutTable.getItems().clear();
-                        idFld.clear();
+                        try {
+                            checkOutService.checkOut(customTM);
+                            new Alert(Alert.AlertType.INFORMATION, "Check Out Successfully !", ButtonType.OK).show();
+                            checkOutTable.getItems().clear();
+                            idFld.clear();
+                        } catch (CustomException e) {
+                            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                            e.printStackTrace();
+                        }
                         new Thread(() -> {
-                            checkOutService.sendReceipt(customTM);
+                            try {
+                                checkOutService.sendReceipt(customTM);
+                            } catch (CustomException e) {
+                                Platform.runLater(() -> {
+                                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                                    e.printStackTrace();
+                                });
+                            }
                         }).start();
                     }
                 } else {

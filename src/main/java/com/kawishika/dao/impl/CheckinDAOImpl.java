@@ -6,6 +6,7 @@ import com.kawishika.dto.ReserveDTO;
 import com.kawishika.entity.Reserve;
 import com.kawishika.entity.Room;
 import com.kawishika.entity.Student;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class CheckinDAOImpl implements CheckinDAO {
+    private Session session = null;
+    private Transaction transaction = null;
     @Override
     public ArrayList<Reserve> getAll(ArrayList<Reserve> entityList) {
         return null;
@@ -38,110 +41,209 @@ public class CheckinDAOImpl implements CheckinDAO {
     }
 
     @Override
-    public ArrayList<String> getRoomType() {
-        ArrayList<String> roomTypes = new ArrayList<>();
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        roomTypes.addAll(session.createQuery("SELECT Room_Type from RoomCategory").list());
-        transaction.commit();
-        session.close();
-        return roomTypes;
-    }
-
-    @Override
-    public CustomDTO getRoomDetails(String newValue) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT Room_Number,Room_ID,Cost_Per_Week FROM roomcategory left join room on roomcategory.Room_ID = room.roomCategory_Room_ID where room.Status = 'Active' and roomcategory.Room_Type=?");
-        List<Object[]> list = nativeQuery.setParameter(1, newValue).list();
-        CustomDTO customDTO = new CustomDTO();
-        for (Object[] objects : list) {
-            customDTO.setRoomNumber((String) objects[0]);
-            customDTO.setRoomId((String) objects[1]);
-            customDTO.setCost((Double) objects[2]);
-        }
-        transaction.commit();
-        session.close();
-        return customDTO;
-    }
-
-    @Override
-    public ArrayList<String> getStudentId(String newValue) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        NativeQuery nativeQuery = session.createNativeQuery("SELECT Student_ID FROM student where Student_ID like ?");
-        nativeQuery.setParameter(1, newValue + "%");
-        ArrayList<String> list = (ArrayList<String>) nativeQuery.list();
-        System.out.println(Arrays.toString(list.toArray()));
-        transaction.commit();
-        session.close();
-        return list;
-    }
-
-    @Override
-    public boolean checkReserveId(String id) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        Reserve reserve = session.get(Reserve.class, id);
-        transaction.commit();
-        session.close();
-        return reserve != null;
-    }
-
-    @Override
-    public boolean save(Reserve entity, String studentId, String roomNumber) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        Student student = session.get(Student.class, studentId);
-        Room room = session.get(Room.class, roomNumber);
-        room.setStatus("Not Available");
-        entity.setStudent(student);
-        entity.setRoom(room);
-        student.getReserves().add(entity);
-        room.getReserves().add(entity);
-        session.persist(entity);
-        session.persist(student);
-        session.persist(room);
-        transaction.commit();
-        session.close();
-        return true;
-    }
-
-    @Override
-    public String checkStudentEligibility(String studentId) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        Student student = session.get(Student.class, studentId);
-        transaction.commit();
-        session.close();
-        return student.getStatus();
-    }
-
-    @Override
-    public String checkReservation(String id) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        List list = session.createNativeQuery("SELECT Status from d24.reserve where student_Student_ID = ? and Status = 'Active'").setParameter(1, id).list();
-        for (Object o : list) {
-            if (Objects.equals(o, "Active")) {
-                return "Active";
+    public ArrayList<String> getRoomType() throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            ArrayList<String> roomTypes = new ArrayList<>();
+            NativeQuery nativeQuery = session.createNativeQuery("SELECT Room_Type from RoomCategory");
+            roomTypes.addAll(nativeQuery.list());
+            transaction.commit();
+            return roomTypes;
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
             }
+            throw new CustomException("Error While Getting Data");
+        }finally {
+            if (session != null) session.close();
         }
-        transaction.commit();
-        session.close();
-        return "Inactive";
     }
 
     @Override
-    public ArrayList<String> getMail(String studentId) {
-        Session session = SessionConfigureFactory.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        Student student = session.get(Student.class, studentId);
-        ArrayList<String> mail = new ArrayList<>();
-        mail.add(student.getStudent_Email());
-        mail.add(student.getStudent_Name());
-        transaction.commit();
-        session.close();
-        return mail;
+    public CustomDTO getRoomDetails(String newValue) throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            NativeQuery nativeQuery = session.createNativeQuery("SELECT Room_Number,Room_ID,Cost_Per_Week FROM roomcategory left join room on roomcategory.Room_ID = room.roomCategory_Room_ID where room.Status = 'Active' and roomcategory.Room_Type=?");
+            nativeQuery.setParameter(1, newValue);
+            List<Object[]> list = nativeQuery.list();
+            CustomDTO customDTO = new CustomDTO();
+            for (Object[] objects : list) {
+                customDTO.setRoomNumber((String) objects[0]);
+                customDTO.setRoomId((String) objects[1]);
+                customDTO.setCost((Double) objects[2]);
+            }
+            transaction.commit();
+            return customDTO;
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+            throw new CustomException("Error While Getting Data");
+        }finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public ArrayList<String> getStudentId(String newValue) throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            ArrayList<String> studentIds = new ArrayList<>();
+            NativeQuery nativeQuery = session.createNativeQuery("SELECT Student_ID FROM student where Student_ID like ?");
+            nativeQuery.setParameter(1, newValue + "%");
+            studentIds.addAll(nativeQuery.list());
+            transaction.commit();
+            return studentIds;
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+            throw new CustomException("Error While Getting Data");
+        }finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public boolean checkReserveId(String id) throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            NativeQuery nativeQuery = session.createNativeQuery("SELECT Reserve_ID FROM reserve where Reserve_ID = ?");
+            nativeQuery.setParameter(1, id);
+            List list = nativeQuery.list();
+            transaction.commit();
+            return !list.isEmpty();
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+            throw new CustomException("Error While Getting Data");
+        }finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public boolean save(Reserve entity, String studentId, String roomNumber) throws CustomException {
+        try{
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            Student student = session.get(Student.class, studentId);
+            Room room = session.get(Room.class, roomNumber);
+            room.setStatus("Not Available");
+            entity.setStudent(student);
+            entity.setRoom(room);
+            student.getReserves().add(entity);
+            room.getReserves().add(entity);
+            session.persist(entity);
+            session.persist(student);
+            session.persist(room);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+            throw new CustomException("Error While Saving Data");
+        }
+    }
+
+    @Override
+    public String checkStudentEligibility(String studentId) throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            Student student = session.get(Student.class, studentId);
+            transaction.commit();
+            return student.getStatus();
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+            throw new CustomException("Error While Getting Data");
+        }finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public String checkReservation(String id) throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            List list = session.createNativeQuery("SELECT Status from d24.reserve where student_Student_ID = ? and Status = 'Active'").setParameter(1, id).list();
+            for (Object o : list) {
+                if (Objects.equals(o, "Active")) {
+                    return "Active";
+                }
+            }
+            transaction.commit();
+            return "Inactive";
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+           throw new CustomException("Error While Getting Data");
+
+        }finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public ArrayList<String> getMail(String studentId) throws CustomException {
+        try {
+            session = SessionConfigureFactory.getInstance().getSession();
+            transaction = session.beginTransaction();
+            Student student = session.get(Student.class, studentId);
+            ArrayList<String> mail = new ArrayList<>();
+            mail.add(student.getStudent_Email());
+            mail.add(student.getStudent_Name());
+            transaction.commit();
+            return mail;
+        }catch (Exception e){
+            if(transaction != null) {
+                try {
+                    transaction.rollback();
+                }catch (Exception ex) {
+                    throw new CustomException("Error While Roll Backing");
+                }
+            }
+            throw new CustomException("Error While Getting Data");
+        }finally {
+            if (session != null) session.close();
+        }
     }
 }

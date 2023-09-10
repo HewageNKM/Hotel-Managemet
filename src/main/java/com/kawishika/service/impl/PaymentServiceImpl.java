@@ -6,6 +6,7 @@ import com.kawishika.dao.interfaces.PaymentDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.interfaces.PaymentService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Mail;
 import javafx.scene.control.Button;
 
@@ -17,7 +18,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentDAO paymentDAO = (PaymentDAOImpl) DAOFactory.getInstance().getDAO(PAYMENT);
 
     @Override
-    public ArrayList<CustomTM> getAll() {
+    public ArrayList<CustomTM> getAll() throws CustomException {
         ArrayList<CustomDTO> all = paymentDAO.getAll(new ArrayList<>());
         ArrayList<CustomTM> customTMS = new ArrayList<>();
         for (CustomDTO customDTO : all) {
@@ -35,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public ArrayList<CustomTM> search(String searchPhrase) {
+    public ArrayList<CustomTM> search(String searchPhrase) throws CustomException {
         ArrayList<CustomDTO> all = paymentDAO.search(searchPhrase);
         ArrayList<CustomTM> customTMS = new ArrayList<>();
         for (CustomDTO customDTO : all) {
@@ -53,12 +54,12 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public boolean update(String reserveId) {
+    public boolean update(String reserveId) throws CustomException {
         return paymentDAO.update(reserveId);
     }
 
     @Override
-    public void sendReceipt(CustomTM selectedItem) {
+    public void sendReceipt(CustomTM selectedItem) throws CustomException {
         ArrayList<String> mail = paymentDAO.getMail(selectedItem);
         String message = "Dear " + mail.get(1) + ",\n\n" +
                 "Payment Received" + "\n" + "Thank you for choosing our service.\n\n" +

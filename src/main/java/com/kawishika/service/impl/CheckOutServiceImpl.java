@@ -6,6 +6,7 @@ import com.kawishika.dao.interfaces.CheckOutDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.interfaces.CheckOutService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Mail;
 import com.kawishika.util.Regex;
 
@@ -21,7 +22,7 @@ public class CheckOutServiceImpl implements CheckOutService {
     }
 
     @Override
-    public CustomTM getReserveDetails(String id) {
+    public CustomTM getReserveDetails(String id) throws CustomException {
         CustomDTO dto = checkOutDAO.getReserveDetails(id);
         if (dto == null) {
             return null;
@@ -30,12 +31,12 @@ public class CheckOutServiceImpl implements CheckOutService {
     }
 
     @Override
-    public void checkOut(CustomTM customTM) {
+    public void checkOut(CustomTM customTM) throws CustomException {
         checkOutDAO.update(customTM);
     }
 
     @Override
-    public void sendReceipt(CustomTM customTM) {
+    public void sendReceipt(CustomTM customTM) throws CustomException {
         ArrayList<String> mail = checkOutDAO.getMail(customTM);
         String message;
         String subject = "Check Out Successful";

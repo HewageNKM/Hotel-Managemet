@@ -1,11 +1,14 @@
 package com.kawishika.util;
 
+import javafx.scene.control.Alert;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.net.UnknownHostException;
 import java.util.Properties;
 
 public class Mail {
@@ -13,10 +16,9 @@ public class Mail {
     private final String username = "hnkmalwenna@gmail.com";
     private final String password = "kpfr nnek inyz ubqy";
     private Session session = null;
-    private Properties props = null;
 
     private Mail() {
-        props = new Properties();
+        Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -49,7 +51,7 @@ public class Mail {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            e.printStackTrace();
+           new Alert(Alert.AlertType.ERROR,"Error While Sending Mail !").show();
         }
     }
 }

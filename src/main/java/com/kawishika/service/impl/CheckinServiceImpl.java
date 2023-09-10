@@ -7,6 +7,7 @@ import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.ReserveDTO;
 import com.kawishika.entity.Reserve;
 import com.kawishika.service.interfaces.CheckinService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Mail;
 
 import java.time.LocalDateTime;
@@ -19,27 +20,27 @@ public class CheckinServiceImpl implements CheckinService {
     private final CheckinDAO checkinDAO = (CheckinDAOImpl) DAOFactory.getInstance().getDAO(CHECKIN);
 
     @Override
-    public ArrayList<String> getRoomTypes() {
+    public ArrayList<String> getRoomTypes() throws CustomException {
         return checkinDAO.getRoomType();
     }
 
     @Override
-    public CustomDTO getRoomDetails(String newValue) {
+    public CustomDTO getRoomDetails(String newValue) throws CustomException {
         return checkinDAO.getRoomDetails(newValue);
     }
 
     @Override
-    public ArrayList<String> getStudentId(String newValue) {
+    public ArrayList<String> getStudentId(String newValue) throws CustomException {
         return checkinDAO.getStudentId(newValue);
     }
 
     @Override
-    public boolean save(ReserveDTO reserveDTO, String studentId, String roomNumber) {
+    public boolean save(ReserveDTO reserveDTO, String studentId, String roomNumber) throws CustomException {
         return checkinDAO.save(new Reserve(reserveDTO.getReserve_ID(), reserveDTO.getReserve_Date(), reserveDTO.getCheckOut_Date(), reserveDTO.getTotal(), reserveDTO.getPayment_Status(), reserveDTO.getStatus()), studentId, roomNumber);
     }
 
     @Override
-    public String getReserveId() {
+    public String getReserveId() throws CustomException {
         String id;
         while (true) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -56,17 +57,17 @@ public class CheckinServiceImpl implements CheckinService {
     }
 
     @Override
-    public String checkStudentEligibility(String studentId) {
+    public String checkStudentEligibility(String studentId) throws CustomException {
         return checkinDAO.checkStudentEligibility(studentId);
     }
 
     @Override
-    public String checkReservation(String id) {
+    public String checkReservation(String id) throws CustomException {
         return checkinDAO.checkReservation(id);
     }
 
     @Override
-    public void sendReceipt(ReserveDTO reserveDTO, String studentId, String roomNumber) {
+    public void sendReceipt(ReserveDTO reserveDTO, String studentId, String roomNumber) throws CustomException {
         ArrayList<String> mail = checkinDAO.getMail(studentId);
         String subject = "Reserve Successful";
         String message = "Dear " + mail.get(1) + ",\n\n" +

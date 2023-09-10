@@ -5,6 +5,7 @@ import com.kawishika.dto.tm.StudentTM;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.StudentServiceImpl;
 import com.kawishika.service.interfaces.StudentService;
+import com.kawishika.util.CustomException;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -66,12 +67,16 @@ public class StudentFormController {
     }
 
     private void loadTable() {
-        ArrayList<StudentTM> all = studentService.getAll();
-        for (StudentTM studentTM : all) {
-            setEditAction(studentTM.getEdit());
-            setDeleteAction(studentTM.getDelete());
+        try{
+            ArrayList<StudentTM> all = studentService.getAll();
+            for (StudentTM studentTM : all) {
+                setEditAction(studentTM.getEdit());
+                setDeleteAction(studentTM.getDelete());
+            }
+            studentTable.setItems(FXCollections.observableList(all));
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-        studentTable.setItems(FXCollections.observableList(all));
     }
 
     private void setDeleteAction(Button delete) {
@@ -80,13 +85,17 @@ public class StudentFormController {
             if (selectedItem != null) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this student?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
                     if (buttonType == ButtonType.YES) {
-                        boolean deleted = studentService.delete(selectedItem.getStudent_ID());
-                        if (deleted) {
-                            new Alert(Alert.AlertType.CONFIRMATION, "Student has been deleted successfully", ButtonType.OK).show();
-                            loadTable();
-                            clearBtnOnAction();
-                        } else {
-                            new Alert(Alert.AlertType.ERROR, "Failed to delete the student", ButtonType.OK).show();
+                        try{
+                            boolean deleted = studentService.delete(selectedItem.getStudent_ID());
+                            if (deleted) {
+                                new Alert(Alert.AlertType.CONFIRMATION, "Student has been deleted successfully", ButtonType.OK).show();
+                                loadTable();
+                                clearBtnOnAction();
+                            } else {
+                                new Alert(Alert.AlertType.ERROR, "Failed to delete the student", ButtonType.OK).show();
+                            }
+                        }catch (CustomException e){
+                            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                         }
                     }
                 });
@@ -145,22 +154,27 @@ public class StudentFormController {
     @FXML
     void addSaveBtnOnAction() {
         if (validateDetails()) {
-            if (studentService.isStudentExists(studentIdFld.getText())) {
-                if (studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Student has been updated successfully", ButtonType.OK).show();
-                    loadTable();
-                    clearBtnOnAction();
+            try{
+                if (studentService.isStudentExists(studentIdFld.getText())) {
+                    if (studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "Student has been updated successfully", ButtonType.OK).show();
+                        loadTable();
+                        clearBtnOnAction();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to update the student", ButtonType.OK).show();
+                    }
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to update the student", ButtonType.OK).show();
+                    if (studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "Student has been saved successfully", ButtonType.OK).show();
+                        loadTable();
+                        clearBtnOnAction();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to save the student", ButtonType.OK).show();
+                    }
                 }
-            } else {
-                if (studentService.save(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Student has been saved successfully", ButtonType.OK).show();
-                    loadTable();
-                    clearBtnOnAction();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to save the student", ButtonType.OK).show();
-                }
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
         } else {
             validateDetails();
@@ -270,7 +284,12 @@ public class StudentFormController {
     void deleteBtnOnAction() {
         new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this student?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.YES) {
-                studentService.delete(studentIdFld.getText());
+                try {
+                    studentService.delete(studentIdFld.getText());
+                } catch (CustomException e) {
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -280,25 +299,35 @@ public class StudentFormController {
         if (searchFld.getText().trim().isBlank()) {
             loadTable();
         } else {
-            ArrayList<StudentTM> all = studentService.searchStudent(searchFld.getText());
-            for (StudentTM studentTM : all) {
-                setEditAction(studentTM.getEdit());
-                setDeleteAction(studentTM.getDelete());
+            try{
+                ArrayList<StudentTM> all = studentService.searchStudent(searchFld.getText());
+                for (StudentTM studentTM : all) {
+                    setEditAction(studentTM.getEdit());
+                    setDeleteAction(studentTM.getDelete());
+                }
+                studentTable.setItems(FXCollections.observableList(all));
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
-            studentTable.setItems(FXCollections.observableList(all));
         }
     }
 
     public void enterOnAction() {
-        StudentDTO studentDTO = studentService.getStudent(studentIdFld.getText());
-        if (studentDTO != null) {
-            studentNameFld.setText(studentDTO.getStudent_Name());
-            emailFld.setText(studentDTO.getStudent_Email());
-            phoneNumberFld.setText(studentDTO.getPhone_No());
-            birthdayPicker.setValue(studentDTO.getBirthDay().toLocalDate());
-            statusBox.setValue(studentDTO.getStatus());
-        } else {
-            new Alert(Alert.AlertType.ERROR, "No student found", ButtonType.OK).show();
+        try{
+            StudentDTO studentDTO = studentService.getStudent(studentIdFld.getText());
+            if (studentDTO != null) {
+                studentNameFld.setText(studentDTO.getStudent_Name());
+                emailFld.setText(studentDTO.getStudent_Email());
+                phoneNumberFld.setText(studentDTO.getPhone_No());
+                birthdayPicker.setValue(studentDTO.getBirthDay().toLocalDate());
+                statusBox.setValue(studentDTO.getStatus());
+            } else {
+                new Alert(Alert.AlertType.ERROR, "No student found", ButtonType.OK).show();
+            }
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
     }
 }

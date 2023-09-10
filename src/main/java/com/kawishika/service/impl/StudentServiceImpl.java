@@ -7,6 +7,7 @@ import com.kawishika.dto.StudentDTO;
 import com.kawishika.dto.tm.StudentTM;
 import com.kawishika.entity.Student;
 import com.kawishika.service.interfaces.StudentService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Regex;
 import javafx.scene.control.Button;
 
@@ -47,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ArrayList<StudentTM> getAll() {
+    public ArrayList<StudentTM> getAll() throws CustomException {
         ArrayList<Student> all = studentDAO.getAll(new ArrayList<>());
         ArrayList<StudentTM> studentTMS = new ArrayList<>();
         for (Student student : all) {
@@ -59,34 +60,34 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(String id) throws CustomException {
         return studentDAO.delete(new Student(id, null, null, null, null, null, null));
     }
 
     @Override
-    public boolean isStudentExists(String id) {
+    public boolean isStudentExists(String id) throws CustomException {
         return studentDAO.isExists(new Student(id, null, null, null, null, null, null));
     }
 
     @Override
-    public boolean update(StudentDTO student) {
+    public boolean update(StudentDTO student) throws CustomException {
         return studentDAO.update(new Student(student.getStudent_ID(), student.getStudent_Name(), student.getStudent_Email(), student.getPhone_No(), student.getBirthDay(), student.getGender(), student.getStatus()));
     }
 
     @Override
-    public boolean save(StudentDTO studentDTO) {
+    public boolean save(StudentDTO studentDTO) throws CustomException {
         return studentDAO.save(new Student(studentDTO.getStudent_ID(), studentDTO.getStudent_Name(), studentDTO.getStudent_Email(), studentDTO.getPhone_No(), studentDTO.getBirthDay(), studentDTO.getGender(), studentDTO.getStatus()));
     }
 
     @Override
-    public StudentDTO getStudent(String id) {
+    public StudentDTO getStudent(String id) throws CustomException {
         Student student = studentDAO.getStudent(id);
         if (student == null) return null;
         return new StudentDTO(student.getStudent_ID(), student.getStudent_Name(), student.getStudent_Email(), student.getPhone_No(), student.getBirthDay().toLocalDate(), student.getGender(), student.getStatus());
     }
 
     @Override
-    public ArrayList<StudentTM> searchStudent(String searchPhrase) {
+    public ArrayList<StudentTM> searchStudent(String searchPhrase) throws CustomException {
         List<Student> students = studentDAO.searchStudent(searchPhrase);
         ArrayList<StudentTM> studentTMS = new ArrayList<>();
         for (Student student : students) {

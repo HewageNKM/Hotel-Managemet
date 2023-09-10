@@ -4,11 +4,12 @@ import com.kawishika.dto.RoomCategoryDTO;
 import com.kawishika.dto.tm.RoomCategoryTM;
 import com.kawishika.entity.RoomCategory;
 import com.kawishika.service.SuperService;
+import com.kawishika.util.CustomException;
 
 import java.util.ArrayList;
 
 public interface RoomCategoryService extends SuperService {
-    ArrayList<RoomCategoryTM> getAll();
+    ArrayList<RoomCategoryTM> getAll() throws CustomException;
 
     boolean validateCost(String cost);
 
@@ -16,13 +17,13 @@ public interface RoomCategoryService extends SuperService {
 
     boolean validateType(String type);
 
-    boolean update(RoomCategoryDTO roomCategoryDTO);
+    boolean update(RoomCategoryDTO roomCategoryDTO) throws CustomException;
 
-    boolean save(RoomCategoryDTO roomCategoryDTO);
+    boolean save(RoomCategoryDTO roomCategoryDTO) throws CustomException;
 
-    boolean isExists(String id);
+    boolean isExists(String id) throws CustomException;
 
-    boolean delete(RoomCategoryDTO roomCategoryDTO);
+    boolean delete(RoomCategoryDTO roomCategoryDTO) throws CustomException;
 
-    ArrayList<RoomCategoryTM> search(String searchFldText);
+    ArrayList<RoomCategoryTM> search(String searchFldText) throws CustomException;
 }

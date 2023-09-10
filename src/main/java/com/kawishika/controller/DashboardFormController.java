@@ -4,10 +4,14 @@ import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.DashboardServiceImpl;
 import com.kawishika.service.interfaces.DashboardService;
+import com.kawishika.util.CustomException;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,13 +24,13 @@ import java.util.ArrayList;
 import static com.kawishika.service.ServiceFactory.ServiceType.DASHBOARD;
 
 public class DashboardFormController {
+    private final DashboardService dashboardService = (DashboardServiceImpl) ServiceFactory.getInstance().getService(DASHBOARD);
     public PieChart pieChart;
     public TableView<CustomTM> parentTable;
     public TableColumn studentIdColumn;
     public TableColumn idColumn;
     public AnchorPane notificationsPane;
     public AnchorPane pane;
-    private final DashboardService dashboardService = (DashboardServiceImpl) ServiceFactory.getInstance().getService(DASHBOARD);
     public TableColumn paymentColumn;
     public VBox notificationsBox;
     public BarChart barChart;
@@ -42,11 +46,18 @@ public class DashboardFormController {
 
     private void loadNotifications() {
         new Thread(() -> {
-            ArrayList<String> notifications = dashboardService.getNotifications();
-            for (String notification : notifications) {
-                Label label = new Label(notification);
-                Platform.runLater(() ->{
-                    notificationsBox.getChildren().add(label);
+            try{
+                ArrayList<String> notifications = dashboardService.getNotifications();
+                for (String notification : notifications) {
+                    Label label = new Label(notification);
+                    Platform.runLater(() -> {
+                        notificationsBox.getChildren().add(label);
+                    });
+                }
+            }catch (Exception e){
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
                 });
             }
         }).start();
@@ -60,25 +71,40 @@ public class DashboardFormController {
 
     private void loadPicChart() {
         new Thread(() -> {
-            ArrayList<Integer> pieData = dashboardService.getPieData();
-            Platform.runLater(() -> {
-                pieChart.getData().add(new PieChart.Data("Occupied", pieData.get(0)));
-                pieChart.getData().add(new PieChart.Data("Available", pieData.get(1)));
-            });
+            try {
+                ArrayList<Integer> pieData = dashboardService.getPieData();
+                Platform.runLater(() -> {
+                    pieChart.getData().add(new PieChart.Data("Occupied", pieData.get(0)));
+                    pieChart.getData().add(new PieChart.Data("Available", pieData.get(1)));
+                });
+            } catch (CustomException e) {
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
+                });
+            }
         }).start();
     }
 
     private void loadPaymentTable() {
         new Thread(() -> {
-            ArrayList<CustomTM> paymentData = dashboardService.getPaymentData();
-            Platform.runLater(() ->{
-                parentTable.getItems().addAll(FXCollections.observableArrayList(paymentData));
-            });
+            try {
+                ArrayList<CustomTM> paymentData = dashboardService.getPaymentData();
+                Platform.runLater(() -> {
+                    parentTable.getItems().addAll(FXCollections.observableArrayList(paymentData));
+                });
+            } catch (CustomException e) {
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
+                });
+            }
         }).start();
     }
 
     private void loadLineChart() {
-            XYChart.Series<String,Number> series = new XYChart.Series<>();
+        try {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
             series.setName("Payments");
             ArrayList<Integer> lineChartData = dashboardService.getLineChartData();
             series.getData().add(new XYChart.Data<>("January", lineChartData.get(0)));
@@ -93,8 +119,11 @@ public class DashboardFormController {
             series.getData().add(new XYChart.Data<>("October", lineChartData.get(9)));
             series.getData().add(new XYChart.Data<>("November", lineChartData.get(10)));
             series.getData().add(new XYChart.Data<>("December", lineChartData.get(11)));
-                barChart.getData().add(series);
-
+            barChart.getData().add(series);
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
+        }
     }
 
     private void loadPane() {

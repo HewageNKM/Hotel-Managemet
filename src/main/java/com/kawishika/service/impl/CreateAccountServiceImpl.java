@@ -5,6 +5,7 @@ import com.kawishika.dao.impl.CreateAccountDAOImpl;
 import com.kawishika.dto.UserDTO;
 import com.kawishika.entity.User;
 import com.kawishika.service.interfaces.CreateAccountService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Hashing;
 import com.kawishika.util.Mail;
 import com.kawishika.util.Regex;
@@ -34,12 +35,12 @@ public class CreateAccountServiceImpl implements CreateAccountService {
     }
 
     @Override
-    public boolean validateUserName(String userName) {
+    public boolean validateUserName(String userName) throws CustomException {
         return Regex.validateUserName(userName) && createAccountDAO.checkUserName(Hashing.getHash(userName.toLowerCase()));
     }
 
     @Override
-    public boolean createAccount(UserDTO dto) {
+    public boolean createAccount(UserDTO dto) throws CustomException {
         return createAccountDAO.save(new User(Hashing.getHash(dto.getUserName().toLowerCase()), Hashing.getHash(dto.getPassword()), dto.getEmail(), dto.getStatus()));
     }
 

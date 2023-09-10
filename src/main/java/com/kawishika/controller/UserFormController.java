@@ -5,12 +5,12 @@ import com.kawishika.dto.tm.UserTM;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.UserServiceImpl;
 import com.kawishika.service.interfaces.UserService;
+import com.kawishika.util.CustomException;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,6 @@ public class UserFormController {
     public TextField emailFld;
     public ComboBox<String> statusBox;
 
-    @SneakyThrows
     public void initialize() {
         loadPane();
         setCellValueFactory();
@@ -49,8 +48,13 @@ public class UserFormController {
     }
 
     private void loadTable() {
-        ArrayList<UserTM> all = userService.getAll();
-        userTable.setItems(FXCollections.observableList(all));
+        try {
+            ArrayList<UserTM> all = userService.getAll();
+            userTable.setItems(FXCollections.observableList(all));
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
+        }
     }
 
 
@@ -70,25 +74,30 @@ public class UserFormController {
 
     public void addSaveBtnOnAction() {
         if (validateDetails()) {
-            boolean userExist = userService.isUserExist(userNameFld.getText());
-            if (userExist) {
-                boolean update = userService.update(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
-                if (update) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "User update successfully !", ButtonType.OK).show();
-                    loadTable();
-                    clearBtnOnAction();
+            try{
+                boolean userExist = userService.isUserExist(userNameFld.getText());
+                if (userExist) {
+                    boolean update = userService.update(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
+                    if (update) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "User update successfully !", ButtonType.OK).show();
+                        loadTable();
+                        clearBtnOnAction();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to update the user !", ButtonType.OK).show();
+                    }
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to update the user !", ButtonType.OK).show();
+                    boolean isSaved = userService.save(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
+                    if (isSaved) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "User saved successfully !", ButtonType.OK).show();
+                        loadTable();
+                        clearBtnOnAction();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to save the user !", ButtonType.OK).show();
+                    }
                 }
-            } else {
-                boolean isSaved = userService.save(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
-                if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "User saved successfully !", ButtonType.OK).show();
-                    loadTable();
-                    clearBtnOnAction();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to save the user !", ButtonType.OK).show();
-                }
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
         } else {
             validateDetails();
@@ -157,26 +166,37 @@ public class UserFormController {
     public void deleteBtnOnAction() {
         new Alert(Alert.AlertType.CONFIRMATION, "Do You Want Delete Your ?", ButtonType.OK, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.OK) {
-                boolean isDeleted = userService.delete(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.selectionModelProperty().get().getSelectedItem()));
-                if (isDeleted) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "User deleted successfully !", ButtonType.OK).show();
-                    loadTable();
-                    clearBtnOnAction();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to delete the user !", ButtonType.OK).show();
+                try{
+                    boolean isDeleted = userService.delete(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.selectionModelProperty().get().getSelectedItem()));
+                    if (isDeleted) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "User deleted successfully !", ButtonType.OK).show();
+                        loadTable();
+                        clearBtnOnAction();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to delete the user !", ButtonType.OK).show();
+                    }
+                }catch (CustomException e){
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
                 }
+
             }
         });
     }
 
     public void enterOnAction() {
-        UserDTO user = userService.getUser(userNameFld.getText());
-        if (user != null) {
-            passwordFld.setText(user.getPassword());
-            emailFld.setText(user.getEmail());
-            statusBox.selectionModelProperty().get().select(user.getStatus());
-        } else {
-            new Alert(Alert.AlertType.ERROR, "User not found !", ButtonType.OK).show();
+        try{
+            UserDTO user = userService.getUser(userNameFld.getText());
+            if (user != null) {
+                passwordFld.setText(user.getPassword());
+                emailFld.setText(user.getEmail());
+                statusBox.selectionModelProperty().get().select(user.getStatus());
+            } else {
+                new Alert(Alert.AlertType.ERROR, "User not found !", ButtonType.OK).show();
+            }
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
     }
 }

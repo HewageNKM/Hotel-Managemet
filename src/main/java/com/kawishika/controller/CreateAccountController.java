@@ -4,6 +4,7 @@ import com.kawishika.dto.UserDTO;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.CreateAccountServiceImpl;
 import com.kawishika.service.interfaces.CreateAccountService;
+import com.kawishika.util.CustomException;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 
@@ -39,11 +40,16 @@ public class CreateAccountController {
 
     public void createBtnOnAction() {
         if(validateDetails()){
-            if (createAccountService.createAccount(new UserDTO(userNameFld.getText(),passwordFld.getText(),email,"Active"))){
-                new Alert(Alert.AlertType.INFORMATION,"Account Created Successfully!").show();
-                clearBtnOnAction();
-            }else {
+            try {
+                if (createAccountService.createAccount(new UserDTO(userNameFld.getText(),passwordFld.getText(),email,"Active"))){
+                    new Alert(Alert.AlertType.INFORMATION,"Account Created Successfully!").show();
+                    clearBtnOnAction();
+                }else {
+                    new Alert(Alert.AlertType.ERROR,"Account Created Failed!").show();
+                }
+            }catch (Exception e){
                 new Alert(Alert.AlertType.ERROR,"Account Created Failed!").show();
+                e.printStackTrace();
             }
         }else {
             new Alert(Alert.AlertType.ERROR,"Please Enter Valid Details!").show();
@@ -75,15 +81,19 @@ public class CreateAccountController {
     }
 
     private boolean validateUserName() {
-        if (createAccountService.validateUserName(userNameFld.getText())){
-            userNameFld.setStyle("-fx-border-color: green");
-            return true;
-        }else {
-            userNameFld.setStyle("-fx-border-color: red");
-            userNameFld.setDisable(false);
+        try {
+            if (createAccountService.validateUserName(userNameFld.getText())){
+                userNameFld.setStyle("-fx-border-color: green");
+                return true;
+            }else {
+                userNameFld.setStyle("-fx-border-color: red");
+                return false;
+            }
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR,"Account Created Failed!").show();
+            e.printStackTrace();
             return false;
         }
-
     }
 
     public void clearBtnOnAction() {

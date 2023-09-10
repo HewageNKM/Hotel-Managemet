@@ -5,6 +5,7 @@ import com.kawishika.dto.ReserveDTO;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.CheckinServiceImpl;
 import com.kawishika.service.interfaces.CheckinService;
+import com.kawishika.util.CustomException;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +54,12 @@ public class CheckInController {
     private String reserveId;
 
     public void initialize() {
-        reserveId = checkinService.getReserveId();
+        try {
+            reserveId = checkinService.getReserveId();
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
+        }
         loadPane();
         setBoxValues();
         setRoomTypeBoxListener();
@@ -74,11 +80,16 @@ public class CheckInController {
                     }
                 }
                 if (roomTypeBox.getSelectionModel().getSelectedItem() != null) {
-                    CustomDTO dto = checkinService.getRoomDetails(roomTypeBox.getSelectionModel().getSelectedItem());
-                    if (checkInPicker.getValue() != null) {
-                        long days = newValue.toEpochDay() - checkInPicker.getValue().toEpochDay();
-                        total = days * (dto.getCost() / 7);
-                        totalLabel.setText("Total: " + (int) total.doubleValue());
+                    try {
+                        CustomDTO dto = checkinService.getRoomDetails(roomTypeBox.getSelectionModel().getSelectedItem());
+                        if (checkInPicker.getValue() != null) {
+                            long days = newValue.toEpochDay() - checkInPicker.getValue().toEpochDay();
+                            total = days * (dto.getCost() / 7);
+                            totalLabel.setText("Total: " + (int) total.doubleValue());
+                        }
+                    } catch (CustomException e) {
+                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                        e.printStackTrace();
                     }
                 }
             }
@@ -88,23 +99,33 @@ public class CheckInController {
     private void setRoomTypeBoxListener() {
         roomTypeBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                CustomDTO dto = checkinService.getRoomDetails(newValue);
-                if (dto.getRoomId() == null) {
-                    new Alert(Alert.AlertType.ERROR, "No Room Available At The Moment !").show();
-                    return;
+                try {
+                    CustomDTO dto = checkinService.getRoomDetails(newValue);
+                    if (dto.getRoomId() == null) {
+                        new Alert(Alert.AlertType.ERROR, "No Room Available At The Moment !").show();
+                        return;
+                    }
+                    roomNumber = dto.getRoomNumber();
+                    roomIdLabel.setText("Room ID: " + dto.getRoomId());
+                    roomCostLabel.setText("Cost Per Week: " + dto.getCost().toString());
+                    roomNumberLabel.setText("Room Number: " + dto.getRoomNumber());
+                } catch (CustomException e) {
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
                 }
-                roomNumber = dto.getRoomNumber();
-                roomIdLabel.setText("Room ID: " + dto.getRoomId());
-                roomCostLabel.setText("Cost Per Week: " + dto.getCost().toString());
-                roomNumberLabel.setText("Room Number: " + dto.getRoomNumber());
             }
         });
     }
 
     private void setBoxValues() {
-        ArrayList<String> roomTypes = checkinService.getRoomTypes();
-        roomTypeBox.getItems().addAll(roomTypes);
-        paymentOptionBox.getItems().addAll("Now", "Later");
+        try {
+            ArrayList<String> roomTypes = checkinService.getRoomTypes();
+            roomTypeBox.getItems().addAll(roomTypes);
+            paymentOptionBox.getItems().addAll("Now", "Later");
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
+        }
     }
 
     private void loadPane() {
@@ -123,6 +144,7 @@ public class CheckInController {
             pane.getChildren().add(javafx.fxml.FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CheckingMenuForm.fxml"))));
         } catch (java.io.IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -155,10 +177,15 @@ public class CheckInController {
 
     @FXML
     void enterOnAction(ActionEvent event) {
-        if (checkinService.getStudentId(idFld.getText()).isEmpty()) {
-            idFld.setStyle("-fx-border-color: red");
-        } else {
-            idFld.setStyle("-fx-border-color: green");
+        try {
+            if (checkinService.getStudentId(idFld.getText()).isEmpty()) {
+                idFld.setStyle("-fx-border-color: red");
+            } else {
+                idFld.setStyle("-fx-border-color: green");
+            }
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
     }
 
@@ -177,23 +204,32 @@ public class CheckInController {
 
     @FXML
     void reserveBtnOnAction(ActionEvent event) {
-        if (validateDetails()) {
-            if (checkinService.checkStudentEligibility(idFld.getText()).equals("Blacklist")) {
-                new Alert(Alert.AlertType.ERROR, "Student Has Blacklisted !").show();
-                return;
+        try{
+            if (validateDetails()) {
+                if (checkinService.checkStudentEligibility(idFld.getText()).equals("Blacklist")) {
+                    new Alert(Alert.AlertType.ERROR, "Student Has Blacklisted !").show();
+                    return;
+                }
+                if (checkinService.checkReservation(idFld.getText()).equals("Active")) {
+                    new Alert(Alert.AlertType.ERROR, "Student Has Active Reservation !").show();
+                    return;
+                }
+                checkinService.save(new ReserveDTO(reserveId, Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active"), idFld.getText(), roomNumber);
+                ReserveDTO dto = new ReserveDTO(reserveId, Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active");
+                checkinService.sendReceipt(dto, idFld.getText(), roomNumber);
+                clearBtnAction();
+                try {
+                    reserveId = checkinService.getReserveId();
+                } catch (CustomException e) {
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                }
+                new Alert(Alert.AlertType.INFORMATION, "Reserved Successfully !").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Please Fill All The Fields Correctly !").show();
             }
-            if (checkinService.checkReservation(idFld.getText()).equals("Active")) {
-                new Alert(Alert.AlertType.ERROR, "Student Has Active Reservation !").show();
-                return;
-            }
-            checkinService.save(new ReserveDTO(reserveId, Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active"), idFld.getText(), roomNumber);
-            ReserveDTO dto = new ReserveDTO(reserveId, Date.valueOf(checkInPicker.getValue()), Date.valueOf(checkOutPicker.getValue()), total, paymentOptionBox.getValue().equals("Now") ? "Paid" : "Not Paid", "Active");
-            checkinService.sendReceipt(dto, idFld.getText(), roomNumber);
-            clearBtnAction();
-            reserveId = checkinService.getReserveId();
-            new Alert(Alert.AlertType.INFORMATION, "Reserved Successfully !").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Please Fill All The Fields Correctly !").show();
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
     }
 
@@ -214,7 +250,13 @@ public class CheckInController {
     }
 
     private boolean validateStudentId() {
-        return checkinService.getStudentId(idFld.getText()).get(0).equals(idFld.getText());
+        try {
+            return checkinService.getStudentId(idFld.getText()).get(0).equals(idFld.getText());
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

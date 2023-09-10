@@ -5,6 +5,7 @@ import com.kawishika.dto.tm.RoomCategoryTM;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.RoomCategoryServiceImpl;
 import com.kawishika.service.interfaces.RoomCategoryService;
+import com.kawishika.util.CustomException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -48,15 +49,21 @@ public class RoomCategoryFormController {
     }
 
     private void loadTable() {
-        ArrayList<RoomCategoryTM> all = roomCategoryService.getAll();
-        for (RoomCategoryTM roomCategoryTM : all) {
-            Platform.runLater(() -> {
-                        setEditAction(roomCategoryTM.getEdit());
-                        setDeleteAction(roomCategoryTM.getDelete());
-                    }
-            );
+        ArrayList<RoomCategoryTM> all = null;
+        try {
+            all = roomCategoryService.getAll();
+            for (RoomCategoryTM roomCategoryTM : all) {
+                Platform.runLater(() -> {
+                            setEditAction(roomCategoryTM.getEdit());
+                            setDeleteAction(roomCategoryTM.getDelete());
+                        }
+                );
+            }
+            roomTable.setItems(FXCollections.observableList(all));
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
-        roomTable.setItems(FXCollections.observableList(all));
     }
 
     private void setDeleteAction(Button delete) {
@@ -68,13 +75,18 @@ public class RoomCategoryFormController {
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this record?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
                     if (buttonType == ButtonType.YES) {
-                        boolean delete1 = roomCategoryService.delete(new RoomCategoryDTO(selectedItem.getRoom_ID(), null, 0.0));
-                        if (delete1) {
-                            new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
-                            clearBtnOnAction();
-                            loadTable();
-                        } else {
-                            new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
+                        try {
+                            boolean delete1 = roomCategoryService.delete(new RoomCategoryDTO(selectedItem.getRoom_ID(), null, 0.0));
+                            if (delete1) {
+                                new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
+                                clearBtnOnAction();
+                                loadTable();
+                            } else {
+                                new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
+                            }
+                        }catch (CustomException e){
+                            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -106,25 +118,39 @@ public class RoomCategoryFormController {
     @FXML
     void addSaveBtnOnAction(ActionEvent event) {
         if (validateDetails()) {
-            if (roomCategoryService.isExists(idFld.getText())) {
-                boolean update = roomCategoryService.update(new RoomCategoryDTO(idFld.getText(), typeFld.getText(), Double.parseDouble(costFld.getText())));
-                if (update) {
-                    new Alert(Alert.AlertType.INFORMATION, "Updated Successfully").show();
-                    clearBtnOnAction();
-                    loadTable();
+            try{
+                if (roomCategoryService.isExists(idFld.getText())) {
+                    try {
+                        boolean update = roomCategoryService.update(new RoomCategoryDTO(idFld.getText(), typeFld.getText(), Double.parseDouble(costFld.getText())));
+                        if (update) {
+                            new Alert(Alert.AlertType.INFORMATION, "Updated Successfully").show();
+                            clearBtnOnAction();
+                            loadTable();
+                        } else {
+                            new Alert(Alert.AlertType.ERROR, "Failed to update").show();
+                        }
+                    }catch (CustomException e){
+                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                        e.printStackTrace();
+                    }
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to update").show();
+                    try {
+                        boolean save = roomCategoryService.save(new RoomCategoryDTO(idFld.getText(), typeFld.getText(), Double.parseDouble(costFld.getText())));
+                        if (save) {
+                            new Alert(Alert.AlertType.INFORMATION, "Saved Successfully").show();
+                            clearBtnOnAction();
+                            loadTable();
+                        } else {
+                            new Alert(Alert.AlertType.ERROR, "Failed to save").show();
+                        }
+                    }catch (CustomException e){
+                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                        e.printStackTrace();
+                    }
                 }
-            } else {
-                boolean save = roomCategoryService.save(new RoomCategoryDTO(idFld.getText(), typeFld.getText(), Double.parseDouble(costFld.getText())));
-                if (save) {
-                    new Alert(Alert.AlertType.INFORMATION, "Saved Successfully").show();
-                    clearBtnOnAction();
-                    loadTable();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to save").show();
-                }
-
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
         } else {
             validateDetails();
@@ -182,13 +208,18 @@ public class RoomCategoryFormController {
     void deleteBtnOnAction() {
         new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this record?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.YES) {
-                boolean delete = roomCategoryService.delete(new RoomCategoryDTO(idFld.getText(), null, 0.0));
-                if (delete) {
-                    new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
-                    clearBtnOnAction();
-                    loadTable();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
+                try {
+                    boolean delete = roomCategoryService.delete(new RoomCategoryDTO(idFld.getText(), null, 0.0));
+                    if (delete) {
+                        new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully").show();
+                        clearBtnOnAction();
+                        loadTable();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
+                    }
+                }catch (CustomException e){
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    e.printStackTrace();
                 }
             }
         });
@@ -199,8 +230,13 @@ public class RoomCategoryFormController {
         if (searchFld.getText().trim().isEmpty()) {
             loadTable();
         } else {
-            ArrayList<RoomCategoryTM> search = roomCategoryService.search(searchFld.getText());
-            roomTable.setItems(FXCollections.observableList(search));
+            try {
+                ArrayList<RoomCategoryTM> search = roomCategoryService.search(searchFld.getText());
+                roomTable.setItems(FXCollections.observableList(search));
+            } catch (CustomException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
+            }
         }
     }
 

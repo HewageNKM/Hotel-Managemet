@@ -4,6 +4,7 @@ import com.kawishika.dto.UserDTO;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.LoginServiceImpl;
 import com.kawishika.service.interfaces.LoginService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.SessionConfigureFactory;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -102,38 +103,34 @@ public class LoginFormController {
     }
 
     public void loginBtnAction() throws IOException {
-        if (loginService.verifyLogin(new UserDTO(userNameFld.getText(), passwordFld.getText().trim().isEmpty() ? passwordFldMask.getText() : passwordFld.getText()))) {
-            userNameFld.setStyle("-fx-border-color: green");
-            passwordFld.setStyle("-fx-border-color: green");
-            passwordFldMask.setStyle("-fx-border-color: green");
-            URL resource = getClass().getResource("/view/MainForm.fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader(resource);
-            Parent parent = fxmlLoader.load();
-            MainFormController mainFormController = fxmlLoader.getController();
-            mainFormController.initialize(userNameFld.getText().toUpperCase());
-            stage.setScene(new Scene(parent));
-            stage.setTitle("Main Form");
-            stage.setResizable(false);
-            stage.setMaximized(false);
-            stage.getIcons().add(new Image("/asset/main/menuIcon.png"));
-            stage.show();
-            Stage loginStage = (Stage) pane.getScene().getWindow();
-            loginStage.close();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid Username or Password !", ButtonType.OK).show();
-            userNameFld.setStyle("-fx-border-color: red");
-            passwordFld.setStyle("-fx-border-color: red");
-            passwordFldMask.setStyle("-fx-border-color: red");
+        try{
+            if (loginService.verifyLogin(new UserDTO(userNameFld.getText(), passwordFld.getText().trim().isEmpty() ? passwordFldMask.getText() : passwordFld.getText()))) {
+                userNameFld.setStyle("-fx-border-color: green");
+                passwordFld.setStyle("-fx-border-color: green");
+                passwordFldMask.setStyle("-fx-border-color: green");
+                URL resource = getClass().getResource("/view/MainForm.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader(resource);
+                Parent parent = fxmlLoader.load();
+                MainFormController mainFormController = fxmlLoader.getController();
+                mainFormController.initialize(userNameFld.getText().toUpperCase());
+                stage.setScene(new Scene(parent));
+                stage.setTitle("Main Form");
+                stage.setResizable(false);
+                stage.setMaximized(false);
+                stage.getIcons().add(new Image("/asset/main/menuIcon.png"));
+                stage.show();
+                Stage loginStage = (Stage) pane.getScene().getWindow();
+                loginStage.close();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Invalid Username or Password !", ButtonType.OK).show();
+                userNameFld.setStyle("-fx-border-color: red");
+                passwordFld.setStyle("-fx-border-color: red");
+                passwordFldMask.setStyle("-fx-border-color: red");
+            }
+        }catch (CustomException e ){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            e.printStackTrace();
         }
-        /*Stage stage = (Stage) pane.getScene().getWindow();
-        stage.close();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainForm.fxml")))));
-        mainStage.setTitle("Main Form");
-        mainStage.setResizable(false);
-        mainStage.setMaximized(false);
-        mainStage.getIcons().add(new Image("/asset/main/menuIcon.png"));
-        mainStage.show();*/
     }
 
     public void resetBtnAction() {
@@ -145,6 +142,7 @@ public class LoginFormController {
             stage.show();
         } catch (java.io.IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 
@@ -152,11 +150,11 @@ public class LoginFormController {
         try {
             stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CreateAccountForm.fxml")))));
             stage.setTitle("Create Account");
-            //stage.getIcons().add(new Image("/asset/create/createIcon.png"));
             stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             System.out.println("Resource Not Found !");
+            e.printStackTrace();
         }
     }
 }

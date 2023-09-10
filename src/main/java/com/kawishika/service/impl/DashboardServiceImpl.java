@@ -7,6 +7,7 @@ import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.entity.Reserve;
 import com.kawishika.service.interfaces.DashboardService;
+import com.kawishika.util.CustomException;
 import com.kawishika.util.Mail;
 import com.kawishika.util.TempMails;
 
@@ -19,12 +20,12 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardDAO dashboardDAO = (DashboardDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.DASHBOARD);
 
     @Override
-    public ArrayList<Integer> getPieData() {
+    public ArrayList<Integer> getPieData() throws CustomException {
         return dashboardDAO.getPieData();
     }
 
     @Override
-    public ArrayList<CustomTM> getPaymentData() {
+    public ArrayList<CustomTM> getPaymentData() throws CustomException {
         ArrayList<CustomDTO> paymentData = dashboardDAO.getPaymentData();
         ArrayList<CustomTM> customTMS = new ArrayList<>();
         for (CustomDTO customDTO : paymentData) {
@@ -34,7 +35,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public ArrayList<Integer> getLineChartData() {
+    public ArrayList<Integer> getLineChartData() throws CustomException {
         ArrayList<Integer> data = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
             Double count = dashboardDAO.getLineChartData(i);
@@ -45,7 +46,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public ArrayList<String> getNotifications() {
+    public ArrayList<String> getNotifications() throws CustomException {
         ArrayList<Reserve> details = dashboardDAO.getDetails();
         ArrayList<String> notifications = new ArrayList<>();
         for (Reserve detail : details) {

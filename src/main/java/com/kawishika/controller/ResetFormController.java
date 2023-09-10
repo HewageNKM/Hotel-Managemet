@@ -4,6 +4,7 @@ import com.kawishika.dto.UserDTO;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.ResetServiceImpl;
 import com.kawishika.service.interfaces.ResetService;
+import com.kawishika.util.CustomException;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -39,11 +40,16 @@ public class ResetFormController {
 
     public void resetBtnOnAction() {
         if (resetService.checkCode(Integer.valueOf(codeFld.getText()))) {
-            if (resetService.resetPassword(new UserDTO(userNameFld.getText(), passwordMask.getText()))) {
-                new Alert(Alert.AlertType.INFORMATION, "Password Reset Successfully!").show();
-                clearBtnOnAction();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Password Reset Failed!").show();
+            try {
+                if (resetService.resetPassword(new UserDTO(userNameFld.getText(), passwordMask.getText()))) {
+                    new Alert(Alert.AlertType.INFORMATION, "Password Reset Successfully!").show();
+                    clearBtnOnAction();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Password Reset Failed!").show();
+                }
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
         } else {
             codeFld.setStyle("-fx-border-color: red");
@@ -72,32 +78,37 @@ public class ResetFormController {
     }
 
     public void codeSendBtnOnAction() {
-        if (resetService.sendCode(userNameFld.getText())) {
-            sendBtn.setDisable(true);
-            userNameFld.setDisable(true);
-            new Alert(Alert.AlertType.INFORMATION, "Code Send Successfully!").show();
-            counter = new Thread(() -> {
-                for (int i = 60; i >= 0; i--) {
-                    int finalI = i;
-                    Platform.runLater(() -> {
-                        sendBtn.setText(String.valueOf(finalI));
-                        if (finalI == 0) {
-                            sendBtn.setDisable(false);
-                            userNameFld.setDisable(false);
-                            codeFld.clear();
-                            codeFld.setPromptText("Resend Code");
+        try {
+            if (resetService.sendCode(userNameFld.getText())) {
+                sendBtn.setDisable(true);
+                userNameFld.setDisable(true);
+                new Alert(Alert.AlertType.INFORMATION, "Code Send Successfully!").show();
+                counter = new Thread(() -> {
+                    for (int i = 60; i >= 0; i--) {
+                        int finalI = i;
+                        Platform.runLater(() -> {
+                            sendBtn.setText(String.valueOf(finalI));
+                            if (finalI == 0) {
+                                sendBtn.setDisable(false);
+                                userNameFld.setDisable(false);
+                                codeFld.clear();
+                                codeFld.setPromptText("Resend Code");
+                            }
+                        });
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            break;
                         }
-                    });
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        break;
                     }
-                }
-            });
-            counter.start();
-        } else {
-            userNameFld.setStyle("-fx-border-color: red");
+                });
+                counter.start();
+            } else {
+                userNameFld.setStyle("-fx-border-color: red");
+            }
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
     }
 }

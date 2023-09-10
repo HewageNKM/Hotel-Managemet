@@ -4,7 +4,9 @@ import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.PaymentServiceImpl;
 import com.kawishika.service.interfaces.PaymentService;
+import com.kawishika.util.CustomException;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -32,12 +34,17 @@ public class PaymentController {
     }
 
     private void loadTable() {
-        ArrayList<CustomTM> all = paymentService.getAll();
-        paymentTable.getItems().clear();
-        for (CustomTM customTM : all) {
-            setActionBtnAction(customTM.getReceived());
+        try{
+            ArrayList<CustomTM> all = paymentService.getAll();
+            paymentTable.getItems().clear();
+            for (CustomTM customTM : all) {
+                setActionBtnAction(customTM.getReceived());
+            }
+            paymentTable.getItems().addAll(FXCollections.observableArrayList(all));
+        }catch (CustomException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
-        paymentTable.getItems().addAll(FXCollections.observableArrayList(all));
     }
 
     private void setCellValueFactory() {
@@ -63,12 +70,17 @@ public class PaymentController {
             paymentTable.getItems().clear();
             loadTable();
         } else {
-            paymentTable.getItems().clear();
-            ArrayList<CustomTM> all = paymentService.search(idFld.getText());
-            for (CustomTM customTM : all) {
-                setActionBtnAction(customTM.getReceived());
+            try{
+                paymentTable.getItems().clear();
+                ArrayList<CustomTM> all = paymentService.search(idFld.getText());
+                for (CustomTM customTM : all) {
+                    setActionBtnAction(customTM.getReceived());
+                }
+                paymentTable.getItems().addAll(FXCollections.observableArrayList(all));
+            }catch (CustomException e){
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                e.printStackTrace();
             }
-            paymentTable.getItems().addAll(FXCollections.observableArrayList(all));
         }
     }
 
@@ -82,16 +94,29 @@ public class PaymentController {
                         return;
                     }
                     if (buttonType == ButtonType.YES) {
-                        if (paymentService.update(selectedItem.getReserveId())) {
-                            new Alert(Alert.AlertType.INFORMATION, "Payment Received !", ButtonType.OK).show();
-                            idFld.clear();
-                            new Thread(() -> {
-                                paymentService.sendReceipt(selectedItem);
-                            }).start();
-                            loadTable();
-                        } else {
-                            new Alert(Alert.AlertType.WARNING, "Something Went Wrong !", ButtonType.OK).show();
+                        try{
+                            if (paymentService.update(selectedItem.getReserveId())) {
+                                new Alert(Alert.AlertType.INFORMATION, "Payment Received !", ButtonType.OK).show();
+                                idFld.clear();
+                                new Thread(() -> {
+                                    try {
+                                        paymentService.sendReceipt(selectedItem);
+                                    } catch (CustomException e) {
+                                        Platform.runLater(() -> {
+                                            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                                            e.printStackTrace();
+                                        });
+                                    }
+                                }).start();
+                                loadTable();
+                            } else {
+                                new Alert(Alert.AlertType.WARNING, "Something Went Wrong !", ButtonType.OK).show();
+                            }
+                        }catch (CustomException e){
+                            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                            e.printStackTrace();
                         }
+
                     }
                 });
             } else {

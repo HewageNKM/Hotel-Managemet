@@ -3,6 +3,7 @@ package com.kawishika.service.interfaces;
 import com.kawishika.dto.StudentDTO;
 import com.kawishika.dto.tm.StudentTM;
 import com.kawishika.service.SuperService;
+import com.kawishika.util.CustomException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,17 +19,17 @@ public interface StudentService extends SuperService {
 
     boolean validateName(String name);
 
-    ArrayList<StudentTM> getAll();
+    ArrayList<StudentTM> getAll() throws CustomException;
 
-    boolean delete(String id);
+    boolean delete(String id) throws CustomException;
 
-    boolean isStudentExists(String id);
+    boolean isStudentExists(String id) throws CustomException;
 
-    boolean update(StudentDTO student);
+    boolean update(StudentDTO student) throws CustomException;
 
-    boolean save(StudentDTO studentDTO);
+    boolean save(StudentDTO studentDTO) throws CustomException;
 
-    StudentDTO getStudent(String id);
+    StudentDTO getStudent(String id) throws CustomException;
 
-    ArrayList<StudentTM> searchStudent(String searchPhrase);
+    ArrayList<StudentTM> searchStudent(String searchPhrase) throws CustomException;
 }
