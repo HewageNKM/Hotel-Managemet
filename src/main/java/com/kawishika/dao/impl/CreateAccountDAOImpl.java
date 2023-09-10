@@ -35,16 +35,16 @@ public class CreateAccountDAOImpl implements CreateAccountDAO {
             session.persist(entity);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Saving Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -59,16 +59,16 @@ public class CreateAccountDAOImpl implements CreateAccountDAO {
             User user = session.get(User.class, useName);
             transaction.commit();
             return user == null;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
-           throw new CustomException("Error While Checking User Name");
-        }finally {
+            throw new CustomException("Error While Checking User Name");
+        } finally {
             if (session != null) session.close();
         }
     }

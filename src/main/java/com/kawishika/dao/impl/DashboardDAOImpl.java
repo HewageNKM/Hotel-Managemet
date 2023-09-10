@@ -47,16 +47,16 @@ public class DashboardDAOImpl implements DashboardDAO {
             data.add(Integer.parseInt(nativeQuery.uniqueResult().toString()));
             transaction.commit();
             return data;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -81,16 +81,16 @@ public class DashboardDAOImpl implements DashboardDAO {
             }
             transaction.commit();
             return data;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -106,16 +106,16 @@ public class DashboardDAOImpl implements DashboardDAO {
             List list = session.createQuery("FROM Reserve where Status = 'Active'").list();
             transaction.commit();
             return list == null ? null : (ArrayList<Reserve>) list;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -132,16 +132,16 @@ public class DashboardDAOImpl implements DashboardDAO {
             String email = nativeQuery.uniqueResult().toString();
             transaction.commit();
             return email;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -160,20 +160,20 @@ public class DashboardDAOImpl implements DashboardDAO {
                 count = Double.valueOf(nativeQuery.uniqueResult().toString());
                 transaction.commit();
                 return count;
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 transaction.commit();
                 return 0.0;
             }
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

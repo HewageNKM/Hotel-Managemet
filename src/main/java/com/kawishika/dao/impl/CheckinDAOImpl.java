@@ -2,7 +2,6 @@ package com.kawishika.dao.impl;
 
 import com.kawishika.dao.interfaces.CheckinDAO;
 import com.kawishika.dto.CustomDTO;
-import com.kawishika.dto.ReserveDTO;
 import com.kawishika.entity.Reserve;
 import com.kawishika.entity.Room;
 import com.kawishika.entity.Student;
@@ -13,7 +12,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,16 +48,16 @@ public class CheckinDAOImpl implements CheckinDAO {
             roomTypes.addAll(nativeQuery.list());
             transaction.commit();
             return roomTypes;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -82,16 +80,16 @@ public class CheckinDAOImpl implements CheckinDAO {
             }
             transaction.commit();
             return customDTO;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -109,16 +107,16 @@ public class CheckinDAOImpl implements CheckinDAO {
             studentIds.addAll(nativeQuery.list());
             transaction.commit();
             return studentIds;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -135,16 +133,16 @@ public class CheckinDAOImpl implements CheckinDAO {
             List list = nativeQuery.list();
             transaction.commit();
             return !list.isEmpty();
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -153,7 +151,7 @@ public class CheckinDAOImpl implements CheckinDAO {
     public boolean save(Reserve entity, String studentId, String roomNumber) throws CustomException {
         Session session = null;
         Transaction transaction = null;
-        try{
+        try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
             Student student = session.get(Student.class, studentId);
@@ -168,11 +166,11 @@ public class CheckinDAOImpl implements CheckinDAO {
             session.persist(room);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
@@ -190,16 +188,16 @@ public class CheckinDAOImpl implements CheckinDAO {
             Student student = session.get(Student.class, studentId);
             transaction.commit();
             return student.getStatus();
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -219,17 +217,17 @@ public class CheckinDAOImpl implements CheckinDAO {
             }
             transaction.commit();
             return "Inactive";
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
-           throw new CustomException("Error While Getting Data");
+            throw new CustomException("Error While Getting Data");
 
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -247,16 +245,16 @@ public class CheckinDAOImpl implements CheckinDAO {
             mail.add(student.getStudent_Name());
             transaction.commit();
             return mail;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

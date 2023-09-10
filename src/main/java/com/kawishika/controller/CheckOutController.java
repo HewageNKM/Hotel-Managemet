@@ -73,7 +73,7 @@ public class CheckOutController {
     @FXML
     void checkBtnOnAction(ActionEvent event) {
         if (checkOutService.checkId(idFld.getText())) {
-            try{
+            try {
                 customTM = checkOutService.getReserveDetails(idFld.getText());
                 if (customTM == null) {
                     new Alert(Alert.AlertType.WARNING, "Invalid Details !", ButtonType.OK).show();
@@ -81,7 +81,7 @@ public class CheckOutController {
                 }
                 checkOutTable.getItems().clear();
                 checkOutTable.getItems().add(customTM);
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }

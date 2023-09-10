@@ -4,7 +4,6 @@ import com.kawishika.dao.interfaces.CheckOutDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.entity.Room;
-import com.kawishika.entity.Student;
 import com.kawishika.util.CustomException;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
@@ -38,16 +37,16 @@ public class CheckOutDAOImpl implements CheckOutDAO {
             session.persist(room);
             transaction.commit();
             return i > 0;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Updating Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -84,16 +83,16 @@ public class CheckOutDAOImpl implements CheckOutDAO {
             dto = new CustomDTO(object[0].toString(), object[1].toString(), object[2].toString(), Double.parseDouble(object[3].toString()), object[4].toString(), (Date) object[5], (Date) object[6]);
             transaction.commit();
             return dto;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -114,16 +113,16 @@ public class CheckOutDAOImpl implements CheckOutDAO {
             mail.add(object[1].toString());
             transaction.commit();
             return mail;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

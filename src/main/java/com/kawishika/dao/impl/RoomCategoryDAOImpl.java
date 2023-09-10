@@ -11,7 +11,7 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomCategoryDAOImpl implements RoomCategoryDAO{
+public class RoomCategoryDAOImpl implements RoomCategoryDAO {
     @Override
     public ArrayList<RoomCategory> getAll(ArrayList<RoomCategory> entityList) throws CustomException {
         Session session = null;
@@ -22,16 +22,16 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
             entityList.addAll(session.createQuery("FROM RoomCategory").list());
             transaction.commit();
             return entityList;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -48,16 +48,16 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
             roomCategory.setCost_Per_Week(entity.getCost_Per_Week());
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Updating Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -73,16 +73,16 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
             session.remove(roomCategory);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Deleting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -97,16 +97,16 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
             session.persist(entity);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Saving Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -121,16 +121,16 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
             RoomCategory roomCategory = session.get(RoomCategory.class, id);
             transaction.commit();
             return roomCategory != null;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Checking Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -148,16 +148,16 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
             roomCategories.addAll(query.list());
             transaction.commit();
             return (ArrayList<RoomCategory>) roomCategories;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Searching Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

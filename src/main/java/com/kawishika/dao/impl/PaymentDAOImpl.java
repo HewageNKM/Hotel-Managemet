@@ -4,7 +4,6 @@ import com.kawishika.dao.interfaces.PaymentDAO;
 import com.kawishika.dto.CustomDTO;
 import com.kawishika.dto.tm.CustomTM;
 import com.kawishika.entity.Reserve;
-import com.kawishika.entity.Student;
 import com.kawishika.util.CustomException;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
@@ -36,16 +35,16 @@ public class PaymentDAOImpl implements PaymentDAO {
             }
             transaction.commit();
             return entityList;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -95,16 +94,16 @@ public class PaymentDAOImpl implements PaymentDAO {
             }
             transaction.commit();
             return entityList;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Roll Backing");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -121,16 +120,16 @@ public class PaymentDAOImpl implements PaymentDAO {
             session.persist(reserve);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Updating Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -153,16 +152,16 @@ public class PaymentDAOImpl implements PaymentDAO {
             }
             transaction.commit();
             return mail;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

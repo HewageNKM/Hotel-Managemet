@@ -46,7 +46,7 @@ public class DashboardFormController {
 
     private void loadNotifications() {
         new Thread(() -> {
-            try{
+            try {
                 ArrayList<String> notifications = dashboardService.getNotifications();
                 for (String notification : notifications) {
                     Label label = new Label(notification);
@@ -54,7 +54,7 @@ public class DashboardFormController {
                         notificationsBox.getChildren().add(label);
                     });
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 Platform.runLater(() -> {
                     new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                     e.printStackTrace();

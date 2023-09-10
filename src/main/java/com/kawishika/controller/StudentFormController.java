@@ -87,14 +87,14 @@ public class StudentFormController {
     }
 
     private void loadTable() {
-        try{
+        try {
             ArrayList<StudentTM> all = studentService.getAll();
             for (StudentTM studentTM : all) {
                 setEditAction(studentTM.getEdit());
                 setDeleteAction(studentTM.getDelete());
             }
             studentTable.setItems(FXCollections.observableList(all));
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -105,7 +105,7 @@ public class StudentFormController {
             if (selectedItem != null) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this student?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
                     if (buttonType == ButtonType.YES) {
-                        try{
+                        try {
                             boolean deleted = studentService.delete(selectedItem.getStudent_ID());
                             if (deleted) {
                                 new Alert(Alert.AlertType.CONFIRMATION, "Student has been deleted successfully", ButtonType.OK).show();
@@ -114,7 +114,7 @@ public class StudentFormController {
                             } else {
                                 new Alert(Alert.AlertType.ERROR, "Failed to delete the student", ButtonType.OK).show();
                             }
-                        }catch (CustomException e){
+                        } catch (CustomException e) {
                             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                         }
                     }
@@ -174,7 +174,7 @@ public class StudentFormController {
     @FXML
     void addSaveBtnOnAction() {
         if (validateDetails()) {
-            try{
+            try {
                 if (studentService.isStudentExists(studentIdFld.getText())) {
                     if (studentService.update(new StudentDTO(studentIdFld.getText(), studentNameFld.getText(), emailFld.getText(), phoneNumberFld.getText(), birthdayPicker.getValue(), genderBox.getValue(), statusBox.getValue()))) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Student has been updated successfully", ButtonType.OK).show();
@@ -192,7 +192,7 @@ public class StudentFormController {
                         new Alert(Alert.AlertType.ERROR, "Failed to save the student", ButtonType.OK).show();
                     }
                 }
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -319,14 +319,14 @@ public class StudentFormController {
         if (searchFld.getText().trim().isBlank()) {
             loadTable();
         } else {
-            try{
+            try {
                 ArrayList<StudentTM> all = studentService.searchStudent(searchFld.getText());
                 for (StudentTM studentTM : all) {
                     setEditAction(studentTM.getEdit());
                     setDeleteAction(studentTM.getDelete());
                 }
                 studentTable.setItems(FXCollections.observableList(all));
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -334,7 +334,7 @@ public class StudentFormController {
     }
 
     public void enterOnAction() {
-        try{
+        try {
             StudentDTO studentDTO = studentService.getStudent(studentIdFld.getText());
             if (studentDTO != null) {
                 studentNameFld.setText(studentDTO.getStudent_Name());
@@ -345,7 +345,7 @@ public class StudentFormController {
             } else {
                 new Alert(Alert.AlertType.ERROR, "No student found", ButtonType.OK).show();
             }
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }

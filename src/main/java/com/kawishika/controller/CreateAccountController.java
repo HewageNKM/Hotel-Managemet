@@ -20,17 +20,17 @@ public class CreateAccountController {
     private Thread counter;
     private String email;
 
-    public void initialize(){
+    public void initialize() {
         setPasswordUnmask();
     }
 
     private void setPasswordUnmask() {
         passwordCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 passwordFld.setText(passwordFldMask.getText());
                 passwordFldMask.setVisible(false);
                 passwordFld.setVisible(true);
-            }else {
+            } else {
                 passwordFldMask.setText(passwordFld.getText());
                 passwordFldMask.setVisible(true);
                 passwordFld.setVisible(false);
@@ -39,21 +39,21 @@ public class CreateAccountController {
     }
 
     public void createBtnOnAction() {
-        if(validateDetails()){
+        if (validateDetails()) {
             try {
-                if (createAccountService.createAccount(new UserDTO(userNameFld.getText(),passwordFld.getText(),email,"Active"))){
-                    new Alert(Alert.AlertType.INFORMATION,"Account Created Successfully!").show();
+                if (createAccountService.createAccount(new UserDTO(userNameFld.getText(), passwordFld.getText(), email, "Active"))) {
+                    new Alert(Alert.AlertType.INFORMATION, "Account Created Successfully!").show();
                     clearBtnOnAction();
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Account Created Failed!").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Account Created Failed!").show();
                 }
-            }catch (Exception e){
-                new Alert(Alert.AlertType.ERROR,"Account Created Failed!").show();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, "Account Created Failed!").show();
                 e.printStackTrace();
             }
-        }else {
-            new Alert(Alert.AlertType.ERROR,"Please Enter Valid Details!").show();
-        };
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Please Enter Valid Details!").show();
+        }
     }
 
     private boolean validateDetails() {
@@ -61,20 +61,20 @@ public class CreateAccountController {
     }
 
     private boolean validateCode() {
-        if (createAccountService.validateCode(Integer.valueOf(emailFld.getText()))){
+        if (createAccountService.validateCode(Integer.valueOf(emailFld.getText()))) {
             emailFld.setStyle("-fx-border-color: green");
             return true;
-        }else {
+        } else {
             emailFld.setStyle("-fx-border-color: none");
             return false;
         }
     }
 
     private boolean validatePassword() {
-        if (createAccountService.validatePassword(passwordFld.getText())){
+        if (createAccountService.validatePassword(passwordFld.getText())) {
             passwordFld.setStyle("-fx-border-color: green");
             return true;
-        }else {
+        } else {
             passwordFld.setStyle("-fx-border-color: red");
             return false;
         }
@@ -82,22 +82,22 @@ public class CreateAccountController {
 
     private boolean validateUserName() {
         try {
-            if (createAccountService.validateUserName(userNameFld.getText())){
+            if (createAccountService.validateUserName(userNameFld.getText())) {
                 userNameFld.setStyle("-fx-border-color: green");
                 return true;
-            }else {
+            } else {
                 userNameFld.setStyle("-fx-border-color: red");
                 return false;
             }
-        }catch (CustomException e){
-            new Alert(Alert.AlertType.ERROR,"Account Created Failed!").show();
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, "Account Created Failed!").show();
             e.printStackTrace();
             return false;
         }
     }
 
     public void clearBtnOnAction() {
-        if (counter != null){
+        if (counter != null) {
             counter.interrupt();
         }
         sendBtn.setDisable(false);
@@ -121,7 +121,7 @@ public class CreateAccountController {
     public void sendBtnOnAction() {
         if (createAccountService.validateEmail(emailFld.getText())) {
             new Alert(Alert.AlertType.ERROR, "Please Enter Valid User Name!").show();
-        }else {
+        } else {
             if (createAccountService.validateEmail(emailFld.getText())) {
                 createAccountService.sendCode(emailFld.getText());
                 email = emailFld.getText();

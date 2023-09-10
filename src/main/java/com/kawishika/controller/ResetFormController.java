@@ -7,7 +7,6 @@ import com.kawishika.service.interfaces.ResetService;
 import com.kawishika.util.CustomException;
 import javafx.application.Platform;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 
 public class ResetFormController {
     private final ResetService resetService = (ResetServiceImpl) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.RESET);
@@ -47,7 +46,7 @@ public class ResetFormController {
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Password Reset Failed!").show();
                 }
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -106,7 +105,7 @@ public class ResetFormController {
             } else {
                 userNameFld.setStyle("-fx-border-color: red");
             }
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }

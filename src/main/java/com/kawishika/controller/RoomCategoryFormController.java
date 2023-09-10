@@ -84,7 +84,7 @@ public class RoomCategoryFormController {
                             } else {
                                 new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
                             }
-                        }catch (CustomException e){
+                        } catch (CustomException e) {
                             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                             e.printStackTrace();
                         }
@@ -118,7 +118,7 @@ public class RoomCategoryFormController {
     @FXML
     void addSaveBtnOnAction(ActionEvent event) {
         if (validateDetails()) {
-            try{
+            try {
                 if (roomCategoryService.isExists(idFld.getText())) {
                     try {
                         boolean update = roomCategoryService.update(new RoomCategoryDTO(idFld.getText(), typeFld.getText(), Double.parseDouble(costFld.getText())));
@@ -129,7 +129,7 @@ public class RoomCategoryFormController {
                         } else {
                             new Alert(Alert.AlertType.ERROR, "Failed to update").show();
                         }
-                    }catch (CustomException e){
+                    } catch (CustomException e) {
                         new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                         e.printStackTrace();
                     }
@@ -143,12 +143,12 @@ public class RoomCategoryFormController {
                         } else {
                             new Alert(Alert.AlertType.ERROR, "Failed to save").show();
                         }
-                    }catch (CustomException e){
+                    } catch (CustomException e) {
                         new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                         e.printStackTrace();
                     }
                 }
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -217,7 +217,7 @@ public class RoomCategoryFormController {
                     } else {
                         new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
                     }
-                }catch (CustomException e){
+                } catch (CustomException e) {
                     new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                     e.printStackTrace();
                 }

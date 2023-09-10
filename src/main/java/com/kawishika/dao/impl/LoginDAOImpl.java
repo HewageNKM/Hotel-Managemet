@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
     @Override
@@ -43,32 +42,32 @@ public class LoginDAOImpl implements LoginDAO {
                 transaction.commit();
                 session.close();
                 return false;
-            }else if (!entity.getPassword().equals(user.getPassword())){
+            } else if (!entity.getPassword().equals(user.getPassword())) {
                 transaction.commit();
                 session.close();
                 return false;
-            }else if (entity.getStatus().equals("Inactive")){
+            } else if (entity.getStatus().equals("Inactive")) {
                 transaction.commit();
                 session.close();
                 return false;
-            }else {
+            } else {
                 transaction.commit();
                 session.close();
                 return true;
             }
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) {
                 session.close();
-                session=null;
+                session = null;
             }
         }
     }

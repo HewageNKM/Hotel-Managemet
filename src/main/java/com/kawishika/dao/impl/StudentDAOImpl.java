@@ -22,16 +22,16 @@ public class StudentDAOImpl implements StudentDAO {
             entityList.addAll(session.createQuery("FROM Student").list());
             transaction.commit();
             return entityList;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
 
@@ -53,16 +53,16 @@ public class StudentDAOImpl implements StudentDAO {
             student.setStatus(entity.getStatus());
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Updating Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -78,16 +78,16 @@ public class StudentDAOImpl implements StudentDAO {
             session.remove(student);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Deleting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -96,22 +96,22 @@ public class StudentDAOImpl implements StudentDAO {
     public boolean save(Student entity) throws CustomException {
         Session session = null;
         Transaction transaction = null;
-        try{
+        try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
             session.persist(entity);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Saving Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -126,16 +126,16 @@ public class StudentDAOImpl implements StudentDAO {
             Student entity = session.get(Student.class, student.getStudent_ID());
             transaction.commit();
             return entity != null;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Checking Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -150,16 +150,16 @@ public class StudentDAOImpl implements StudentDAO {
             Student student = session.get(Student.class, id);
             transaction.commit();
             return student;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -178,16 +178,16 @@ public class StudentDAOImpl implements StudentDAO {
             transaction.commit();
             session.close();
             return studentList;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Searching Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

@@ -103,7 +103,7 @@ public class LoginFormController {
     }
 
     public void loginBtnAction() throws IOException {
-        try{
+        try {
             if (loginService.verifyLogin(new UserDTO(userNameFld.getText(), passwordFld.getText().trim().isEmpty() ? passwordFldMask.getText() : passwordFld.getText()))) {
                 userNameFld.setStyle("-fx-border-color: green");
                 passwordFld.setStyle("-fx-border-color: green");
@@ -127,8 +127,8 @@ public class LoginFormController {
                 passwordFld.setStyle("-fx-border-color: red");
                 passwordFldMask.setStyle("-fx-border-color: red");
             }
-        }catch (CustomException e ){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (CustomException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
     }

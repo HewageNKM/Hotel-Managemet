@@ -66,7 +66,7 @@ public class RoomFormController {
     }
 
     private void loadTable() {
-        try{
+        try {
             ArrayList<RoomTM> all = roomService.getAll();
             for (RoomTM roomTM : all) {
                 setEditAction(roomTM.getEdit());
@@ -74,7 +74,7 @@ public class RoomFormController {
             }
             roomTable.getItems().clear();
             roomTable.getItems().addAll(FXCollections.observableArrayList(all));
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
@@ -86,7 +86,7 @@ public class RoomFormController {
             if (selectedItem != null) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this room?", ButtonType.YES, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
                     if (buttonType == ButtonType.YES) {
-                        try{
+                        try {
                             if (roomService.delete(new RoomDTO(selectedItem.getRoomNumber(), selectedItem.getStatus()), selectedItem.getRoomId())) {
                                 new Alert(Alert.AlertType.INFORMATION, "Room Deleted").show();
                                 loadTable();
@@ -94,7 +94,7 @@ public class RoomFormController {
                             } else {
                                 new Alert(Alert.AlertType.ERROR, "Failed to delete").show();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                             e.printStackTrace();
                         }
@@ -145,7 +145,7 @@ public class RoomFormController {
                     roomTypeLabel.setText("Room ID: " + roomId);
                     roomNumber = roomService.getRoomNumber();
                     roomNumberLabel.setText("Room Number: " + roomNumber);
-                }catch (CustomException e){
+                } catch (CustomException e) {
                     new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                     e.printStackTrace();
                 }
@@ -163,11 +163,11 @@ public class RoomFormController {
     }
 
     private void setBoxValues() {
-        try{
+        try {
             ArrayList<String> categoryIds = roomService.getCategoryIds();
             roomIdBox.getItems().addAll(categoryIds);
             statusBox.getItems().addAll("Active", "Maintenance", "Inactive");
-        } catch (Exception e){
+        } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
@@ -194,7 +194,7 @@ public class RoomFormController {
                         new Alert(Alert.AlertType.ERROR, "Failed to save").show();
                     }
                 }
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -218,7 +218,7 @@ public class RoomFormController {
     }
 
     private boolean validateRoomType() {
-        try{
+        try {
             if (roomService.validateRoomType(roomId)) {
                 roomTypeLabel.setStyle("-fx-text-fill: red");
                 return false;
@@ -226,7 +226,7 @@ public class RoomFormController {
                 roomTypeLabel.setStyle("-fx-text-fill: green");
                 return true;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             return false;
         }
@@ -251,7 +251,7 @@ public class RoomFormController {
                 roomIdBox.setStyle("-fx-border-color: red");
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
             return false;
@@ -281,7 +281,7 @@ public class RoomFormController {
                 ArrayList<RoomTM> search = roomService.search(searchFld.getText());
                 roomTable.getItems().clear();
                 roomTable.getItems().addAll(FXCollections.observableArrayList(search));
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }

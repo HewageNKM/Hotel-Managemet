@@ -2,7 +2,6 @@ package com.kawishika.dao.impl;
 
 import com.kawishika.dao.interfaces.ResetDAO;
 import com.kawishika.entity.User;
-import com.kawishika.service.ServiceFactory;
 import com.kawishika.util.CustomException;
 import com.kawishika.util.SessionConfigureFactory;
 import org.hibernate.Session;
@@ -16,6 +15,7 @@ public class ResetDAOImpl implements ResetDAO {
     public ArrayList<User> getAll(ArrayList<User> entityList) {
         return null;
     }
+
     @Override
     public boolean update(User entity) throws CustomException {
         Session session = null;
@@ -27,16 +27,16 @@ public class ResetDAOImpl implements ResetDAO {
             user.setPassword(entity.getPassword());
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Updating Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -70,16 +70,16 @@ public class ResetDAOImpl implements ResetDAO {
             arrayList.add(entity.getEmail());
             transaction.commit();
             return arrayList;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Sending Code");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }

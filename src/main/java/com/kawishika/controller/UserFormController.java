@@ -51,7 +51,7 @@ public class UserFormController {
         try {
             ArrayList<UserTM> all = userService.getAll();
             userTable.setItems(FXCollections.observableList(all));
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class UserFormController {
 
     public void addSaveBtnOnAction() {
         if (validateDetails()) {
-            try{
+            try {
                 boolean userExist = userService.isUserExist(userNameFld.getText());
                 if (userExist) {
                     boolean update = userService.update(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.getValue()));
@@ -95,7 +95,7 @@ public class UserFormController {
                         new Alert(Alert.AlertType.ERROR, "Failed to save the user !", ButtonType.OK).show();
                     }
                 }
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -166,7 +166,7 @@ public class UserFormController {
     public void deleteBtnOnAction() {
         new Alert(Alert.AlertType.CONFIRMATION, "Do You Want Delete Your ?", ButtonType.OK, ButtonType.NO).showAndWait().ifPresent(buttonType -> {
             if (buttonType == ButtonType.OK) {
-                try{
+                try {
                     boolean isDeleted = userService.delete(new UserDTO(userNameFld.getText(), passwordFld.getText(), emailFld.getText(), statusBox.selectionModelProperty().get().getSelectedItem()));
                     if (isDeleted) {
                         new Alert(Alert.AlertType.CONFIRMATION, "User deleted successfully !", ButtonType.OK).show();
@@ -175,7 +175,7 @@ public class UserFormController {
                     } else {
                         new Alert(Alert.AlertType.ERROR, "Failed to delete the user !", ButtonType.OK).show();
                     }
-                }catch (CustomException e){
+                } catch (CustomException e) {
                     new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                     e.printStackTrace();
                 }
@@ -185,7 +185,7 @@ public class UserFormController {
     }
 
     public void enterOnAction() {
-        try{
+        try {
             UserDTO user = userService.getUser(userNameFld.getText());
             if (user != null) {
                 passwordFld.setText(user.getPassword());
@@ -194,7 +194,7 @@ public class UserFormController {
             } else {
                 new Alert(Alert.AlertType.ERROR, "User not found !", ButtonType.OK).show();
             }
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }

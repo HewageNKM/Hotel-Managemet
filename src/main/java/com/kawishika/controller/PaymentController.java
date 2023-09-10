@@ -34,14 +34,14 @@ public class PaymentController {
     }
 
     private void loadTable() {
-        try{
+        try {
             ArrayList<CustomTM> all = paymentService.getAll();
             paymentTable.getItems().clear();
             for (CustomTM customTM : all) {
                 setActionBtnAction(customTM.getReceived());
             }
             paymentTable.getItems().addAll(FXCollections.observableArrayList(all));
-        }catch (CustomException e){
+        } catch (CustomException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             e.printStackTrace();
         }
@@ -70,14 +70,14 @@ public class PaymentController {
             paymentTable.getItems().clear();
             loadTable();
         } else {
-            try{
+            try {
                 paymentTable.getItems().clear();
                 ArrayList<CustomTM> all = paymentService.search(idFld.getText());
                 for (CustomTM customTM : all) {
                     setActionBtnAction(customTM.getReceived());
                 }
                 paymentTable.getItems().addAll(FXCollections.observableArrayList(all));
-            }catch (CustomException e){
+            } catch (CustomException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 e.printStackTrace();
             }
@@ -94,7 +94,7 @@ public class PaymentController {
                         return;
                     }
                     if (buttonType == ButtonType.YES) {
-                        try{
+                        try {
                             if (paymentService.update(selectedItem.getReserveId())) {
                                 new Alert(Alert.AlertType.INFORMATION, "Payment Received !", ButtonType.OK).show();
                                 idFld.clear();
@@ -112,7 +112,7 @@ public class PaymentController {
                             } else {
                                 new Alert(Alert.AlertType.WARNING, "Something Went Wrong !", ButtonType.OK).show();
                             }
-                        }catch (CustomException e){
+                        } catch (CustomException e) {
                             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                             e.printStackTrace();
                         }

@@ -30,16 +30,16 @@ public class RoomDAOImpl implements RoomDAO {
             room.setStatus(entity.getStatus());
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Updating Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -59,16 +59,16 @@ public class RoomDAOImpl implements RoomDAO {
             session.persist(entity);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Saving Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -83,16 +83,16 @@ public class RoomDAOImpl implements RoomDAO {
             ArrayList<String> categories = (ArrayList<String>) session.createNativeQuery("SELECT Room_Type FROM RoomCategory").list();
             transaction.commit();
             return categories;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -109,16 +109,16 @@ public class RoomDAOImpl implements RoomDAO {
             String roomId = (String) query.uniqueResult();
             transaction.commit();
             return roomId;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -134,16 +134,16 @@ public class RoomDAOImpl implements RoomDAO {
             String roomNumber = (String) query.uniqueResult();
             transaction.commit();
             return roomNumber;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -160,16 +160,16 @@ public class RoomDAOImpl implements RoomDAO {
             String roomType = (String) query.uniqueResult();
             transaction.commit();
             return roomType != null;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -186,16 +186,16 @@ public class RoomDAOImpl implements RoomDAO {
             String roomType = (String) query.uniqueResult();
             transaction.commit();
             return roomType != null;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -210,16 +210,16 @@ public class RoomDAOImpl implements RoomDAO {
             RoomCategory roomCategory = session.get(RoomCategory.class, roomId);
             transaction.commit();
             return roomCategory;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -236,16 +236,16 @@ public class RoomDAOImpl implements RoomDAO {
             String roomType = (String) query.uniqueResult();
             transaction.commit();
             return roomType != null;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -263,16 +263,16 @@ public class RoomDAOImpl implements RoomDAO {
             session.persist(room);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Saving Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -291,16 +291,16 @@ public class RoomDAOImpl implements RoomDAO {
             session.persist(roomCategory);
             transaction.commit();
             return true;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Deleting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -320,16 +320,16 @@ public class RoomDAOImpl implements RoomDAO {
             }
             transaction.commit();
             return ts;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Getting Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
@@ -353,16 +353,16 @@ public class RoomDAOImpl implements RoomDAO {
             }
             transaction.commit();
             return ts;
-        }catch (Exception e){
-            if(transaction != null) {
+        } catch (Exception e) {
+            if (transaction != null) {
                 try {
                     transaction.rollback();
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     throw new CustomException("Error While Roll Backing");
                 }
             }
             throw new CustomException("Error While Searching Data");
-        }finally {
+        } finally {
             if (session != null) session.close();
         }
     }
