@@ -25,7 +25,7 @@
     <Button layoutX="607.0" layoutY="233.0" mnemonicParsing="false" onAction="#addSaveBtnOnAction" prefHeight="41.0" styleClass="loginBtn" text="Add/Save" />
     <Button layoutX="726.0" layoutY="232.0" mnemonicParsing="false" onAction="#clearBtnOnAction" styleClass="resetBtn" text="Clear" />
    <ComboBox fx:id="roomIdBox" layoutX="92.0" layoutY="49.0" prefHeight="46.0" prefWidth="198.0" promptText="Room ID" styleClass="accountStatusComboBox" />
-   <Label fx:id="roomTypeLabel" layoutX="92.0" layoutY="139.0" prefHeight="46.0" prefWidth="198.0" styleClass="textLabel" text="Type:" />
+   <Label fx:id="roomTypeLabel" layoutX="92.0" layoutY="139.0" prefHeight="46.0" prefWidth="198.0" styleClass="textLabel" text="Room Type:" />
    <TextField fx:id="searchFld" layoutX="129.0" layoutY="233.0" onKeyTyped="#searchOnAction" prefHeight="37.0" prefWidth="244.0" promptText="Search" styleClass="loginTextFld" />
    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="92.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
       <image>

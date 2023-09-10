@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<Student> getAll(ArrayList<Student> entityList) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -39,6 +39,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public boolean update(Student entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -67,6 +69,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public boolean delete(Student entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -90,6 +94,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public boolean save(Student entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try{
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -112,6 +118,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public boolean isExists(Student student) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -134,6 +142,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student getStudent(String id) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -156,6 +166,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public List<Student> searchStudent(String searchPhrase) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

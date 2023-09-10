@@ -21,40 +21,60 @@ import static com.kawishika.service.ServiceFactory.ServiceType.STUDENT;
 public class StudentFormController {
 
     private final StudentService studentService = (StudentServiceImpl) ServiceFactory.getInstance().getService(STUDENT);
-    public TableColumn genderColumn;
-    public ComboBox<String> genderBox;
-    @FXML
-    private TableColumn editColumn;
-    @FXML
-    private TableColumn deleteColumn;
-    @FXML
-    private TextField searchFld;
     @FXML
     private TableColumn<?, ?> birthdayColumn;
+
     @FXML
     private DatePicker birthdayPicker;
+
+    @FXML
+    private TableColumn<?, ?> deleteColumn;
+
+    @FXML
+    private TableColumn<?, ?> editColumn;
+
     @FXML
     private TableColumn<?, ?> emailColumn;
+
     @FXML
     private TextField emailFld;
+
+    @FXML
+    private ComboBox<String> genderBox;
+
+    @FXML
+    private TableColumn<?, ?> genderColumn;
+
     @FXML
     private TableColumn<?, ?> idColumn;
+
     @FXML
     private TableColumn<?, ?> nameColumn;
+
     @FXML
     private AnchorPane pane;
+
     @FXML
     private TableColumn<?, ?> phoneNumberColumn;
+
     @FXML
     private TextField phoneNumberFld;
+
+    @FXML
+    private TextField searchFld;
+
     @FXML
     private ComboBox<String> statusBox;
+
     @FXML
     private TableColumn<?, ?> statusColumn;
+
     @FXML
     private TextField studentIdFld;
+
     @FXML
     private TextField studentNameFld;
+
     @FXML
     private TableView<StudentTM> studentTable;
 

@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckOutDAOImpl implements CheckOutDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList getAll(ArrayList entityList) {
         return null;
@@ -25,6 +23,8 @@ public class CheckOutDAOImpl implements CheckOutDAO {
 
     @Override
     public boolean update(Object entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             CustomTM dto = (CustomTM) entity;
             session = SessionConfigureFactory.getInstance().getSession();
@@ -64,6 +64,8 @@ public class CheckOutDAOImpl implements CheckOutDAO {
 
     @Override
     public CustomDTO getReserveDetails(String id) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -98,6 +100,8 @@ public class CheckOutDAOImpl implements CheckOutDAO {
 
     @Override
     public ArrayList<String> getMail(CustomTM customTM) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

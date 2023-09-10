@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomCategoryDAOImpl implements RoomCategoryDAO{
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<RoomCategory> getAll(ArrayList<RoomCategory> entityList) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -38,6 +38,8 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
 
     @Override
     public boolean update(RoomCategory entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -62,6 +64,8 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
 
     @Override
     public boolean delete(RoomCategory entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -85,6 +89,8 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
 
     @Override
     public boolean save(RoomCategory entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -107,6 +113,8 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
 
     @Override
     public boolean isExists(String id) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -129,6 +137,8 @@ public class RoomCategoryDAOImpl implements RoomCategoryDAO{
 
     @Override
     public ArrayList<RoomCategory> search(String searchPhrase) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

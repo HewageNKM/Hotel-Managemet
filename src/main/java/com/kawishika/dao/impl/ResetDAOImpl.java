@@ -11,14 +11,15 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 
 public class ResetDAOImpl implements ResetDAO {
-    private Session session = null;
-    private Transaction transaction = null;
+
     @Override
     public ArrayList<User> getAll(ArrayList<User> entityList) {
         return null;
     }
     @Override
     public boolean update(User entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -52,6 +53,8 @@ public class ResetDAOImpl implements ResetDAO {
 
     @Override
     public ArrayList<String> sendCode(User user) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

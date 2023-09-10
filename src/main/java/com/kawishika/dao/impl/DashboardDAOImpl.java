@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardDAOImpl implements DashboardDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<CustomDTO> getAll(ArrayList<CustomDTO> entityList) {
         return null;
@@ -37,6 +35,8 @@ public class DashboardDAOImpl implements DashboardDAO {
 
     @Override
     public ArrayList<Integer> getPieData() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -63,6 +63,8 @@ public class DashboardDAOImpl implements DashboardDAO {
 
     @Override
     public ArrayList<CustomDTO> getPaymentData() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -95,12 +97,13 @@ public class DashboardDAOImpl implements DashboardDAO {
 
     @Override
     public ArrayList<Reserve> getDetails() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
             ArrayList<String> data = new ArrayList<>();
             List list = session.createQuery("FROM Reserve where Status = 'Active'").list();
-            transaction.commit();
             transaction.commit();
             return list == null ? null : (ArrayList<Reserve>) list;
         }catch (Exception e){
@@ -119,6 +122,8 @@ public class DashboardDAOImpl implements DashboardDAO {
 
     @Override
     public String getMail(String reserveId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -143,6 +148,8 @@ public class DashboardDAOImpl implements DashboardDAO {
 
     @Override
     public Double getLineChartData(int i) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class CheckinDAOImpl implements CheckinDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<Reserve> getAll(ArrayList<Reserve> entityList) {
         return null;
@@ -42,6 +40,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public ArrayList<String> getRoomType() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -66,6 +66,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public CustomDTO getRoomDetails(String newValue) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -96,6 +98,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public ArrayList<String> getStudentId(String newValue) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -121,6 +125,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public boolean checkReserveId(String id) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -145,6 +151,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public boolean save(Reserve entity, String studentId, String roomNumber) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try{
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -174,6 +182,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public String checkStudentEligibility(String studentId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -196,6 +206,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public String checkReservation(String id) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -224,6 +236,8 @@ public class CheckinDAOImpl implements CheckinDAO {
 
     @Override
     public ArrayList<String> getMail(String studentId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

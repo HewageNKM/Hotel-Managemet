@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentDAOImpl implements PaymentDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<CustomDTO> getAll(ArrayList<CustomDTO> entityList) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -67,6 +67,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public ArrayList<CustomDTO> search(String searchPhrase) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -109,6 +111,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean update(String reserveId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -133,6 +137,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public ArrayList<String> getMail(CustomTM selectedItem) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

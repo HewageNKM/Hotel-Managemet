@@ -14,8 +14,6 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 
 public class RoomDAOImpl implements RoomDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<Room> getAll(ArrayList<Room> entityList) {
         return null;
@@ -23,6 +21,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean update(Room entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -51,6 +51,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean save(Room entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -73,6 +75,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public ArrayList<String> getCategories() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -95,6 +99,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public String getRoomId(String newValue) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -119,6 +125,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public String getRoomNumber() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -142,6 +150,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean validateRoomType(String roomId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -166,6 +176,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean validateRoomId(String roomId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -190,6 +202,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public RoomCategory getRoomCategoryById(String roomId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -212,6 +226,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean isRoomExist(String roomNumber) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -236,6 +252,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean save(Room room, String roomId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -261,6 +279,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean delete(Room entity, String roomId) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -287,6 +307,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public ArrayList<CustomDTO> getAll() throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -314,6 +336,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public ArrayList<CustomDTO> search(String searchPhrase) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

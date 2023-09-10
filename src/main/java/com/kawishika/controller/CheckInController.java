@@ -6,6 +6,7 @@ import com.kawishika.service.ServiceFactory;
 import com.kawishika.service.impl.CheckinServiceImpl;
 import com.kawishika.service.interfaces.CheckinService;
 import com.kawishika.util.CustomException;
+import com.sun.javafx.stage.EmbeddedWindow;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,32 +27,40 @@ import static com.kawishika.service.ServiceFactory.ServiceType.CHECKIN;
 public class CheckInController {
 
     private final CheckinService checkinService = (CheckinServiceImpl) ServiceFactory.getInstance().getService(CHECKIN);
-    private final Stage stage = new Stage();
-    @FXML
-    private Label roomNumberLabel;
+
     @FXML
     private DatePicker checkInPicker;
+
     @FXML
     private DatePicker checkOutPicker;
+
     @FXML
     private TextField idFld;
+
     @FXML
     private AnchorPane pane;
+
     @FXML
     private ComboBox<String> paymentOptionBox;
-    @FXML
-    private Button reserveBtn;
+
     @FXML
     private Label roomCostLabel;
+
     @FXML
     private Label roomIdLabel;
+
+    @FXML
+    private Label roomNumberLabel;
+
     @FXML
     private ComboBox<String> roomTypeBox;
+
     private String roomNumber;
     private Double total;
     @FXML
     private Label totalLabel;
     private String reserveId;
+    private final Stage stage = new Stage();
 
     public void initialize() {
         try {
@@ -166,13 +175,12 @@ public class CheckInController {
         roomIdLabel.setStyle("-fx-border-color: none");
         roomCostLabel.setStyle("-fx-border-color: none");
         totalLabel.setStyle("-fx-border-color: none");
-        paymentOptionBox.setPromptText("Payment Option");
+        paymentOptionBox.setPromptText("Payment");
         roomTypeBox.setPromptText("Room Type");
         roomNumberLabel.setText("Room No:");
         roomIdLabel.setText("Room ID:");
         roomCostLabel.setText("Cost Per Week:");
         totalLabel.setText("Total:");
-        roomTypeBox.setPromptText("Room Type");
     }
 
     @FXML

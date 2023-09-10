@@ -11,10 +11,11 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO {
-    private Session session = null;
-    private Transaction transaction = null;
+
     @Override
     public ArrayList<User> getAll(ArrayList<User> entityList) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try{
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -40,6 +41,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean update(User entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -67,6 +70,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean delete(User entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -91,6 +96,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean save(User entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -113,6 +120,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean isUserExist(String userName) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -131,13 +140,14 @@ public class UserDAOImpl implements UserDAO {
         }finally {
             if (session != null) {
                 session.close();
-                session=null;
             }
         }
     }
 
     @Override
     public User getUser(User entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

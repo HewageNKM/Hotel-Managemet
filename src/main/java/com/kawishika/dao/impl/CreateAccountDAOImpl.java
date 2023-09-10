@@ -10,8 +10,6 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 
 public class CreateAccountDAOImpl implements CreateAccountDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<User> getAll(ArrayList<User> entityList) {
         return null;
@@ -29,6 +27,8 @@ public class CreateAccountDAOImpl implements CreateAccountDAO {
 
     @Override
     public boolean save(User entity) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -51,6 +51,8 @@ public class CreateAccountDAOImpl implements CreateAccountDAO {
 
     @Override
     public boolean checkUserName(String useName) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();

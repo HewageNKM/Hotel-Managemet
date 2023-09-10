@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
-    private Session session = null;
-    private Transaction transaction = null;
     @Override
     public ArrayList<User> getAll(ArrayList<User> entityList) {
         return null;
@@ -35,6 +33,8 @@ public class LoginDAOImpl implements LoginDAO {
 
     @Override
     public boolean verifyLogin(User user) throws CustomException {
+        Session session = null;
+        Transaction transaction = null;
         try {
             session = SessionConfigureFactory.getInstance().getSession();
             transaction = session.beginTransaction();
